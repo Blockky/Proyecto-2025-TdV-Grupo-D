@@ -14,7 +14,7 @@ from pyglet.math import Vec2
 
 from rpg.constants import INMO_DELAY
 from rpg.message_box import MessageBox
-from rpg.sprites.peligros import Peligro, Proyectil
+from rpg.sprites.peligros import Proyectil, Peligro
 
 from rpg.sprites.player_sprite import PlayerSprite
 from rpg.views.main_menu_view import MainMenuView
@@ -351,7 +351,7 @@ class GameView(arcade.View):
     def draw_interface(self):
         #Dibuja la vida
         for x in range (30, 30 + self.hp*50, 50):
-            corazon = arcade.Sprite(r"..\resources\misc\Vida.png",0.35)
+            corazon = arcade.Sprite(r"../resources/misc/Vida.png",0.35)
             corazon.center_x = x
             corazon.center_y = 690
             corazon.draw()
