@@ -424,7 +424,7 @@ class GameView(arcade.View):
         #Dibuja la vida en pantalla
         self.draw_interface()
 
-        #Dibuja los botones de decision cuando sean necesarios
+        #Dibuja los botones de la decision en combate cuando sean necesarios
         self.opciones.draw()
 
         # Draw any message boxes
