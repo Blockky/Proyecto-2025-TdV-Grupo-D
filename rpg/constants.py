@@ -2,6 +2,7 @@
 Constant values for the game
 """
 import arcade
+from arcade.examples.astar_pathfinding import MOVEMENT_SPEED
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
@@ -41,3 +42,8 @@ MESSAGE_BOX_MARGIN = 30
 
 # How fast does the camera pan to the user
 CAMERA_SPEED = 0.1
+
+#Cuantos golpes se ha de recibir para morir
+HPmax = 5
+#Segundos de invulnerabilidad tras recibir un golpe
+INMO_DELAY = 2

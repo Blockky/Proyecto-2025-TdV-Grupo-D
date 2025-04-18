@@ -11,9 +11,15 @@ import arcade.gui
 import rpg.constants as constants
 from arcade.experimental.lights import Light
 from pyglet.math import Vec2
-from rpg.message_box import MessageBox
-from rpg.sprites.player_sprite import PlayerSprite
 
+from rpg.constants import INMO_DELAY
+from rpg.decisiones import decision
+
+from rpg.message_box import MessageBox
+from rpg.sprites.peligros import Proyectil, Peligro
+
+from rpg.sprites.player_sprite import PlayerSprite
+from rpg.views.main_menu_view import MainMenuView
 
 class DebugMenu(arcade.gui.UIBorder, arcade.gui.UIWindowLikeMixin):
     def __init__(
@@ -142,6 +148,22 @@ class GameView(arcade.View):
         self.player_sprite = None
         self.player_sprite_list = None
 
+        #Vida
+        self.hp = constants.HPmax
+
+        #Para hacer inmortal al personaje unos segundos
+        self.inmortal = False
+        self.timer = 0
+        self.inmo_delay = INMO_DELAY
+
+        #Lista de peligros
+        self.peligro_sprite_list = arcade.SpriteList()
+
+        #Gestiona los botones de la toma de decisiones
+        self.opciones = arcade.gui.UIManager()
+        self.opciones.enable()
+
+
         # Track the current state of what key is pressed
         self.left_pressed = False
         self.right_pressed = False
@@ -226,6 +248,7 @@ class GameView(arcade.View):
                 self.player_sprite, self.my_map.scene["wall_list"]
             )
 
+
     def setup(self):
         """Set up the game variables. Call to re-start the game."""
 
@@ -240,6 +263,10 @@ class GameView(arcade.View):
 
         # Set up the hotbar
         self.load_hotbar_sprites()
+
+        #Establece la vida
+        self.hp = constants.HPmax
+
 
     def load_hotbar_sprites(self):
         """Load the sprites for the hotbar at the bottom of the screen.
@@ -292,6 +319,21 @@ class GameView(arcade.View):
             else self.original_movement_speed
         )
 
+    def draw_inventory(self):
+        capacity = 10
+        vertical_hotbar_location = 40
+        hotbar_height = 80
+        sprite_height = 16
+
+    # Dibuja la interfaz
+    def draw_interface(self):
+        #Dibuja la vida
+        for x in range (30, 30 + self.hp*50, 50):
+            corazon = arcade.Sprite(r"../resources/misc/Vida.png",0.35)
+            corazon.center_x = x
+            corazon.center_y = 690
+            corazon.draw()
+
 
 
     def on_draw(self):
@@ -331,6 +373,9 @@ class GameView(arcade.View):
             # Draw the player
             self.player_sprite_list.draw()
 
+
+            self.peligro_sprite_list.draw()
+
         if cur_map.light_layer:
             # Draw the light layer to the screen.
             # This fills the entire screen with the lit version
@@ -345,6 +390,12 @@ class GameView(arcade.View):
         # Use the non-scrolled GUI camera
         self.camera_gui.use()
 
+
+        #Dibuja la vida en pantalla
+        self.draw_interface()
+
+        #Dibuja los botones de la decision en combate cuando sean necesarios
+        self.opciones.draw()
 
         # Draw any message boxes
         if self.message_box:
@@ -367,6 +418,23 @@ class GameView(arcade.View):
         my_map = self.map_list[self.cur_map_name]
         if my_map.background_color:
             arcade.set_background_color(my_map.background_color)
+
+
+    # Sistema de perder vida con peligros y proyectiles
+    def peligros(self):
+        for peligro in self.peligro_sprite_list:
+            if self.inmortal == False:
+                hit_list = arcade.check_for_collision_with_list(peligro, self.player_sprite_list)
+            else:
+                hit_list = []
+
+            # Si golpeó: el jugador pierde una vida y se hace temporalmente inmortal
+            if len(hit_list) > 0:
+                self.hp -= 1
+                self.inmortal = True
+                print("me dió")
+
+
 
     def on_update(self, delta_time):
         """
@@ -469,6 +537,9 @@ class GameView(arcade.View):
 
         self.player_light.position = self.player_sprite.position
 
+        #Update de los Proyectiles
+        self.peligro_sprite_list.update()
+
         # Update the characters
         try:
             self.map_list[self.cur_map_name].scene["characters"].on_update(delta_time)
@@ -505,6 +576,23 @@ class GameView(arcade.View):
         else:
             # No doors, scroll normally
             self.scroll_to_player()
+
+        #Ejecuta que los peligros funcionen
+        self.peligros()
+        #Te hace inmortal unos segundos tras recibir daño
+        if self.inmortal:
+            self.timer += delta_time
+            if self.timer >= self.inmo_delay:
+                self.inmortal = False
+                self.timer = 0
+
+        #Si la vida llega a 0 mueres
+        if self.hp <= 0:
+            print("Moriste")
+            self.window.views["game"].setup()
+            self.window.show_view(self.window.views["game"])
+
+
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
@@ -560,6 +648,7 @@ class GameView(arcade.View):
                 self.enable_debug_menu()
             else:
                 self.disable_debug_menu()
+
 
     def close_message_box(self):
         self.message_box = None
