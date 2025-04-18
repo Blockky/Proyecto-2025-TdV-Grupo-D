@@ -19,7 +19,6 @@ from rpg.sprites.peligros import Proyectil, Peligro
 from rpg.sprites.player_sprite import PlayerSprite
 from rpg.views.main_menu_view import MainMenuView
 
-
 class DebugMenu(arcade.gui.UIBorder, arcade.gui.UIWindowLikeMixin):
     def __init__(
         self,
