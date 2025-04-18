@@ -23,6 +23,10 @@ class MainMenuView(arcade.View):
         self.v_box.add(resume_button.with_space_around(bottom=20))
         resume_button.on_click = self.on_click_resume
 
+        player_button = arcade.gui.UIFlatButton(text="Player", width=200)
+        self.v_box.add(player_button.with_space_around(bottom=20))
+        player_button.on_click = self.on_click_player
+
         settings_button = arcade.gui.UIFlatButton(text="Settings", width=200)
         self.v_box.add(settings_button.with_space_around(bottom=20))
         settings_button.on_click = self.on_click_settings
@@ -30,6 +34,10 @@ class MainMenuView(arcade.View):
         battle_button = arcade.gui.UIFlatButton(text="Battle Screen", width=200)
         self.v_box.add(battle_button.with_space_around(bottom=20))
         battle_button.on_click = self.on_click_battle
+
+        inventory_button = arcade.gui.UIFlatButton(text="Inventory Screen", width=200)
+        self.v_box.add(inventory_button.with_space_around(bottom=20))
+        inventory_button.on_click = self.on_click_inventory
 
         new_game_button = arcade.gui.UIFlatButton(text="New Game", width=200)
         self.v_box.add(new_game_button.with_space_around(bottom=20))
@@ -66,6 +74,11 @@ class MainMenuView(arcade.View):
         print("show game view")
         self.window.show_view(self.window.views["game"])
 
+    def on_click_player(self, event):
+        print("player stats screen")
+        self.window.views["player"].setup()
+        self.window.show_view(self.window.views["player"])
+
     def on_click_settings(self, event):
         print("show settings view")
         self.window.show_view(self.window.views["settings"])
@@ -74,6 +87,12 @@ class MainMenuView(arcade.View):
         print("battle screen")
         self.window.views["battle"].setup()
         self.window.show_view(self.window.views["battle"])
+
+    def on_click_inventory(self, event):
+        print("inventory screen")
+        self.window.views["inventory"].setup()
+        self.window.show_view(self.window.views["inventory"])
+
 
     def on_click_new_game(self, event):
         print("restart game")

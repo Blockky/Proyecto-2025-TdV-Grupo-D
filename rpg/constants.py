@@ -9,6 +9,9 @@ SCREEN_TITLE = "Python Community RPG"
 TILE_SCALING = 1.0
 SPRITE_SIZE = 32
 
+INVENTORY_WIDTH = 1280
+INVENTORY_HEIGHT = 720
+
 # How fast does the player move
 MOVEMENT_SPEED = 3
 
