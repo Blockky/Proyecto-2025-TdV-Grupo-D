@@ -319,39 +319,11 @@ class GameView(arcade.View):
             else self.original_movement_speed
         )
 
-
     def draw_inventory(self):
         capacity = 10
         vertical_hotbar_location = 40
         hotbar_height = 80
         sprite_height = 16
-
-        field_width = self.window.width / (capacity + 1)
-
-        x = self.window.width / 2
-        y = vertical_hotbar_location
-
-        arcade.draw_rectangle_filled(
-            x, y, self.window.width, hotbar_height, arcade.color.ALMOND
-        )
-        for i in range(capacity):
-            y = vertical_hotbar_location
-            x = i * field_width + 5
-            if i == self.selected_item - 1:
-                arcade.draw_lrtb_rectangle_outline(
-                    x - 6, x + field_width - 15, y + 25, y - 10, arcade.color.BLACK, 2
-                )
-
-            if len(self.player_sprite.inventory) > i:
-                item_name = self.player_sprite.inventory[i]["short_name"]
-            else:
-                item_name = ""
-
-            hotkey_sprite = self.hotbar_sprite_list[i]
-            hotkey_sprite.draw_scaled(x + sprite_height / 2, y + sprite_height / 2, 2.0)
-            # Add whitespace so the item text doesn't hide behind the number pad sprite
-            text = f"     {item_name}"
-            arcade.draw_text(text, x, y, arcade.color.ALLOY_ORANGE, 16)
 
     # Dibuja la interfaz
     def draw_interface(self):
@@ -418,8 +390,6 @@ class GameView(arcade.View):
         # Use the non-scrolled GUI camera
         self.camera_gui.use()
 
-        # Draw the inventory
-        self.draw_inventory()
 
         #Dibuja la vida en pantalla
         self.draw_interface()
