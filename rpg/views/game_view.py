@@ -13,6 +13,8 @@ from arcade.experimental.lights import Light
 from pyglet.math import Vec2
 
 from rpg.constants import INMO_DELAY
+from rpg.decisiones import decision
+
 from rpg.message_box import MessageBox
 from rpg.sprites.peligros import Proyectil, Peligro
 
@@ -156,6 +158,11 @@ class GameView(arcade.View):
 
         #Lista de peligros
         self.peligro_sprite_list = arcade.SpriteList()
+
+        #Gestiona los botones de la toma de decisiones
+        self.opciones = arcade.gui.UIManager()
+        self.opciones.enable()
+
 
         # Track the current state of what key is pressed
         self.left_pressed = False
@@ -417,6 +424,9 @@ class GameView(arcade.View):
         #Dibuja la vida en pantalla
         self.draw_interface()
 
+        #Dibuja los botones de decision cuando sean necesarios
+        self.opciones.draw()
+
         # Draw any message boxes
         if self.message_box:
             self.message_box.on_draw()
@@ -668,6 +678,7 @@ class GameView(arcade.View):
                 self.enable_debug_menu()
             else:
                 self.disable_debug_menu()
+
 
     def close_message_box(self):
         self.message_box = None
