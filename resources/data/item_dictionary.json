@@ -4,11 +4,12 @@
             "heal_amount": 5},
   "Dagger": {"short_name": "Dagger",
              "type": "weapon",
-             "damage_amount": 5},
+             "damage_amount": 5,
+             "buy_value":  20},
   "Sword": {"short_name": "Sword",
              "type": "weapon",
              "damage_amount": 10},
-  "Lesser_Healing_Potion": {"short_name": "Lesser Healing Potion",
+  "Potion": {"short_name": "Potion",
               "type": "Potion",
               "heal_amount": 10}
 }
