@@ -19,7 +19,7 @@ class GameMap:
     name = None
     scene = None
     map_layers = None
-    light_layer = None
+    light_layer = None  
     map_size = None
     properties = None
     background_color = arcade.color.AMAZON
