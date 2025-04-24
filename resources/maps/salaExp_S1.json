@@ -226,31 +226,31 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"[A]Wall-Up_pipo.tsx"
+         "source":"../tilesets/[A]Wall-Up_pipo.tsx"
         }, 
         {
          "firstgid":97,
-         "source":"[Base]BaseChip_pipo.tsx"
+         "source":"../tilesets/[Base]BaseChip_pipo.tsx"
         }, 
         {
          "firstgid":1161,
-         "source":"[A]WaterFall_pipo.tsx"
+         "source":"../tilesets/[A]WaterFall_pipo.tsx"
         }, 
         {
          "firstgid":1737,
-         "source":"[A]Water_pipo.tsx"
+         "source":"../tilesets/[A]Water_pipo.tsx"
         }, 
         {
          "firstgid":4809,
-         "source":"Puzzle.tsx"
+         "source":"../tilesets/Puzzle.tsx"
         }, 
         {
          "firstgid":4841,
-         "source":"Muros.tsx"
+         "source":"../tilesets/Muros.tsx"
         }, 
         {
          "firstgid":5065,
-         "source":"[A]Dirt_pipo.tsx"
+         "source":"../tilesets/[A]Dirt_pipo.tsx"
         }],
  "tilewidth":32,
  "type":"map",

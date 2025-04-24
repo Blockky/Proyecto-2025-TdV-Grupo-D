@@ -183,11 +183,11 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Muros.tsx"
+         "source":"../tilesets/Muros.tsx"
         }, 
         {
          "firstgid":225,
-         "source":"[Base]BaseChip_pipo.tsx"
+         "source":"../tilesets/[Base]BaseChip_pipo.tsx"
         }],
  "tilewidth":32,
  "type":"map",

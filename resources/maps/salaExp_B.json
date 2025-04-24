@@ -183,19 +183,19 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Muros.tsx"
+         "source":"../tilesets/Muros.tsx"
         }, 
         {
          "firstgid":225,
-         "source":"[Base]BaseChip_pipo.tsx"
+         "source":"../tilesets/[Base]BaseChip_pipo.tsx"
         }, 
         {
          "firstgid":1289,
-         "source":"[A]Flower_pipo.tsx"
+         "source":"../tilesets/[A]Flower_pipo.tsx"
         }, 
         {
          "firstgid":1385,
-         "source":"[A]Water_pipo.tsx"
+         "source":"../tilesets/[A]Water_pipo.tsx"
         }],
  "tilewidth":32,
  "type":"map",

@@ -226,23 +226,23 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Muros.tsx"
+         "source":"../tilesets/Muros.tsx"
         }, 
         {
          "firstgid":225,
-         "source":"[A]Water_pipo.tsx"
+         "source":"../tilesets/[A]Water_pipo.tsx"
         }, 
         {
          "firstgid":3297,
-         "source":"[A]WaterFall_pipo.tsx"
+         "source":"../tilesets/[A]WaterFall_pipo.tsx"
         }, 
         {
          "firstgid":3873,
-         "source":"[A]Dirt_pipo.tsx"
+         "source":"../tilesets/[A]Dirt_pipo.tsx"
         }, 
         {
          "firstgid":4209,
-         "source":"[Base]BaseChip_pipo.tsx"
+         "source":"../tilesets/[Base]BaseChip_pipo.tsx"
         }],
  "tilewidth":32,
  "type":"map",

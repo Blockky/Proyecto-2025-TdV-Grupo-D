@@ -184,19 +184,19 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Muros.tsx"
+         "source":"../tilesets/Muros.tsx"
         }, 
         {
          "firstgid":225,
-         "source":"[Base]BaseChip_pipo.tsx"
+         "source":"../tilesets/[Base]BaseChip_pipo.tsx"
         }, 
         {
          "firstgid":1289,
-         "source":"[A]Dirt_pipo.tsx"
+         "source":"../tilesets/[A]Dirt_pipo.tsx"
         }, 
         {
          "firstgid":1625,
-         "source":"Telara\u00f1as.tsx"
+         "source":"../tilesets/Telara\u00f1as.tsx"
         }],
  "tilewidth":32,
  "type":"map",
