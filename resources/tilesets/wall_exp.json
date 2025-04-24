@@ -1,0 +1,14 @@
+{ "columns":14,
+ "image":"..\/Tiles\/wall_exp.png",
+ "imageheight":512,
+ "imagewidth":448,
+ "margin":0,
+ "name":"wall_exp",
+ "spacing":0,
+ "tilecount":224,
+ "tiledversion":"1.11.2",
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":"1.10"
+}
