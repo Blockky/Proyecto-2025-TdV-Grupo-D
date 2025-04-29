@@ -18,7 +18,7 @@ class PlayerSprite(CharacterSprite):
 
         if self.moving:
             if self.step_player is None:
-                self.step_player = arcade.play_sound(footsteps_sound, looping=True)
+                self.step_player = arcade.play_sound(footsteps_sound, looping=True, volume = 0.35)
         else:
             if self.step_player is not None:
                 arcade.stop_sound(self.step_player)
