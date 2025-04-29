@@ -1,4 +1,5 @@
-{ "compressionlevel":-1,
+{ "backgroundcolor":"#5f8702",
+  "compressionlevel":-1,
  "height":20,
  "infinite":false,
  "layers":[
@@ -291,7 +292,7 @@
         {
          "columns":20,
          "firstgid":1,
-         "image":"suelos.png",
+         "image":"../tilesets/suelos.png",
          "imageheight":200,
          "imagewidth":320,
          "margin":0,
@@ -304,7 +305,7 @@
         {
          "columns":15,
          "firstgid":241,
-         "image":"armas.png",
+         "image":"../tilesets/armas.png",
          "imageheight":167,
          "imagewidth":250,
          "margin":0,
@@ -317,7 +318,7 @@
         {
          "columns":15,
          "firstgid":391,
-         "image":"estanteriaArmas.png",
+         "image":"../tilesets/estanteriaArmas.png",
          "imageheight":167,
          "imagewidth":250,
          "margin":0,
@@ -330,7 +331,7 @@
         {
          "columns":15,
          "firstgid":541,
-         "image":"estanteriaSuministros.png",
+         "image":"../tilesets/estanteriaSuministros.png",
          "imageheight":167,
          "imagewidth":250,
          "margin":0,
@@ -343,7 +344,7 @@
         {
          "columns":3,
          "firstgid":691,
-         "image":"antorchas.png",
+         "image":"../tilesets/antorchas.png",
          "imageheight":250,
          "imagewidth":56,
          "margin":0,
@@ -356,7 +357,7 @@
         {
          "columns":15,
          "firstgid":736,
-         "image":"rocas.png",
+         "image":"../tilesets/rocas.png",
          "imageheight":250,
          "imagewidth":250,
          "margin":0,
@@ -369,7 +370,7 @@
         {
          "columns":8,
          "firstgid":961,
-         "image":"rocas2.png",
+         "image":"../tilesets/rocas2.png",
          "imageheight":128,
          "imagewidth":128,
          "margin":0,

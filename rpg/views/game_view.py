@@ -330,7 +330,7 @@ class GameView(arcade.View):
     def draw_interface(self):
         #Dibuja la vida
         for x in range (30, 30 + self.hp*50, 50):
-            corazon = arcade.Sprite(r"../resources/misc/Vida.png",0.35)
+            corazon = arcade.Sprite(r"../resources/misc/vida.png",0.35)
             corazon.center_x = x
             corazon.center_y = 690
             corazon.draw()
