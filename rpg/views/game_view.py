@@ -21,6 +21,8 @@ from rpg.sprites.peligros import Proyectil, Peligro
 
 from rpg.sprites.player_sprite import PlayerSprite
 from rpg.views.main_menu_view import MainMenuView
+from rpg.views.settings_view import SettingsView
+
 
 class DebugMenu(arcade.gui.UIBorder, arcade.gui.UIWindowLikeMixin):
     def __init__(
@@ -432,7 +434,7 @@ class GameView(arcade.View):
             # Si golpeó: el jugador pierde una vida y se hace temporalmente inmortal
             if len(hit_list) > 0:
                 self.hp -= 1
-                arcade.play_sound(damage_sound)
+                arcade.play_sound(damage_sound,volume= 0.5 * SettingsView.v_ef)
                 self.inmortal = True
 
 
