@@ -1,4 +1,4 @@
-# Nombre del juego
+# Beasts and Bonds
 
 ## Equipo D "Great CofCup"
 - Pablo García Hernández, 1° GIC, Jefatura de proyecto, Programación, Diseño gráfico
@@ -8,15 +8,8 @@
 - Luka Luraschi 1ºGII, Diseño de niveles, Pruebas, Diseño Gráfico
 - Sergio Peiteado Sánchez, 1º GII, Programación, Sonido, Pruebas
 
-Modificar lo que sigue a voluntad para que queden unas instrucciones mínimas de cómo ejecutar el juego y de cómo es el *gameplay*.
-
-# Welcome to The Python Arcade Community RPG
-
-![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-success)
-![First Timer Friendly](https://img.shields.io/badge/First%20Timer-friendly-informational)
-![License MIT](https://img.shields.io/badge/license-MIT-success)
-
-![Screenshot](/screenshot.png)
+![Screenshot](![image](https://github.com/user-attachments/assets/ecf00d69-9b20-4463-b814-a39eb9cb4ac1)
+)
 
 This is an open-source RPG game.
 
@@ -51,19 +44,3 @@ The game is in extremely early stages. For discussion on future direction, see:
 ## Development
 
 This project targets Python 3.7 or greater.
-
-To install the project and all development dependencies run the following command, this should ideally be done in a [virtual environment](https://docs.python.org/3/tutorial/venv.html):
-
-```bash
-pip install -e ".[dev]"
-```
-
-The game can then be ran with:
-
-```bash
-python -m rpg
-```
-
-## Contact The Maintainer
-
-paul@cravenfamily.com
