@@ -682,19 +682,19 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Dirt.tsx"
+         "source":"..\/tilesets\/Dirt.json"
         }, 
         {
          "firstgid":337,
-         "source":"Flowers.tsx"
+         "source":"..\/tilesets\/Flowers.json"
         }, 
         {
          "firstgid":433,
-         "source":"Objects.tsx"
+         "source":"..\/tilesets\/Objects.json"
         }, 
         {
          "firstgid":1497,
-         "source":"Lights&Shadows.tsx"
+         "source":"..\/tilesets\/Lights&Shadows.json"
         }],
  "tilewidth":32,
  "type":"map",

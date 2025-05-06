@@ -776,15 +776,15 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"Objects.tsx"
+         "source":"..\/tilesets\/Objects.json"
         }, 
         {
          "firstgid":1065,
-         "source":"Dirt.tsx"
+         "source":"..\/tilesets\/Dirt.json"
         }, 
         {
          "firstgid":1401,
-         "source":"Grass.tsx"
+         "source":"..\/tilesets\/Grass.json"
         }],
  "tilewidth":32,
  "type":"map",
