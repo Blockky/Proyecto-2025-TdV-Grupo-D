@@ -1,0 +1,14 @@
+{ "columns":7,
+ "image":"..\/..\/..\/..\/PycharmProjects\/Proyecto-2025-TdV-Grupo-D\/resources\/tilesets\/[Base]BaseChip_pipo.png",
+ "imageheight":4256,
+ "imagewidth":256,
+ "margin":0,
+ "name":"Ob2",
+ "spacing":1,
+ "tilecount":903,
+ "tiledversion":"1.11.2",
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":"1.10"
+}

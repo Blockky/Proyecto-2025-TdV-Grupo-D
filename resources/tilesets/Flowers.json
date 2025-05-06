@@ -1,0 +1,14 @@
+{ "columns":8,
+ "image":"..\/..\/..\/..\/PycharmProjects\/Proyecto-2025-TdV-Grupo-D\/resources\/tilesets\/[A]Flower_pipo.png",
+ "imageheight":384,
+ "imagewidth":256,
+ "margin":0,
+ "name":"Flowers",
+ "spacing":0,
+ "tilecount":96,
+ "tiledversion":"1.11.2",
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":"1.10"
+}
