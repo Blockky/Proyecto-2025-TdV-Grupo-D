@@ -111,10 +111,6 @@ class ItemButton(UIFlatButton):
             self.shop_view.ui_manager.add(result_box)
 
 
-
-
-
-
 class ShopView(arcade.View):
     def __init__(self, inventory_view):
         super().__init__()
@@ -125,10 +121,6 @@ class ShopView(arcade.View):
         self.shop_items = []
         self.ui_manager = UIManager()
         self.inventory_view = inventory_view
-        self.gold_text = f"Gold: {stats['GOLD']}"
-
-
-
 
         # Crear algunos objetos de ejemplo
         self.setup_items()

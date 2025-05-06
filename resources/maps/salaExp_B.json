@@ -183,31 +183,31 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"wall_exp.json"
+         "source":"..\/tilesets\/wall_exp.json"
         }, 
         {
          "firstgid":225,
-         "source":"[Base]BaseChip_pipo.json"
+         "source":"..\/tilesets\/[Base]BaseChip_pipo.json"
         }, 
         {
          "firstgid":1289,
-         "source":"[A]Flower_pipo.json"
+         "source":"..\/tilesets\/[A]Flower_pipo.json"
         }, 
         {
          "firstgid":1385,
-         "source":"[A]Water_pipo.json"
+         "source":"..\/tilesets\/[A]Water_pipo.json"
         }, 
         {
          "firstgid":4457,
-         "source":"LightShadow_pipo.json"
+         "source":"..\/tilesets\/LightShadow_pipo.json"
         }, 
         {
          "firstgid":4505,
-         "source":"[A]Wall-Up_pipo.json"
+         "source":"..\/tilesets\/[A]Wall-Up_pipo.json"
         }, 
         {
          "firstgid":4601,
-         "source":"[A]Dirt_pipo.json"
+         "source":"..\/tilesets\/[A]Dirt_pipo.json"
         }],
  "tilewidth":32,
  "type":"map",

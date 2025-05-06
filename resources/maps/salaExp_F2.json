@@ -226,27 +226,27 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"wall_exp.json"
+         "source":"..\/tilesets\/wall_exp.json"
         }, 
         {
          "firstgid":225,
-         "source":"[A]Water_pipo.json"
+         "source":"..\/tilesets\/[A]Water_pipo.json"
         }, 
         {
          "firstgid":3297,
-         "source":"[A]WaterFall_pipo.json"
+         "source":"..\/tilesets\/[A]WaterFall_pipo.json"
         }, 
         {
          "firstgid":3873,
-         "source":"[A]Dirt_pipo.json"
+         "source":"..\/tilesets\/[A]Dirt_pipo.json"
         }, 
         {
          "firstgid":4209,
-         "source":"[Base]BaseChip_pipo.json"
+         "source":"..\/tilesets\/[Base]BaseChip_pipo.json"
         }, 
         {
          "firstgid":5273,
-         "source":"[A]Wall-Up_pipo.json"
+         "source":"..\/tilesets\/[A]Wall-Up_pipo.json"
         }],
  "tilewidth":32,
  "type":"map",

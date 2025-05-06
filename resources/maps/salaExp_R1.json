@@ -183,19 +183,19 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"wall_exp.json"
+         "source":"..\/tilesets\/wall_exp.json"
         }, 
         {
          "firstgid":225,
-         "source":"[Base]BaseChip_pipo.json"
+         "source":"..\/tilesets\/[Base]BaseChip_pipo.json"
         }, 
         {
          "firstgid":1289,
-         "source":"[A]Dirt_pipo.json"
+         "source":"..\/tilesets\/[A]Dirt_pipo.json"
         }, 
         {
          "firstgid":1625,
-         "source":"LightShadow_pipo.json"
+         "source":"..\/tilesets\/LightShadow_pipo.json"
         }],
  "tilewidth":32,
  "type":"map",

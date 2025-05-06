@@ -1,4 +1,5 @@
-{ "compressionlevel":-1,
+{ "backgroundcolor":"#5f8702",
+  "compressionlevel":-1,
  "height":32,
  "infinite":false,
  "layers":[
@@ -183,15 +184,15 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"wall_exp.json"
+         "source":"..\/tilesets\/wall_exp.json"
         }, 
         {
          "firstgid":225,
-         "source":"[Base]BaseChip_pipo.json"
+         "source":"..\/tilesets\/[Base]BaseChip_pipo.json"
         }, 
         {
          "firstgid":1289,
-         "source":"[A]Wall-Up_pipo.json"
+         "source":"..\/tilesets\/[A]Wall-Up_pipo.json"
         }],
  "tilewidth":32,
  "type":"map",

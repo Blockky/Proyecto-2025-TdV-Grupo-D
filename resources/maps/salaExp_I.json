@@ -167,7 +167,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":32,
          "id":10,
-         "name":"Decoracion_blocking",
+         "name":"..\/tilesets\/Decoracion_blocking",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -210,7 +210,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":32,
          "id":3,
-         "name":"Sobredecoracion_nonblocking",
+         "name":"..\/tilesets\/Sobredecoracion_nonblocking",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -313,35 +313,35 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"[A]Dirt_pipo.json"
+         "source":"..\/tilesets\/[A]Dirt_pipo.json"
         }, 
         {
          "firstgid":337,
-         "source":"[A]WaterFall_pipo.json"
+         "source":"..\/tilesets\/[A]WaterFall_pipo.json"
         }, 
         {
          "firstgid":913,
-         "source":"[A]Water_pipo.json"
+         "source":"..\/tilesets\/[A]Water_pipo.json"
         }, 
         {
          "firstgid":3985,
-         "source":"[Base]BaseChip_pipo.json"
+         "source":"..\/tilesets\/[Base]BaseChip_pipo.json"
         }, 
         {
          "firstgid":5049,
-         "source":"[A]Wall-Up_pipo.json"
+         "source":"..\/tilesets\/[A]Wall-Up_pipo.json"
         }, 
         {
          "firstgid":5145,
-         "source":"Puzzle_PH.json"
+         "source":"..\/tilesets\/Puzzle_PH.json"
         }, 
         {
          "firstgid":5177,
-         "source":"wall_exp.json"
+         "source":"..\/tilesets\/wall_exp.json"
         }, 
         {
          "firstgid":5401,
-         "source":"Deco_Mix.json"
+         "source":"..\/tilesets\/Deco_Mix.json"
         }],
  "tilewidth":32,
  "type":"map",

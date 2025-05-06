@@ -12,7 +12,7 @@ def cargar_datos(ruta_archivo):
             return json.load(f)
 
 
-ruta_player_json = "..\\resources\\data\\player_info.json"
+ruta_player_json = "../resources/data/player_info.json"
 
 stats = cargar_datos(ruta_player_json)
 
