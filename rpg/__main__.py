@@ -8,12 +8,15 @@ import arcade
 
 from rpg.constants import SCREEN_HEIGHT, SCREEN_TITLE, SCREEN_WIDTH
 from rpg.views import LoadingView
+from rpg.views.inventory_view import InventoryView
+from rpg.views.shop_view import ShopView
 
 
 class MyWindow(arcade.Window):
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, resizable=True)
         self.views = {}
+
 
         arcade.resources.add_resource_handle("characters", "../resources/characters")
         arcade.resources.add_resource_handle("maps", "../resources/maps")
