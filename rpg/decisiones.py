@@ -13,18 +13,15 @@ def decision(opciones, ataque, no_ataque, el_inventario):     # crea los tres bo
     widget_anclado = arcade.gui.UIAnchorWidget(anchor_x="center_x",anchor_y="center_y",align_y=-250,child=boton_box)
 
     def on_click_atacar(evento):        # al pulsar atacar ejecuta ataque
-        print("a")
         ataque()
         opciones.remove(widget_anclado)
 
 
     def on_click_no_atacar(evento):     # al pulsar no atacar ejecuta no_ataque
-        print("n")
         no_ataque()
         opciones.remove(widget_anclado)
 
     def on_click_inventario(evento):    #al pulsar inventario ejecuta el_inventario
-        print("i")
         el_inventario()
         opciones.remove(widget_anclado)
 
