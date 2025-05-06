@@ -1,5 +1,5 @@
 """
-Inventory
+Shop
 """
 import arcade
 
@@ -8,6 +8,11 @@ import json
 from arcade.gui import UIManager, UIAnchorWidget, UIBoxLayout, UIFlatButton, UITextureButton
 
 from rpg.constants import SCREEN_HEIGHT, SCREEN_WIDTH, INVENTORY_HEIGHT, INVENTORY_WIDTH
+
+from rpg.views import inventory_view
+
+
+
 
 def cargar_datos(ruta_archivo):
     try:
@@ -26,24 +31,23 @@ items = cargar_datos(ruta_items_json)
 stats = cargar_datos(ruta_player_json)
 
 
-
 class Item:
-    def __init__(self, name, description, item_type):
+    def __init__(self, name, description, item_type, buy_value):
         self.name = name
         self.description = description
         self.selected = False
         self.quantity = 1
         self.equipped = False
         self.item_type = item_type
-
+        self.buy_value = buy_value
 
 
 class ItemButton(UIFlatButton):
     """Botón personalizado para los objetos del inventario"""
 
-    def __init__(self, item, inventory_view, x=0, y=0, width=300, height=60, **kwargs):
+    def __init__(self, item, shop_view, x=0, y=0, width=300, height=60, **kwargs):
         # Cambiar color si está seleccionado
-        self.inventory_view = inventory_view  # Guardar referencia al InventoryView
+        self.shop_view = shop_view  # Guardar referencia al ShopView
         if item.equipped:
             bg_color = arcade.color.BLUE
         elif item.selected:
@@ -51,7 +55,7 @@ class ItemButton(UIFlatButton):
         else:
             bg_color = arcade.color.LIGHT_GRAY
         super().__init__(
-            text=f"{item.name}: {item.description} (x{item.quantity})",  # Mostrar cantidad
+            text=f"{item.name}: {item.description} (x{item.quantity}) ({item.buy_value} $)",  # Mostrar cantidad
             x=x, y=y,
             width=width, height=height,
             style={
@@ -80,128 +84,120 @@ class ItemButton(UIFlatButton):
         confirm_box = arcade.gui.UIMessageBox(
             width=300,
             height=200,
-            message_text=f"¿Utilizar {self.item.name}?",
+            message_text=f"¿Comprar {self.item.name} por {self.item.buy_value}?",
             buttons=["Sí", "No"],
             callback=self.on_confirmation_response
         )
 
-        self.inventory_view.ui_manager.add(confirm_box)
+        self.shop_view.ui_manager.add(confirm_box)
+
 
     def on_confirmation_response(self, response):
         if response == "Sí":
-           self.use_item()
+            success = self.shop_view.process_purchase(self.item)
 
-
-
-    def use_item(self):
-        """Ejemplo: usar una poción"""
-        try:
-            print(f"Usando {self.item.name}...")
-
-            if self.item.name == "Potion":
-                self.use_potion()
-                self.item.quantity -= 1  # Solo disminuir cantidad si es consumible
-                if self.item.quantity <= 0:
-                    print("Intentando borrar item")
-                    self.remove_item()
-                else:
-                    # Actualizar texto del botón con la nueva cantidad
-                    self.text = f"{self.item.name}: {self.item.description} (x{self.item.quantity})"
-                    # Recrear la UI para reflejar cambios
-                    self.inventory_view.recreate_inventory_ui()
-            elif self.item.name == "Sword":
-                self.equip("Sword")
+            # Diálogo de resultado
+            if success:
+                message = f"¡Comprado {self.item.name}!"
             else:
-                print("Objeto no existe")
-                return None
-        except Exception as e:
-            print(f"Error al usar el ítem: {e}")  # Debug
+                message = "No tienes suficiente dinero"
+
+            result_box = arcade.gui.UIMessageBox(
+                width=300,
+                height=200,
+                message_text=message,
+                buttons=["OK"]
+            )
+            self.shop_view.ui_manager.add(result_box)
 
 
 
 
-    def use_potion(self):
-        """Ejemplo: usar una poción"""
-        if stats["HP"] < (stats["HP_MAX"] - 50):
-            stats["HP"] += 50
-        else:
-            stats["HP"] = stats["HP_MAX"]
-
-        print("Usando poción... +50 HP")
-        print(stats['HP'])
-        print(self.item.quantity)
-
-    def equip(self,item_name):
-
-        if item_name == "Sword" and self.item.equipped == False:
-          stats["EQUIPPED"] = items["Sword"]
-          self.item.equipped = True
-        else:
-            print("Objeto ya equipado")
-
-        print(stats["EQUIPPED"])
-
-    def remove_item(self):
-        """Elimina el objeto de la lista del jugador y actualiza la UI"""
-        if self.item in self.inventory_view.player_items:
-            self.inventory_view.player_items.remove(self.item)
-            # Recrear la UI del inventario para reflejar los cambios
-            self.inventory_view.recreate_inventory_ui()
 
 
-class InventoryView(arcade.View) :
-    def __init__(self):
+class ShopView(arcade.View):
+    def __init__(self, inventory_view):
         super().__init__()
         self.started = False
         arcade.set_background_color(arcade.color.ALMOND)
 
-
-
-
-        # Variables del juego
-        self.player_items = []
+        # Variables de la tienda
+        self.shop_items = []
         self.ui_manager = UIManager()
+        self.inventory_view = inventory_view
+        self.gold_text = f"Gold: {stats['GOLD']}"
+
+
+
 
         # Crear algunos objetos de ejemplo
         self.setup_items()
 
-        self.create_inventory_ui()
-
+        self.create_shop_ui()
 
 
     def setup_items(self):
         # Crear objetos para el inventario (solo texto)
-        item1 = Item("Sword", "Daño: 15","weapon")
-        item2 = Item("Potion", "Cura 50 HP","potion")
+        item1 = Item("Sword", "Daño: 15","weapon",15)
+        item2 = Item("Potion", "Cura 50 HP","potion",15)
 
 
         # Añadir múltiples instancias de algunos objetos
         item2.quantity = 3
 
-        self.player_items.append(item1)
-        self.player_items.append(item2)
+        self.shop_items.append(item1)
+        self.shop_items.append(item2)
+
+    def process_purchase(self, item):
+        """Intenta realizar la compra y devuelve True/False si tuvo éxito"""
+        if stats['GOLD'] >= item.buy_value:
+            stats['GOLD'] -= item.buy_value
+            self.gold_text = f"Gold: {stats['GOLD']}"
+
+            # Convertir el ShopItem a InventoryItem (excluyendo buy_value)
+            new_item = inventory_view.Item(
+                name=item.name,
+                description=item.description,
+                item_type=item.item_type
+            )
+            new_item.quantity = 1  # Siempre compras 1 unidad
+
+            # Añadir el nuevo objeto al inventario
+            self.add_item(new_item)
+
+            # Reducir la cantidad en la tienda
+            item.quantity -= 1
+            if item.quantity <= 0:
+                self.shop_items.remove(item)
+
+            print("¡Item comprado y añadido al inventario!")
+            self.recreate_shop_ui()
+            return True
+
+        print("No tienes suficiente dinero")
+        return False
 
     def add_item(self, item):
-        """Añade un ítem al inventario (maneja duplicados y stacks)"""
-        # Busca si ya existe un ítem igual
-        for existing_item in self.player_items:
-            if existing_item.name == item.name and existing_item.item_type == item.item_type:
-                existing_item.quantity += item.quantity
-                self.recreate_inventory_ui()  # Actualiza la UI
-                return
+        """Añade el ítem comprado al inventario del jugador"""
+        # Crea un nuevo Item (sin buy_value, ya que no es necesario en el inventario)
+        new_item = inventory_view.Item(
+            name=item.name,
+            description=item.description,
+            item_type=item.item_type
+        )
+        # Llama al metodo add_item de InventoryView
+        self.inventory_view.add_item(new_item)
 
-        # Si no existe, lo añade
-        self.player_items.append(item)
-        self.recreate_inventory_ui()  # Actualiza la UI
 
-    def setup(self):
-        pass
+
 
     def on_draw(self):
         arcade.start_render()
 
+        self.gold_text = f"Gold: {stats['GOLD']}"
+
         arcade.draw_text(
-            "Inventory",
+            "The Shop",
             self.window.width / 2,
             self.window.height - 50,
             arcade.color.ALLOY_ORANGE,
@@ -211,8 +207,20 @@ class InventoryView(arcade.View) :
             align="center",
             width=self.window.width)
 
+        arcade.draw_text(
+            self.gold_text,
+            self.window.width / 2,
+            self.window.height - 600,
+            arcade.color.GOLD,
+            44,
+            anchor_x="center",
+            anchor_y="center",
+            align="center",
+            width=self.window.width,
+        )
+
         # Dibujar objetos seleccionados en el HUD
-        selected_items = [item for item in self.player_items if item.selected]
+        selected_items = [item for item in self.shop_items if item.selected]
         for i, item in enumerate(selected_items):
             # Dibujar un recuadro con el nombre del objeto seleccionado
             arcade.draw_rectangle_filled(50 + i * 120, 50, 100, 40, arcade.color.GOLD)
@@ -223,38 +231,28 @@ class InventoryView(arcade.View) :
         # El UIManager se encarga de dibujar los botones del inventario
         self.ui_manager.draw()
 
-    def recreate_inventory_ui(self):
+    def recreate_shop_ui(self):
         """Recrea la interfaz de usuario del inventario"""
-        # Limpiar completamente el UIManager
-        self.ui_manager.clear()
+        self.ui_manager.clear()  # Limpiar la UI actual
+        self.create_shop_ui()  # Volver a crear la UI
 
-        # Volver a crear toda la UI
-        self.create_inventory_ui()
-
-        # Forzar un redibujado
-        self.window.flip()
-
-
-    def create_inventory_ui(self):
-        """Crea la interfaz de usuario del inventario"""
-
-        # Panel principal
+    def create_shop_ui(self):
+        # Panel principal del inventario
         panel = arcade.gui.UIBoxLayout(vertical=True, size_hint=(0.8, 0.8))
 
         # Lista de objetos
         item_list = arcade.gui.UIBoxLayout(vertical=True, size_hint=(1, 1))
 
-        # Debug: Verificar items antes de crear la UI
-        print(f"Creando UI para {len(self.player_items)} items")
-
-        for item in self.player_items:
-            print(f"Mostrando item: {item.name} x{item.quantity}")
-            btn = ItemButton(item, self, width=INVENTORY_WIDTH - 600)
-            item_list.add(btn.with_space_around(bottom=5))
+        # Crear un botón para cada objeto
+        for item in self.shop_items:
+            if item.quantity > 0:
+                # Pasar self (InventoryView) como referencia al botón
+                btn = ItemButton(item, self, width=INVENTORY_WIDTH - 600)
+                item_list.add(btn.with_space_around(bottom=5))
 
         panel.add(item_list)
 
-        # Añadir al manager
+        # Añadir el inventario al centro de la pantalla
         self.ui_manager.add(UIAnchorWidget(
             anchor_x="center",
             anchor_y="center",
@@ -262,7 +260,8 @@ class InventoryView(arcade.View) :
         ))
 
 
-
+    def setup(self):
+        pass
 
 
     def on_key_press(self, symbol: int, modifiers: int):
@@ -278,6 +277,7 @@ class InventoryView(arcade.View) :
         if symbol in closetogame_inputs:
             self.window.show_view(self.window.views["game"])
 
+
     def update(self, delta_time):
         pass
 
@@ -291,3 +291,5 @@ class InventoryView(arcade.View) :
 
     def on_hide_view(self):
         self.ui_manager.disable()
+
+

@@ -27,6 +27,11 @@ class MainMenuView(arcade.View):
         self.v_box.add(player_button.with_space_around(bottom=20))
         player_button.on_click = self.on_click_player
 
+        # BOTON TEMPORAL PARA TESTING, BORRAR ESTE BOTON Y SU FUNCION UNA VEZ QUE SE INTEGRE LA TIENDA IN GAME
+        shop_button = arcade.gui.UIFlatButton(text="Shop", width=200)
+        self.v_box.add(shop_button.with_space_around(bottom=20))
+        shop_button.on_click = self.on_click_shop
+
         settings_button = arcade.gui.UIFlatButton(text="Settings", width=200)
         self.v_box.add(settings_button.with_space_around(bottom=20))
         settings_button.on_click = self.on_click_settings
@@ -92,6 +97,12 @@ class MainMenuView(arcade.View):
         print("inventory screen")
         self.window.views["inventory"].setup()
         self.window.show_view(self.window.views["inventory"])
+        
+
+    def on_click_shop(self, event):
+        print("testing shop...")
+        self.window.views["shop"].setup()
+        self.window.show_view(self.window.views["shop"])
 
 
     def on_click_new_game(self, event):

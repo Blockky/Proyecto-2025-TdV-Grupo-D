@@ -29,6 +29,8 @@ class PlayerView(arcade.View):
         self.gold_text = f"Gold: {stats['GOLD']}"
         if stats['EQUIPPED'] == "None":
             self.equipped_text = f"Weapon equipped: {stats['EQUIPPED']} (+0ATK)"
+        else:
+            self.equipped_text = f"Weapon equipped: {stats['EQUIPPED']['short_name']} (+{stats['EQUIPPED']['damage_amount']} ATK)"
 
 
 
