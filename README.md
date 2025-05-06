@@ -8,8 +8,7 @@
 - Luka Luraschi 1ºGII, Diseño de niveles, Pruebas, Diseño Gráfico
 - Sergio Peiteado Sánchez, 1º GII, Programación, Sonido, Pruebas
 
-![Screenshot](![image](https://github.com/user-attachments/assets/ecf00d69-9b20-4463-b814-a39eb9cb4ac1)
-)
+![Screenshot](/screenshot.png)
 
 This is an open-source RPG game.
 
