@@ -1,0 +1,14 @@
+{ "columns":15,
+ "image":"rocas.png",
+ "imageheight":250,
+ "imagewidth":250,
+ "margin":0,
+ "name":"rocas",
+ "spacing":0,
+ "tilecount":225,
+ "tiledversion":"1.11.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

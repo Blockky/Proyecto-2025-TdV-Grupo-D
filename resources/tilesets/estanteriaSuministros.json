@@ -1,0 +1,14 @@
+{ "columns":15,
+ "image":"estanteriaSuministros.png",
+ "imageheight":167,
+ "imagewidth":250,
+ "margin":0,
+ "name":"estanteriaSuministros",
+ "spacing":0,
+ "tilecount":150,
+ "tiledversion":"1.11.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}
