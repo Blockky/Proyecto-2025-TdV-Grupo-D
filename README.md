@@ -8,6 +8,12 @@
 - Luka Luraschi 1ºGII, Diseño de niveles, Pruebas, Diseño Gráfico
 - Sergio Peiteado Sánchez, 1º GII, Programación, Sonido, Pruebas
 
+---
+
+![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-success)
+![First Timer Friendly](https://img.shields.io/badge/First%20Timer-friendly-informational)
+![License MIT](https://img.shields.io/badge/license-MIT-success)
+
 ![Screenshot](/screenshot.png)
 
 This is an open-source RPG game.
