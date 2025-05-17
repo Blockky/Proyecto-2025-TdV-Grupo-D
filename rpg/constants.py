@@ -7,7 +7,7 @@ from arcade.examples.astar_pathfinding import MOVEMENT_SPEED
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Python Community RPG"
-TILE_SCALING = 1.0
+TILE_SCALING = 1.2
 SPRITE_SIZE = 32
 
 INVENTORY_WIDTH = 1280
