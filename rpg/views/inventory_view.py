@@ -117,19 +117,26 @@ class ItemButton(UIFlatButton):
         except Exception as e:
             print(f"Error al usar el ítem: {e}")  # Debug
 
-
-
-
     def use_potion(self):
-        """Ejemplo: usar una poción"""
-        if stats["HP"] < (stats["HP_MAX"] - 50):
-            stats["HP"] += 50
-        else:
-            stats["HP"] = stats["HP_MAX"]
+        """Usar una poción para curar HP, con límite máximo"""
+        # Obtener el valor de curación del diccionario de items
+        potion_data = items.get("Potion", {})
+        heal_amount = potion_data.get("heal_amount", 1)  # Valor por defecto 50 si no está definido
 
-        print("Usando poción... +50 HP")
-        print(stats['HP'])
-        print(self.item.quantity)
+        # Calcular nueva vida sin exceder el máximo
+        new_hp = stats["HP"] + heal_amount
+        stats["HP"] = min(new_hp, stats["HP_MAX"])
+
+        print(f"Usando poción... +{heal_amount} HP (HP actual: {stats['HP']}/{stats['HP_MAX']})")
+        print(self.inventory_view.player_items[1].quantity)
+
+        # Guardar los cambios en el archivo JSON
+        try:
+            with open(ruta_player_json, 'w', encoding='utf-8') as f:
+                json.dump(stats, f, indent=4, ensure_ascii=False)
+            print("Datos del jugador actualizados correctamente.")
+        except Exception as e:
+            print(f"Error al guardar los datos: {e}")
 
     def equip(self,item_name):
 
@@ -192,6 +199,12 @@ class InventoryView(arcade.View) :
 
         # Si no existe, lo añade
         self.player_items.append(item)
+        self.recreate_inventory_ui()  # Actualiza la UI
+
+    def reset_items(self):
+        """Vacía el inventario y lo rellena con los objetos por defecto"""
+        self.player_items = []  # Vacía la lista de items
+        self.setup_items()      # Vuelve a añadir los items por defecto
         self.recreate_inventory_ui()  # Actualiza la UI
 
     def setup(self):

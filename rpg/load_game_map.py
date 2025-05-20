@@ -167,8 +167,9 @@ def load_map(map_name):
     for layer, sprite_list in game_map.map_layers.items():
         if "_blocking" in layer:
             game_map.scene.remove_sprite_list_by_object(sprite_list)
-
-            game_map.scene["wall_list"].extend(sprite_list)
+            for sprite in sprite_list:
+                if sprite.hit_box and sprite.position[0] is not None and sprite.position[1] is not None:
+                    game_map.scene["wall_list"].append(sprite)
 
     return game_map
 
