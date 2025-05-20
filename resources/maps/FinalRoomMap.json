@@ -777,17 +777,17 @@
                  "height":32,
                  "id":50,
                  "name":"",
-                  "properties":[
+                 "properties":[
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"salaExp_I"
-                        },
+                         "value":"name"
+                        }, 
                         {
                          "name":"start_x",
                          "type":"int",
                          "value":0
-                        },
+                        }, 
                         {
                          "name":"start_y",
                          "type":"int",
@@ -797,25 +797,25 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":477.833333333333,
-                 "y":1022.66666666667
+                 "x":480.833333333333,
+                 "y":1024.16666666667
                 }, 
                 {
                  "gid":1182,
                  "height":32,
                  "id":54,
                  "name":"",
-                  "properties":[
+                 "properties":[
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"salaExp_I"
-                        },
+                         "value":"name"
+                        }, 
                         {
                          "name":"start_x",
                          "type":"int",
                          "value":0
-                        },
+                        }, 
                         {
                          "name":"start_y",
                          "type":"int",
@@ -833,17 +833,17 @@
                  "height":32,
                  "id":55,
                  "name":"",
-                  "properties":[
+                 "properties":[
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"salaExp_I"
-                        },
+                         "value":"name"
+                        }, 
                         {
                          "name":"start_x",
                          "type":"int",
                          "value":0
-                        },
+                        }, 
                         {
                          "name":"start_y",
                          "type":"int",
@@ -861,17 +861,17 @@
                  "height":32,
                  "id":56,
                  "name":"",
-                  "properties":[
+                 "properties":[
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"salaExp_I"
-                        },
+                         "value":"name"
+                        }, 
                         {
                          "name":"start_x",
                          "type":"int",
                          "value":0
-                        },
+                        }, 
                         {
                          "name":"start_y",
                          "type":"int",
