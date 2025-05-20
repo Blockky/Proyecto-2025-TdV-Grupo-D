@@ -1,0 +1,14 @@
+{ "columns":20,
+ "image":"suelos.png",
+ "imageheight":200,
+ "imagewidth":320,
+ "margin":0,
+ "name":"suelos",
+ "spacing":0,
+ "tilecount":240,
+ "tiledversion":"1.11.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

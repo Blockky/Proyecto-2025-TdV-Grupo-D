@@ -1,0 +1,14 @@
+{ "columns":3,
+ "image":"antorchas.png",
+ "imageheight":250,
+ "imagewidth":56,
+ "margin":0,
+ "name":"antorchas",
+ "spacing":0,
+ "tilecount":45,
+ "tiledversion":"1.11.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}
