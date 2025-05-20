@@ -275,17 +275,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"CAMPANA"
+                         "value":"mapa_boss2"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":4
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":19
                         }],
                  "rotation":0,
                  "type":"",

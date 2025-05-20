@@ -275,7 +275,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"SLIME"
+                         "value":"mapa_boss1"
                         }, 
                         {
                          "name":"start_x",
@@ -285,7 +285,7 @@
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":15
                         }],
                  "rotation":0,
                  "type":"",

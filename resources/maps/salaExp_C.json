@@ -331,17 +331,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"CAMPANA"
+                         "value":"mapa_boss2"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":8
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":14
                         }],
                  "rotation":0,
                  "type":"",

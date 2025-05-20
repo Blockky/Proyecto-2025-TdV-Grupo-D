@@ -318,7 +318,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"FANTASMA"
+                         "value":"mapa_boss1.1"
                         }, 
                         {
                          "name":"start_x",
@@ -328,7 +328,7 @@
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":15
                         }],
                  "rotation":0,
                  "type":"",
@@ -346,17 +346,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"TIENDA"
+                         "value":"tienda"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":7
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":19
                         }],
                  "rotation":0,
                  "type":"",
@@ -402,17 +402,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"SLIME"
+                         "value":"mapa_boss1"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":8
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":14
                         }],
                  "rotation":0,
                  "type":"",

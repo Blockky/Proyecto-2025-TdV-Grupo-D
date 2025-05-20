@@ -303,7 +303,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"ARA\u00d1A"
+                         "value":"mapa_boss1.2"
                         }, 
                         {
                          "name":"start_x",
@@ -313,7 +313,7 @@
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":15
                         }],
                  "rotation":0,
                  "type":"",

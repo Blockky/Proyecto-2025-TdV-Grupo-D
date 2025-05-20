@@ -1,0 +1,14 @@
+{ "columns":16,
+ "image":"..\/tilesets\/[Base]BaseChip_pipo.png",
+ "imageheight":4256,
+ "imagewidth":256,
+ "margin":0,
+ "name":"[Base]BaseChip_pipo",
+ "spacing":0,
+ "tilecount":4256,
+ "tiledversion":"1.11.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}
