@@ -1,10 +1,11 @@
 {
-   "ATK": 10,
-   "DEF": 10,
-   "HP_MAX": 150,
-   "HP": 50,
-   "GOLD": 50,
-   "EQUIPPED": {"short_name": "Sword",
-             "type": "weapon",
-             "damage_amount": 10}
+    "HP": 5,
+    "HP_MAX": 10,
+    "ATK": 5,
+    "GOLD": 50,
+    "EQUIPPED": {
+        "short_name": "None",
+        "type": "weapon",
+        "damage_amount": 0
+    }
 }

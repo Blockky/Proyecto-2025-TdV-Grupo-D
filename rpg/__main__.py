@@ -6,10 +6,13 @@ An open-source RPG
 
 import arcade
 
+import json
 from rpg.constants import SCREEN_HEIGHT, SCREEN_TITLE, SCREEN_WIDTH
 from rpg.views import LoadingView
 from rpg.views.inventory_view import InventoryView
 from rpg.views.shop_view import ShopView
+
+
 
 
 class MyWindow(arcade.Window):
@@ -27,6 +30,9 @@ class MyWindow(arcade.Window):
 
 def main():
     """Main method"""
+
+
+
     window = MyWindow()
     window.center_window()
     start_view = LoadingView()

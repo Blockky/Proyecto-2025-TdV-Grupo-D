@@ -12,17 +12,39 @@ import rpg.constants as constants
 from arcade.experimental.lights import Light
 from pyglet.math import Vec2
 
+from rpg.views import inventory_view, shop_view, loading_view
+
 from resources.sounds.Sounds import damage_sound
-from rpg.constants import INMO_DELAY
+from rpg.constants import INMO_DELAY, DEFAULT_PLAYER_STATS
 from rpg.decisiones import decision
 
 from rpg.message_box import MessageBox
 from rpg.sprites.peligros import Proyectil, Peligro
 
 from rpg.sprites.player_sprite import PlayerSprite
+from rpg.views.inventory_view import InventoryView
 from rpg.views.main_menu_view import MainMenuView
 from rpg.views.settings_view import SettingsView
 
+
+def cargar_datos(ruta_archivo):
+    with open(ruta_archivo) as f:
+        return json.load(f)
+
+
+ruta_player_json = "../resources/data/player_info.json"
+
+stats = cargar_datos(ruta_player_json)
+
+def reset_player_stats():
+    """Restablece los stats del jugador a valores por defecto"""
+    ruta_player_json = "..\\resources\\data\\player_info.json"
+    try:
+        with open(ruta_player_json, 'w', encoding='utf-8') as f:
+            json.dump(DEFAULT_PLAYER_STATS, f, indent=4, ensure_ascii=False)
+        print("Stats del jugador reseteados a valores por defecto")
+    except Exception as e:
+        print(f"Error al resetear stats: {e}")
 
 class DebugMenu(arcade.gui.UIBorder, arcade.gui.UIWindowLikeMixin):
     def __init__(
@@ -137,12 +159,20 @@ class GameView(arcade.View):
     Main application class.
     """
 
-    def __init__(self, map_list):
+    def __init__(self, map_list, inventory_view, shop_view):
         super().__init__()
+        self.inventory_view = inventory_view
+        self.shop_view = shop_view
+
+        reset_player_stats()
+        self.reset_items()
 
         arcade.set_background_color(arcade.color.AMAZON)
 
+
+
         self.setup_debug_menu()
+
 
         self.ui_manager = arcade.gui.UIManager()
         self.ui_manager.enable()
@@ -152,7 +182,8 @@ class GameView(arcade.View):
         self.player_sprite_list = None
 
         #Vida
-        self.hp = constants.HPmax
+
+        self.hp = stats['HP']
 
         #Para hacer inmortal al personaje unos segundos
         self.inmortal = False
@@ -206,6 +237,20 @@ class GameView(arcade.View):
         color = arcade.csscolor.WHITE
         self.player_light = Light(x, y, radius, color, mode)
 
+    def reset_items(self):
+        """Restablece los items del inventario a valores por defecto"""
+
+        self.inventory_view.reset_items()
+        print("Items del inventario reseteados")
+
+    def reset_shop(self):
+        """Restablece los items del inventario a valores por defecto"""
+
+        self.shop_view.reset_shop()
+        print("Items de la tienda reseteados")
+
+
+
     def switch_map(self, map_name, start_x, start_y):
         """
         Switch the current map
@@ -254,6 +299,7 @@ class GameView(arcade.View):
 
     def setup(self):
         """Set up the game variables. Call to re-start the game."""
+        reset_player_stats()
 
         # Create the player character
         self.player_sprite = PlayerSprite(":characters:Male/main-character.png")
@@ -267,8 +313,8 @@ class GameView(arcade.View):
         # Set up the hotbar
         self.load_hotbar_sprites()
 
-        #Establece la vida
-        self.hp = constants.HPmax
+        # Establece la vida desde el JSON
+        self.update_hp_from_json()
 
 
     def load_hotbar_sprites(self):
@@ -422,6 +468,20 @@ class GameView(arcade.View):
         if my_map.background_color:
             arcade.set_background_color(my_map.background_color)
 
+        # Actualizar HP desde el JSON al mostrar la vista
+        self.update_hp_from_json()
+
+    def update_hp_from_json(self):
+        """Actualiza self.hp con el valor actual del JSON"""
+        global stats
+        try:
+            # Cargar datos actualizados
+            stats = cargar_datos(ruta_player_json)
+            self.hp = stats['HP']
+            print(f"Vida actualizada: {self.hp}/{stats['HP_MAX']}")
+        except Exception as e:
+            print(f"Error al actualizar HP desde JSON: {e}")
+
 
     # Sistema de perder vida con peligros y proyectiles
     def peligros(self):
@@ -434,7 +494,16 @@ class GameView(arcade.View):
             # Si golpeó: el jugador pierde una vida y se hace temporalmente inmortal
             if len(hit_list) > 0:
                 self.hp -= 1
-                arcade.play_sound(damage_sound,volume= 0.5 * SettingsView.v_ef)
+                stats['HP'] = self.hp  # Actualizar el diccionario global
+
+                # Guardar el cambio en el JSON
+                try:
+                    with open(ruta_player_json, 'w', encoding='utf-8') as f:
+                        json.dump(stats, f, indent=4, ensure_ascii=False)
+                except Exception as e:
+                    print(f"Error al guardar daño en JSON: {e}")
+
+                arcade.play_sound(damage_sound, volume=0.5 * SettingsView.v_ef)
                 self.inmortal = True
 
 
@@ -592,6 +661,19 @@ class GameView(arcade.View):
         #Si la vida llega a 0 mueres
         if self.hp <= 0:
             print("Moriste")
+            # Resetear vida en el JSON
+            stats['HP'] = DEFAULT_PLAYER_STATS['HP']
+            try:
+                with open(ruta_player_json, 'w', encoding='utf-8') as f:
+                    json.dump(stats, f, indent=4, ensure_ascii=False)
+            except Exception as e:
+                print(f"Error al resetear vida: {e}")
+            # Resetear el inventario
+            self.reset_items()
+            # Resetear la tienda
+            self.reset_shop()
+
+            # Reiniciar el juego
             self.window.views["game"].setup()
             self.window.show_view(self.window.views["game"])
 
@@ -619,7 +701,15 @@ class GameView(arcade.View):
         elif key in constants.SEARCH:
             self.search()
         elif key == arcade.key.KEY_1:
-            self.selected_item = 1
+            stats['HP']= 0
+            # Guardar los cambios en el archivo JSON
+            try:
+                with open(ruta_player_json, 'w', encoding='utf-8') as f:
+                    json.dump(stats, f, indent=4, ensure_ascii=False)
+                print("Datos del jugador actualizados correctamente.")
+            except Exception as e:
+                print(f"Error al guardar los datos: {e}")
+            self.hp = 0
         elif key == arcade.key.KEY_2:
             self.selected_item = 2
         elif key == arcade.key.KEY_3:

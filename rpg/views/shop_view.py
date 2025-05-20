@@ -127,6 +127,22 @@ class ShopView(arcade.View):
 
         self.create_shop_ui()
 
+        self.gold_text = ""
+
+    def load_gold(self):
+        """Carga los stats actualizados desde el JSON"""
+        global stats
+        try:
+            stats = cargar_datos(ruta_player_json)
+
+
+            self.gold_text = f"Gold: {stats['GOLD']}"
+
+
+
+        except Exception as e:
+            print(f"Error al cargar stats: {e}")
+
 
     def setup_items(self):
         # Crear objetos para el inventario (solo texto)
@@ -139,6 +155,11 @@ class ShopView(arcade.View):
 
         self.shop_items.append(item1)
         self.shop_items.append(item2)
+
+    def reset_shop(self):
+        self.shop_items = []
+        self.setup_items()
+        self.recreate_shop_ui()
 
     def process_purchase(self, item):
         """Intenta realizar la compra y devuelve True/False si tuvo éxito"""
@@ -161,6 +182,13 @@ class ShopView(arcade.View):
             item.quantity -= 1
             if item.quantity <= 0:
                 self.shop_items.remove(item)
+            try:
+                with open(ruta_player_json, 'w', encoding='utf-8') as f:
+                    json.dump(stats, f, indent=4, ensure_ascii=False)
+                print("Datos del jugador actualizados correctamente.")
+            except Exception as e:
+                print(f"Error al guardar los datos: {e}")
+
 
             print("¡Item comprado y añadido al inventario!")
             self.recreate_shop_ui()
@@ -186,7 +214,7 @@ class ShopView(arcade.View):
     def on_draw(self):
         arcade.start_render()
 
-        self.gold_text = f"Gold: {stats['GOLD']}"
+
 
         arcade.draw_text(
             "The Shop",
@@ -274,6 +302,7 @@ class ShopView(arcade.View):
         pass
 
     def on_show_view(self):
+        self.load_gold()
         arcade.set_background_color(arcade.color.ALMOND)
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
 
