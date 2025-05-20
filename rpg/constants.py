@@ -25,9 +25,9 @@ BOTTOM_VIEWPORT_MARGIN = 300
 TOP_VIEWPORT_MARGIN = 300
 
 # What map, and what position we start at
-STARTING_MAP = "salaExp_I"
-STARTING_X = 4
-STARTING_Y = 14
+STARTING_MAP = "StartingRoomMap"
+STARTING_X = 0
+STARTING_Y = 0
 
 # Key mappings
 KEY_UP = [arcade.key.UP, arcade.key.W]
