@@ -452,12 +452,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":27
+                         "value":33
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":30
+                         "value":29
                         }],
                  "rotation":0,
                  "type":"",
@@ -480,12 +480,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":25
+                         "value":30
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":1
+                         "value":-5
                         }],
                  "rotation":0,
                  "type":"",
@@ -508,12 +508,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":15
+                         "value":14
                         }],
                  "rotation":0,
                  "type":"",

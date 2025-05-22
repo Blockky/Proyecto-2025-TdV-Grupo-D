@@ -237,12 +237,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":11
+                         "value":13
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":30
+                         "value":29
                         }],
                  "rotation":0,
                  "type":"",
@@ -260,17 +260,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"ARA\u00d1A"
+                         "value":"mapa_boss1.2"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":10
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":14
                         }],
                  "rotation":0,
                  "type":"",
@@ -298,7 +298,7 @@
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":7
+                         "value":3
                         }],
                  "rotation":0,
                  "type":"",

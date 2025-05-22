@@ -26,8 +26,8 @@ TOP_VIEWPORT_MARGIN = 300
 
 # What map, and what position we start at
 STARTING_MAP = "StartingRoomMap"
-STARTING_X = 0
-STARTING_Y = 0
+STARTING_X = 18
+STARTING_Y = 15
 
 # Key mappings
 KEY_UP = [arcade.key.UP, arcade.key.W]

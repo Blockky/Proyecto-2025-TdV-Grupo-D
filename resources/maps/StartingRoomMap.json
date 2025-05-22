@@ -275,17 +275,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"name"
+                         "value":"salaExp_I"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":5
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":29
                         }],
                  "rotation":0,
                  "type":"",
