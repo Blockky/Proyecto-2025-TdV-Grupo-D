@@ -155,15 +155,11 @@ class ItemButton(UIFlatButton):
             # Recrear la UI del inventario para reflejar los cambios
             self.inventory_view.recreate_inventory_ui()
 
-
 class InventoryView(arcade.View) :
     def __init__(self):
         super().__init__()
         self.started = False
-        arcade.set_background_color(arcade.color.ALMOND)
-
-
-
+        arcade.set_background_color(arcade.color.LILAC)
 
         # Variables del juego
         self.player_items = []
@@ -174,13 +170,10 @@ class InventoryView(arcade.View) :
 
         self.create_inventory_ui()
 
-
-
     def setup_items(self):
         # Crear objetos para el inventario (solo texto)
         item1 = Item("Sword", "Daño: 15","weapon")
         item2 = Item("Potion", "Cura 50 HP","potion")
-
 
         # Añadir múltiples instancias de algunos objetos
         item2.quantity = 3
@@ -217,7 +210,7 @@ class InventoryView(arcade.View) :
             "Inventory",
             self.window.width / 2,
             self.window.height - 50,
-            arcade.color.ALLOY_ORANGE,
+            arcade.color.BLACK,
             44,
             anchor_x="center",
             anchor_y="center",
@@ -274,10 +267,6 @@ class InventoryView(arcade.View) :
             child=panel
         ))
 
-
-
-
-
     def on_key_press(self, symbol: int, modifiers: int):
         closetomenu_inputs = [
             arcade.key.ESCAPE
@@ -295,12 +284,10 @@ class InventoryView(arcade.View) :
         pass
 
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
 
         self.ui_manager.enable()
-
-
 
     def on_hide_view(self):
         self.ui_manager.disable()

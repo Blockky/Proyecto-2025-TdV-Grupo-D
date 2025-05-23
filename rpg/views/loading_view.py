@@ -20,7 +20,7 @@ class LoadingView(arcade.View):
         self.started = False
         self.progress = 0
         self.map_list = None
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
 
     def on_draw(self):
         arcade.start_render()
@@ -28,7 +28,7 @@ class LoadingView(arcade.View):
             "Loading...",
             self.window.width / 2,
             self.window.height / 2,
-            arcade.color.ALLOY_ORANGE,
+            arcade.color.BLACK,
             44,
             anchor_x="center",
             anchor_y="center",

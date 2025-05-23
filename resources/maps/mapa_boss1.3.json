@@ -76,7 +76,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"FINAL"
+                         "value":"FinalRoomMap"
                         }, 
                         {
                          "name":"start_x",

@@ -531,7 +531,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"TIENDA"
+                         "value":"tienda"
                         }, 
                         {
                          "name":"start_x",
