@@ -20,7 +20,7 @@ class LoadingView(arcade.View):
         self.started = False
         self.progress = 0
         self.map_list = None
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
 
     def on_draw(self):
         arcade.start_render()
@@ -28,7 +28,7 @@ class LoadingView(arcade.View):
             "Loading...",
             self.window.width / 2,
             self.window.height / 2,
-            arcade.color.ALLOY_ORANGE,
+            arcade.color.BLACK,
             44,
             anchor_x="center",
             anchor_y="center",
@@ -55,12 +55,13 @@ class LoadingView(arcade.View):
         if self.started:
             done, self.progress, self.map_list = load_maps()
             if done:
-                self.window.views["game"] = GameView(self.map_list)
-                self.window.views["game"].setup()
+
                 self.window.views["inventory"] = InventoryView()
                 self.window.views["inventory"].setup()
-                self.window.views["shop"] = ShopView(self.window.views["inventory"])
+                self.window.views["shop"] = ShopView(self.window.views["inventory"],)
                 self.window.views["shop"].setup()
+                self.window.views["game"] = GameView(self.map_list, self.window.views["inventory"],self.window.views["shop"], )
+                self.window.views["game"].setup()
                 self.window.views["player"] = PlayerView()
                 self.window.views["player"].setup()
                 self.window.views["main_menu"] = MainMenuView()
@@ -70,3 +71,4 @@ class LoadingView(arcade.View):
                 self.window.views["battle"].setup()
 
                 self.window.show_view(self.window.views["game"])
+

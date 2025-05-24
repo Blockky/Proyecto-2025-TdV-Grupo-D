@@ -275,17 +275,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"SLIME"
+                         "value":"mapa_boss_slime"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":14
                         }],
                  "rotation":0,
                  "type":"",
@@ -308,12 +308,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":18
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":-2
                         }],
                  "rotation":0,
                  "type":"",
@@ -336,12 +336,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":18
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":-2
                         }],
                  "rotation":0,
                  "type":"",
@@ -364,12 +364,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
-                        }, 
+                         "value":18
+                        },
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":-2
                         }],
                  "rotation":0,
                  "type":"",

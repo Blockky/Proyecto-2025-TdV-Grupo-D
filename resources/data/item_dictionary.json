@@ -11,5 +11,5 @@
              "damage_amount": 10},
   "Potion": {"short_name": "Potion",
               "type": "Potion",
-              "heal_amount": 10}
+              "heal_amount": 1}
 }

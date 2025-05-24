@@ -318,17 +318,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"FANTASMA"
+                         "value":"mapa_boss1.1"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":14
                         }],
                  "rotation":0,
                  "type":"",
@@ -346,17 +346,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"TIENDA"
+                         "value":"tienda"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":9
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":17
                         }],
                  "rotation":0,
                  "type":"",
@@ -379,12 +379,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":5
+                         "value":6
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":1
+                         "value":-5
                         }],
                  "rotation":0,
                  "type":"",
@@ -402,17 +402,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"SLIME"
+                         "value":"mapa_boss1"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":11
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":14
                         }],
                  "rotation":0,
                  "type":"",

@@ -3,6 +3,7 @@ Constant values for the game
 """
 import arcade
 from arcade.examples.astar_pathfinding import MOVEMENT_SPEED
+import json
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
@@ -24,9 +25,9 @@ BOTTOM_VIEWPORT_MARGIN = 300
 TOP_VIEWPORT_MARGIN = 300
 
 # What map, and what position we start at
-STARTING_MAP = "salaExp_I"
-STARTING_X = 4
-STARTING_Y = 14
+STARTING_MAP = "StartingRoomMap"
+STARTING_X = 18
+STARTING_Y = 15
 
 # Key mappings
 KEY_UP = [arcade.key.UP, arcade.key.W]
@@ -43,7 +44,29 @@ MESSAGE_BOX_MARGIN = 30
 # How fast does the camera pan to the user
 CAMERA_SPEED = 0.8
 
-#Cuantos golpes se ha de recibir para morir
-HPmax = 5
+
+def cargar_datos(ruta_archivo):
+    with open(ruta_archivo) as f:
+        return json.load(f)
+
+
+ruta_player_json = "../resources/data/player_info.json"
+
+stats = cargar_datos(ruta_player_json)
+
+# STATS INICIALES (AQUELLOS CUANDO SE INICIA EL JUEGO O MUERES)
+
+DEFAULT_PLAYER_STATS = {
+    "HP": 5,
+    "HP_MAX": 10,
+    "ATK": 5,
+    "GOLD": 50,
+    "EQUIPPED": {
+        "short_name": "None",
+        "type": "weapon",
+        "damage_amount": 0
+    }
+}
+
 #Segundos de invulnerabilidad tras recibir un golpe
 INMO_DELAY = 2

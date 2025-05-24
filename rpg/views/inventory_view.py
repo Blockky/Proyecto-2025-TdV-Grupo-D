@@ -117,19 +117,26 @@ class ItemButton(UIFlatButton):
         except Exception as e:
             print(f"Error al usar el ítem: {e}")  # Debug
 
-
-
-
     def use_potion(self):
-        """Ejemplo: usar una poción"""
-        if stats["HP"] < (stats["HP_MAX"] - 50):
-            stats["HP"] += 50
-        else:
-            stats["HP"] = stats["HP_MAX"]
+        """Usar una poción para curar HP, con límite máximo"""
+        # Obtener el valor de curación del diccionario de items
+        potion_data = items.get("Potion", {})
+        heal_amount = potion_data.get("heal_amount", 1)  # Valor por defecto 50 si no está definido
 
-        print("Usando poción... +50 HP")
-        print(stats['HP'])
-        print(self.item.quantity)
+        # Calcular nueva vida sin exceder el máximo
+        new_hp = stats["HP"] + heal_amount
+        stats["HP"] = min(new_hp, stats["HP_MAX"])
+
+        print(f"Usando poción... +{heal_amount} HP (HP actual: {stats['HP']}/{stats['HP_MAX']})")
+        print(self.inventory_view.player_items[1].quantity)
+
+        # Guardar los cambios en el archivo JSON
+        try:
+            with open(ruta_player_json, 'w', encoding='utf-8') as f:
+                json.dump(stats, f, indent=4, ensure_ascii=False)
+            print("Datos del jugador actualizados correctamente.")
+        except Exception as e:
+            print(f"Error al guardar los datos: {e}")
 
     def equip(self,item_name):
 
@@ -148,15 +155,11 @@ class ItemButton(UIFlatButton):
             # Recrear la UI del inventario para reflejar los cambios
             self.inventory_view.recreate_inventory_ui()
 
-
 class InventoryView(arcade.View) :
     def __init__(self):
         super().__init__()
         self.started = False
-        arcade.set_background_color(arcade.color.ALMOND)
-
-
-
+        arcade.set_background_color(arcade.color.LILAC)
 
         # Variables del juego
         self.player_items = []
@@ -167,13 +170,10 @@ class InventoryView(arcade.View) :
 
         self.create_inventory_ui()
 
-
-
     def setup_items(self):
         # Crear objetos para el inventario (solo texto)
         item1 = Item("Sword", "Daño: 15","weapon")
         item2 = Item("Potion", "Cura 50 HP","potion")
-
 
         # Añadir múltiples instancias de algunos objetos
         item2.quantity = 3
@@ -194,6 +194,12 @@ class InventoryView(arcade.View) :
         self.player_items.append(item)
         self.recreate_inventory_ui()  # Actualiza la UI
 
+    def reset_items(self):
+        """Vacía el inventario y lo rellena con los objetos por defecto"""
+        self.player_items = []  # Vacía la lista de items
+        self.setup_items()      # Vuelve a añadir los items por defecto
+        self.recreate_inventory_ui()  # Actualiza la UI
+
     def setup(self):
         pass
 
@@ -204,7 +210,7 @@ class InventoryView(arcade.View) :
             "Inventory",
             self.window.width / 2,
             self.window.height - 50,
-            arcade.color.ALLOY_ORANGE,
+            arcade.color.BLACK,
             44,
             anchor_x="center",
             anchor_y="center",
@@ -261,10 +267,6 @@ class InventoryView(arcade.View) :
             child=panel
         ))
 
-
-
-
-
     def on_key_press(self, symbol: int, modifiers: int):
         closetomenu_inputs = [
             arcade.key.ESCAPE
@@ -282,12 +284,10 @@ class InventoryView(arcade.View) :
         pass
 
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
 
         self.ui_manager.enable()
-
-
 
     def on_hide_view(self):
         self.ui_manager.disable()

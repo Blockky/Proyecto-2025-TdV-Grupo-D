@@ -19,24 +19,44 @@ stats = cargar_datos(ruta_player_json)
 class PlayerView(arcade.View):
     def __init__(self):
         super().__init__()
+
         self.started = False
         arcade.set_background_color(arcade.color.GRAY)
 
+        self.hp_text = ""
+        self.atk_text = ""
+        self.gold_text = ""
+        self.equipped_text = ""
 
+        self.load_stats()
 
-        self.hp_text = f"HP: {stats['HP']}/{stats['HP_MAX']}"
-        self.atk_text = f"ATK: {stats['ATK']}"
-        self.gold_text = f"Gold: {stats['GOLD']}"
-        if stats['EQUIPPED'] == "None":
-            self.equipped_text = f"Weapon equipped: {stats['EQUIPPED']} (+0ATK)"
-        else:
-            self.equipped_text = f"Weapon equipped: {stats['EQUIPPED']['short_name']} (+{stats['EQUIPPED']['damage_amount']} ATK)"
+    def load_stats(self):
+        """Carga los stats actualizados desde el JSON"""
+        global stats
+        try:
+            stats = cargar_datos(ruta_player_json)
 
+            self.hp_text = f"HP: {stats['HP']}/{stats['HP_MAX']}"
+            self.atk_text = f"ATK: {stats['ATK']}"
+            self.gold_text = f"Gold: {stats['GOLD']}"
+
+            if stats['EQUIPPED'] == "None":
+                self.equipped_text = f"Weapon equipped: {stats['EQUIPPED']} (+0ATK)"
+            else:
+                self.equipped_text = f"Weapon equipped: {stats['EQUIPPED']['short_name']} (+{stats['EQUIPPED']['damage_amount']} ATK)"
+
+        except Exception as e:
+            print(f"Error al cargar stats: {e}")
 
 
 
     def on_draw(self):
         arcade.start_render()
+
+        self.hp_text = f"HP: {stats['HP']}/{stats['HP_MAX']}"
+        self.atk_text = f"ATK: {stats['ATK']}"
+        self.gold_text = f"Gold: {stats['GOLD']}"
+
         arcade.draw_text(
             "Player Stats",
             self.window.width / 2,
@@ -96,7 +116,9 @@ class PlayerView(arcade.View):
     def setup(self):
         pass
 
+
     def on_show_view(self):
+        self.load_stats()  # Actualizar stats al mostrar la vista
         arcade.set_background_color(arcade.color.GRAY)
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
 

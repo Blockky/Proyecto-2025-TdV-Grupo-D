@@ -11,7 +11,7 @@ class SettingsView(arcade.View):
     def __init__(self):
         super().__init__()
         self.started = False
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
     #controlador de los botones y la agrupación de estos
         self.control = arcade.gui.UIManager()
         self.botones_caja = arcade.gui.UIBoxLayout(vertical = False, space_between = 50)
@@ -43,20 +43,20 @@ class SettingsView(arcade.View):
             "Settings",
             self.window.width / 2,
             self.window.height - 50,
-            arcade.color.ALLOY_ORANGE,
+            arcade.color.BLACK,
             44,
             anchor_x="center",
             anchor_y="center",
             align="center",
             width=self.window.width,
         )
-        arcade.draw_text("Volumen Efectos de Sonido: "+str(SettingsView.v_ef), 50, 550,arcade.color.ALLOY_ORANGE,19)
+        arcade.draw_text("Volumen Efectos de Sonido: "+str(SettingsView.v_ef), 50, 550,arcade.color.BLACK,19)
 
     def setup(self):
         pass
 
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
 
         self.control.enable() #controla los botones
@@ -67,7 +67,7 @@ class SettingsView(arcade.View):
 
    #al pulsar reset
     def pulso_reset(self,event):
-        SettingsView.v_ef = 1
+        SettingsView.v_ef = 2
    #al pulsar + de efectos de sonido
     def pulso_mas_sf(self,event):
         if SettingsView.v_ef < 2:

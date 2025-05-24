@@ -1,9 +1,6 @@
 import arcade
 import arcade.gui
 
-
-
-
 def decision(opciones, ataque, no_ataque, el_inventario):     # crea los tres botones para decidir que hacer durante un combate
     boton_box = arcade.gui.UIBoxLayout(vertical = False, space_between = 50)
     atacar = arcade.gui.UIFlatButton(text="Atacar", width=200)
