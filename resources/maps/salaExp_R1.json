@@ -232,17 +232,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"TIENDA"
+                         "value":"tienda5"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":9
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":17
                         }],
                  "rotation":0,
                  "type":"",
@@ -260,7 +260,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"mapa_boss2.1"
+                         "value":"mapa_boss_robot"
                         }, 
                         {
                          "name":"start_x",

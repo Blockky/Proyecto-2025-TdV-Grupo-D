@@ -301,17 +301,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":""
+                         "value":"salaExp_F1"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":10
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":10
                         }],
                  "rotation":0,
                  "type":"",

@@ -301,7 +301,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":""
+                         "value":"salaExp_A2"
                         }, 
                         {
                          "name":"start_x",

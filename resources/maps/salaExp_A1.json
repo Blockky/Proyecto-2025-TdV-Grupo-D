@@ -260,7 +260,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"mapa_boss1.2"
+                         "value":"mapa_boss_arana"
                         }, 
                         {
                          "name":"start_x",
