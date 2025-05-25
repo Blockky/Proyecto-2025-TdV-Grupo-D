@@ -12,6 +12,7 @@ import rpg.constants as constants
 from arcade.experimental.lights import Light
 from pyglet.math import Vec2
 
+from rpg.musica import reproduce_musica
 from rpg.views import inventory_view, shop_view, loading_view
 
 from resources.sounds.Sounds import damage_sound
@@ -309,6 +310,7 @@ class GameView(arcade.View):
         start_y = constants.STARTING_Y
         self.switch_map(constants.STARTING_MAP, start_x, start_y)
         self.cur_map_name = constants.STARTING_MAP
+        reproduce_musica(self.cur_map_name) #musica ambiente
 
         # Set up the hotbar
         self.load_hotbar_sprites()
@@ -642,6 +644,7 @@ class GameView(arcade.View):
 
                 # Swap to the new map
                 self.switch_map(map_name, start_x, start_y)
+                reproduce_musica(self.cur_map_name)
             else:
                 # We didn't hit a door, scroll normally
                 self.scroll_to_player()
@@ -676,6 +679,8 @@ class GameView(arcade.View):
             # Reiniciar el juego
             self.window.views["game"].setup()
             self.window.show_view(self.window.views["game"])
+
+
 
 
 
