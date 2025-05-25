@@ -318,7 +318,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"mapa_boss1.1"
+                         "value":"mapa_boss_fantasma"
                         }, 
                         {
                          "name":"start_x",
@@ -402,7 +402,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"mapa_boss1"
+                         "value":"mapa_boss_slime"
                         }, 
                         {
                          "name":"start_x",

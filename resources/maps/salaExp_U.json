@@ -503,7 +503,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"mapa_boss1.3"
+                         "value":"mapa_boss_angel"
                         }, 
                         {
                          "name":"start_x",
@@ -531,17 +531,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"tienda"
+                         "value":"tienda6"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":9
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":17
                         }],
                  "rotation":0,
                  "type":"",

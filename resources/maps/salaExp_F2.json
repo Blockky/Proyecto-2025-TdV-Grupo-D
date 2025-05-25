@@ -275,7 +275,7 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"mapa_boss2"
+                         "value":"mapa_boss_campana"
                         }, 
                         {
                          "name":"start_x",
