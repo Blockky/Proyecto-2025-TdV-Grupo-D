@@ -318,6 +318,9 @@ class GameView(arcade.View):
         # Establece la vida desde el JSON
         self.update_hp_from_json()
 
+        #Estado del juego
+        self.state = "exploration"
+
 
     def load_hotbar_sprites(self):
         """Load the sprites for the hotbar at the bottom of the screen.
