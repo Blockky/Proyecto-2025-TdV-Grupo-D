@@ -346,6 +346,9 @@ class GameView(arcade.View):
         # Establece la vida desde el JSON
         self.update_hp_from_json()
 
+        #Estado del juego
+        self.state = "exploration"
+
 
 
 
