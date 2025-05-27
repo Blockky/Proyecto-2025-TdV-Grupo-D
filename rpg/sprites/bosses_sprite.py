@@ -140,7 +140,7 @@ class Slime(Boss):
             peligros_list.append(gota_izq)
             peligros_list.append(gota_dere)
         if random_num == 1:
-            gota_arrib = Proyectil(self.textura_gota, 2, player.center_x + 11, 430, 270, 7, player)
+            gota_arrib = Proyectil(self.textura_gota, 2, player.center_x + 11, 430, 270, 6, player)
             gota_abaj = Proyectil(self.textura_gota, 2, player.center_x - 12, -30, 90, 7, player)
             peligros_list.append(gota_abaj)
             peligros_list.append(gota_arrib)
