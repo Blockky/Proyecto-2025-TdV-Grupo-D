@@ -20,7 +20,7 @@ def decision(opciones, ataque, no_ataque, el_inventario):     # crea los tres bo
 
     def on_click_inventario(evento):    #al pulsar inventario ejecuta el_inventario
         el_inventario()
-        opciones.remove(widget_anclado)
+
 
     atacar.on_click = on_click_atacar
     no_atacar.on_click = on_click_no_atacar

@@ -4,6 +4,7 @@ Settings
 import arcade
 import arcade.gui
 import rpg.constants as constants
+from rpg.musica import reproduce_musica
 
 
 class SettingsView(arcade.View):
@@ -68,8 +69,9 @@ class SettingsView(arcade.View):
             align="center",
             width=self.window.width,
         )
-        arcade.draw_text("Volumen Efectos de Sonido: "+str(SettingsView.v_ef), 50, 550,arcade.color.BLACK,19)
-        arcade.draw_text("Volumen de Música: " + str(SettingsView.v_music), 50, 450, arcade.color.BLACK, 19)
+        arcade.draw_text("Volumen Efectos de Sonido: "+str(SettingsView.v_ef), 50, constants.SCREEN_HEIGHT - 170,arcade.color.BLACK,19)
+        arcade.draw_text("Volumen de Música: " + str(SettingsView.v_music), 50, constants.SCREEN_HEIGHT - 280, arcade.color.BLACK, 19)
+        arcade.draw_text("El volumen de la música solo se actualiza al cambiar de zona", 50, constants.SCREEN_HEIGHT - 360, arcade.color.BLACK, 10)
 
     def setup(self):
         pass
@@ -86,7 +88,7 @@ class SettingsView(arcade.View):
 
    #al pulsar reset
     def pulso_reset(self,event):
-        SettingsView.v_ef = 1
+        SettingsView.v_ef = 1.8
    #al pulsar + de efectos de sonido
     def pulso_mas_sf(self,event):
         if SettingsView.v_ef < 2:
@@ -105,21 +107,30 @@ class SettingsView(arcade.View):
 
         # al pulsar reset musica
     def pulso_reset_music(self, event):
+        from rpg.views.game_view import GameView
+
         SettingsView.v_music = 1
+        reproduce_musica(GameView.get_curr_map_name())
 
         # al pulsar + de musica
     def pulso_mas_music(self, event):
+        from rpg.views.game_view import GameView
+
         if SettingsView.v_music < 2:
             SettingsView.v_music += 0.1
             SettingsView.v_music = round(SettingsView.v_music, 1)
+            reproduce_musica(GameView.get_curr_map_name())  # musica ambiente
         if SettingsView.v_music > 2:
             SettingsView.v_music = 2
 
         # al pulsar - de musica
     def pulso_menos_music(self, event):
+        from rpg.views.game_view import GameView
+
         if SettingsView.v_music > 0:
             SettingsView.v_music -= 0.1
             SettingsView.v_music = round(SettingsView.v_music, 1)
+            reproduce_musica(GameView.get_curr_map_name())
         if SettingsView.v_music < 0:
             SettingsView.v_music = 0
 
