@@ -1,21 +1,22 @@
 import arcade
 
 from rpg.constants import MESSAGE_BOX_FONT_SIZE, MESSAGE_BOX_MARGIN
-from dialogos import angel, angel2, angel3,gato, gato_comprar, gato_no_comprar, fantasma, fantasma2, fantasma3, aranna, aranna2, campana, campana2, campana_ayuda, robot, robot2, angel4, demonio, demonio2
+
 
 
 class CuadroDialogos:
-    def __init__(self, view, message):
-        self.message = message
-        self.view = view
+
+    def __init__(self):
         self.width = 500
         self.height = 50
+        self.dialog_box_visible = False
+        self.dialog_index = 0
+        self.dialog_text = []
 
     def on_draw(self):
-        arcade.start_render()
 
         if self.dialog_box_visible:
-            arcade.draw_rectangle_filled(400, 150, 750, 200, arcade.color.ORANGE)
+            arcade.draw_rectangle_filled(650, 150, 750, 200, arcade.color.PURPLE)
 
             # Obtener el texto actual y dividirlo
             texto_completo = self.dialog_text[self.dialog_index]
@@ -23,7 +24,7 @@ class CuadroDialogos:
 
             # Dibujar cada línea
             for i, linea in enumerate(lineas):
-                arcade.draw_text(linea, 50, 200 - (i * 25), arcade.color.WHITE, 14)
+                arcade.draw_text(linea, 300, 200 - (i * 25), arcade.color.WHITE, 14)
 
     def _dividir_texto(self, texto, max_caracteres):
         """Divide el texto en líneas de máximo 'max_caracteres' caracteres"""
@@ -43,30 +44,16 @@ class CuadroDialogos:
 
         return lineas
 
-    def on_key_press(self, key, _modifiers):
-        self.view.close_message_box()
-
-        # Interacción con la H
-        if key == arcade.key.H:
-            if self.state == "exploration":
-                hit = arcade.check_for_collision_with_list(self.player, self.npc_list)
-                if hit:
-                    self.start_dialog(angel)
-                    self.state = "dialog"
-
-        if key == arcade.key.SPACE:
-            if self.state == "dialog":
-                self.advance_dialog()
 
 
     def start_dialog(self, lines):
         self.dialog_text = lines
         self.dialog_index = 0
         self.dialog_box_visible = True
-        self.state = "dialog"
 
-    def advance_dialog(self):
+    def advance_dialog(self, combate):
         self.dialog_index += 1
         if self.dialog_index >= len(self.dialog_text):
             self.dialog_box_visible = False
-            self.start_bullet_hell()
+            print("combate empieza")
+            combate()

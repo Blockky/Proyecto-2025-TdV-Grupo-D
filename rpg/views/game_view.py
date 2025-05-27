@@ -13,11 +13,12 @@ import rpg.bosses_spawn as bosses
 from arcade.experimental.lights import Light
 from pyglet.math import Vec2
 
+from rpg import decisiones
 from rpg.bosses_spawn import coloca_boses
 from rpg.combate import CombatManager
 from rpg.musica import reproduce_musica, musc_ambiente
 from rpg.sprites.bosses_sprite import Boss, Slime
-from rpg.views import inventory_view, shop_view, loading_view
+from rpg.views import inventory_view, shop_view, loading_view, dialogos
 
 from resources.sounds.Sounds import damage_sound, combat_music
 from rpg.constants import INMO_DELAY, DEFAULT_PLAYER_STATS
@@ -27,6 +28,8 @@ from rpg.message_box import MessageBox
 from rpg.sprites.peligros import Proyectil, Peligro
 
 from rpg.sprites.player_sprite import PlayerSprite
+from rpg.views.cuadro_dialogos import CuadroDialogos
+from rpg.views.dialogos import fantasma
 from rpg.views.inventory_view import InventoryView
 from rpg.views.main_menu_view import MainMenuView
 from rpg.views.settings_view import SettingsView
@@ -166,6 +169,8 @@ class GameView(arcade.View):
     #el estado: está Exploration, Combat, Dialog y Locked
     state = "Exploration"
 
+    #esto es para los dialogos en combate
+    persuadiendo = False
 
     # Nombre del mapa en el que estamos
     curr_map_name = None #el mapa actual
@@ -257,8 +262,14 @@ class GameView(arcade.View):
         color = arcade.csscolor.WHITE
         self.player_light = Light(x, y, radius, color, mode)
 
+        #Crea el controlador de los dialogos
+        self.dialog_manager = CuadroDialogos()
+
         # Crea los bosses
-        self.slime = Slime("../resources/characters/Slime/Slime_movbase.png","../resources/characters/Slime/Slime_Sprites.png", (170, 340), 3,50,3)
+        self.angel = Boss("../resources/characters/Angel/Angel_Sprites.png",4,2,64,64, (400,1000), 3,1000,1000)
+        self.angel2 = Boss("../resources/characters/Angel/Angel_Sprites.png", 4, 2, 64, 64, (200, 200), 2.5, 1000, 1000)
+        self.angel3 = Boss("../resources/characters/Angel/Angel_Sprites.png", 4, 2, 64, 64, (190, 1000), 3, 1000, 1000)
+        self.slime = Slime("../resources/characters/Slime/Slime_movbase.png","../resources/characters/Slime/Slime_Sprites.png",3,4,32,32, (170, 340), 3,50,3)
 
     def reset_items(self):
         """Restablece los items del inventario a valores por defecto"""
@@ -485,6 +496,9 @@ class GameView(arcade.View):
         if self.message_box:
             self.message_box.on_draw()
 
+        #Dibuja los dialogos:
+        self.dialog_manager.on_draw()
+
         # draw GUI
         self.ui_manager.draw()
 
@@ -545,7 +559,38 @@ class GameView(arcade.View):
 
     #para colocar los bosses en sus salas
     def colocar_los_bosses(self):
-        coloca_boses(GameView.get_curr_map_name(), self.peligro_sprite_list, self.slime)
+        coloca_boses(GameView.get_curr_map_name(), self.peligro_sprite_list, self.angel, self.slime, self.angel2, self.angel3)
+
+    def start_combat(self,boss):
+        self.combat_manager = CombatManager(self.player_sprite, boss, self.peligro_sprite_list,GameView.get_curr_map_name(), self.opciones,lambda: self.colocar_los_bosses(), self.dialog_manager)
+
+        # si es el primer combate contra el slime, el angel debe desaparecer tras hablarte
+        if boss == self.slime:
+            self.angel2.death = True
+            self.colocar_los_bosses()
+
+        GameView.state = "Combat"
+        musc_ambiente(combat_music, 0.7)
+
+    def dialog_start(self, boss_dialog): #comienza dialogo, usar esto casi siempre
+        self.dialog_manager.start_dialog(boss_dialog)
+        GameView.state = "Dialog"
+
+    def angel_dialog(self): # parece inutil pero es necesario para dialogos con el angel
+        GameView.state = "Exploration"
+        self.angel.death = True
+
+    def angel3_dialog(self): # esto es muy sucio pero es lo mejor que se me ha ocurrido
+        GameView.state = "Exploration"
+        self.angel3.death = True
+
+    def angel_slime_combat_dialog(self): #también es necesario
+        decisiones.tutorial = False
+
+    def combat_dialog(self):
+        GameView.persuadiendo = False
+        self.combat_manager.persuadir()
+
 
 
     def on_update(self, delta_time):
@@ -808,15 +853,40 @@ class GameView(arcade.View):
             else:
                 self.disable_debug_menu()
 
-        #comenzar el combate
+        #interactuar con npc
         if key == arcade.key.E:
-            if GameView.state == "Locked":
+            if GameView.state == "Exploration": #dialogos en bucle
                 hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.peligro_sprite_list)
-                if self.slime in hit_list:
-                    print("Combate")
-                    self.combat_manager = CombatManager(self.player_sprite, self.slime, self.peligro_sprite_list,GameView.get_curr_map_name(), self.opciones, lambda:self.colocar_los_bosses())
-                    GameView.state = "Combat"
-                    musc_ambiente(combat_music, 0.7)
+                if self.angel in hit_list:
+                    self.dialog_start(dialogos.angel_loop)
+                elif self.angel3 in hit_list:
+                    self.dialog_start(dialogos.angel3_loop)
+            elif GameView.state == "Locked":
+                hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.peligro_sprite_list)
+                if self.angel2 in hit_list:
+                    self.dialog_start(dialogos.angel2)
+                elif self.angel in hit_list:
+                    self.dialog_start(dialogos.angel)
+                elif self.angel3 in hit_list:
+                        self.dialog_start(dialogos.angel3)
+
+        #pasar entre dialogos
+        if key == arcade.key.SPACE:
+            if GameView.state == "Dialog":
+                if GameView.get_curr_map_name() == "StartingRoomMap":
+                    self.dialog_manager.advance_dialog(lambda: self.angel_dialog())
+                elif GameView.get_curr_map_name() == "mapa_boss_slime":
+                    if self.angel2.death:
+                        if GameView.persuadiendo:
+                            self.dialog_manager.advance_dialog(lambda: self.combat_dialog())
+                        else:
+                            self.dialog_manager.advance_dialog(lambda: self.angel_slime_combat_dialog())
+
+                    else:
+                        self.dialog_manager.advance_dialog(lambda: self.start_combat(self.slime))
+                elif GameView.get_curr_map_name() == "salaExp_S1":
+                    self.dialog_manager.advance_dialog(lambda: self.angel3_dialog())
+
 
 
 

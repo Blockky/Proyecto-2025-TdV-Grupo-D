@@ -2,17 +2,18 @@ import arcade
 import rpg.constants as constants
 from rpg.sprites.peligros import Proyectil
 
-# Tamaño de cada frame (mas o menos del spritesheet)
-FRAME_WIDTH = 32
-FRAME_HEIGHT = 32
-COLUMNAS = 3
-FILAS = 4
-NUM_FRAMES = COLUMNAS * FILAS
+
+
 ANIMATION_SPEED = 0.1  # en segundos por frame
 
 class Boss(arcade.Sprite):
-    def __init__(self, spritesheet_path, position, scale, hp, anger):
+    def __init__(self, spritesheet_path,columnas,filas, frame_width, frame_height, position, scale, hp, anger):
         super().__init__(scale = scale)
+        self.columnas = columnas
+        self.filas = filas
+        self.frame_width = frame_width
+        self.frame_height = frame_height
+        self.num_frames = self.columnas * self.filas
         self.boss_max_hp = hp
         self.boss_hp = self.boss_max_hp
         self.boss_anger = anger
@@ -21,12 +22,12 @@ class Boss(arcade.Sprite):
         self.flashing = False
         self.death = False
 
-        for row in range(FILAS):
-            for col in range(COLUMNAS):
-                x = col * FRAME_WIDTH
-                y = row * FRAME_HEIGHT
+        for row in range(self.filas):
+            for col in range(self.columnas):
+                x = col * self.frame_width
+                y = row * self.frame_height
 
-                texture = arcade.load_texture(spritesheet_path,x=x,y=y,width=FRAME_WIDTH,height=FRAME_HEIGHT)
+                texture = arcade.load_texture(spritesheet_path,x=x,y=y,width=self.frame_width,height=self.frame_height)
                 self.textures.append(texture)
 
         self.center_x, self.center_y = position
@@ -60,8 +61,8 @@ class Boss(arcade.Sprite):
 
 
 class Slime(Boss):
-    def __init__(self, idle_spritesheet, special_spritesheet, position, scale, hp, anger):
-        super().__init__(idle_spritesheet, position, scale, hp, anger)
+    def __init__(self, idle_spritesheet, special_spritesheet,columnas, filas, frame_width, frame_height, position, scale, hp, anger):
+        super().__init__(idle_spritesheet,columnas,filas, frame_width, frame_height, position, scale, hp, anger)
         self.pattern_duration = 7 #lo que dura cada patron de ataque del boss
         self.fase_duration = 21 #lo que dura cada fase del combate del boss
 
@@ -76,9 +77,9 @@ class Slime(Boss):
         # Cargar animación shoot
         num_special_frames = 8 #esta animación tiene distintos frames
         for col in range(num_special_frames):
-            x = col * FRAME_WIDTH
-            y = 2 * FRAME_HEIGHT  # tercera fila
-            tex = arcade.load_texture(special_spritesheet, x=x, y=y, width=FRAME_WIDTH, height=FRAME_HEIGHT)
+            x = col * self.frame_width
+            y = 2 * self.frame_height  # tercera fila
+            tex = arcade.load_texture(special_spritesheet, x=x, y=y, width=self.frame_width, height=self.frame_height)
             self.animations["shoot"].append(tex)
 
         self.one_shot_animations = {"shoot"}

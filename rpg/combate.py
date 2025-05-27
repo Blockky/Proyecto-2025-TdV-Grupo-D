@@ -8,13 +8,14 @@ from rpg.views.settings_view import SettingsView
 
 class CombatManager:
 
-    def __init__(self, player, boss, peligros_list, map, botones, colocar_los_bosses):
+    def __init__(self, player, boss, peligros_list, map, botones, colocar_los_bosses, dialog_manager):
         self.player = player
         self.boss = boss
         self.peligros_list = peligros_list
         self.map = map
         self.botones = botones
         self.colocar_los_bosses = colocar_los_bosses
+        self.dialog_manager = dialog_manager
         self.state = "fight"
         self.attack_timer = 0  #tiempo entre ataques de un patron
         self.attack_timer2 = 0
@@ -55,11 +56,15 @@ class CombatManager:
         from rpg.views.game_view import GameView
         self.combat_timer += delta_time
 
-        if self.combat_timer > self.boss.fase_duration and self.state != "dialog": #el tiempo de cada fase
-            self.state = "dialog"
-            decision(self.botones, lambda: self.attack(), lambda: self.persuadir(),lambda: self.mochila())
-            self.pattern_timer = self.boss.pattern_duration +1
-            GameView.state = "Dialog"
+        if self.combat_timer > self.boss.fase_duration: #el tiempo de cada fase
+            self.state = "espera"
+            if self.combat_timer > self.boss.fase_duration + 3 and self.state != "dialog":
+                from rpg.views.game_view import GameView
+
+                self.state = "dialog"
+                decision(self.botones, lambda: self.attack(), lambda: self.persuadir(),lambda: self.mochila(), self.dialog_manager)
+                self.pattern_timer = self.boss.pattern_duration +1
+                GameView.state = "Dialog"
 
 
         if self.state == "fight": #esto ocurre cuando estamos luchando
@@ -116,7 +121,6 @@ class CombatManager:
                 self.attack_timer2 = 0
 
     def check_boss_health(self):
-        from rpg.views.game_view import GameView
         if self.boss.boss_hp <= 0:
             self.boss.death = True
             self.colocar_los_bosses()

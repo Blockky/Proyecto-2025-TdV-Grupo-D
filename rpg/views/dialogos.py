@@ -8,10 +8,20 @@ angel = ["¡Buenas viajero!",
          "Eso sí, mientras estaba investigando he escuchado algunos ruidos, no sé…eran como ¿monstruos?. Aunque creo que ha sido mi imaginación, o eso espero.",
          "De todas formas, no le demos más vueltas. Cuanto antes entremos, antes saldremos y averiguaremos que pasa.",
         "¡Vamos allá!"]
+angel_loop = ["Nos vemos dentro."] #se repite tras haber hablado ya
 
 #segunda conversacion del angel al llegar a la sala donde está el slime(que no habla al ser un combate introductorio
 angel2 = ["Vaya… Sinceramente, no esperaba esto. Espera. Qué es eso que está ahí?",
           "¡¿Es un monstruo?! ¡Encárgate de él!"]
+
+#conversación durante el combate del slime
+angel_slime1 = ["Ahora es tu oportunidad, atácale mientras está descansando."]
+angel_slime2 = ["Ya falta poco.",
+                "Pero ten cuidado al seguir atacándole.",
+                "Siempre se resisten más cuando están cerca de morir."]
+angel_slime3 = ["Sigue atacandole."]
+angel_slime_dialogar = ["No sirve de nada hablarle a un slime, no son lo suficientemente inteligentes."]
+
 
 #conversacion con el angel al finalizar el combate
 angel3 = [" Uf… Por poco",
@@ -19,6 +29,7 @@ angel3 = [" Uf… Por poco",
           "Aunque ese monstruo… Probablemente haya más esparcidos por la mazmorra. Así que no nos confiemos",
           "Yo creo que lo mejor será separarnos por el momento para poder explorar más a fondo. Nos reuniremos más adelante para compartir nuestros descubrimientos. No te preocupes por mí, puedo con todo.",
           "¡Vamos a ello!"]
+angel3_loop = ["No te preocupes por mí, puedo con todo."] #se repite tras haber hablado ya
 
 #Conversación con el de la tienda (será siempre la misma)
 gato = ["¡Ey, tú! ¡Sí, tú! ¡Bienvenido a mi tienda!",
