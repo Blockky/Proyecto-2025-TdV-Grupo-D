@@ -22,5 +22,6 @@ def coloca_boses(mapa,lista_peligros, angel, slime, angel2, angel3):   #funcion 
     lista_peligros.clear()
     colocar_boss(mapa, lista_peligros, slime, "mapa_boss_slime")
     colocar_boss(mapa, lista_peligros, angel, "StartingRoomMap")
-    colocar_boss(mapa, lista_peligros, angel2, "mapa_boss_slime")
+    if not slime.death: #para que reaparezca el angel 2 solo si el slime está vivo
+        colocar_boss(mapa, lista_peligros, angel2, "mapa_boss_slime")
     colocar_boss(mapa, lista_peligros, angel3, "salaExp_S1")

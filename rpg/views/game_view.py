@@ -346,19 +346,18 @@ class GameView(arcade.View):
         # musica ambiente
         reproduce_musica(GameView.get_curr_map_name())
 
-        #EStablece el estado inicial
+        #Establece el estado inicial
         GameView.state = "Exploration"
         #Se asegura de que los bosses spawneen bien
         self.colocar_los_bosses()
+        #Revive al segundo angel para que aparezca donde el slime si mueres
+        self.angel2.death = False
 
         # Set up the hotbar
         self.load_hotbar_sprites()
 
         # Establece la vida desde el JSON
         self.update_hp_from_json()
-
-        #Estado del juego
-        self.state = "exploration"
 
 
 
@@ -775,7 +774,7 @@ class GameView(arcade.View):
             self.window.show_view(self.window.views["game"])
 
 
-        #si estamos en combate, se ejecuta el combate
+        #si estamos en combate, se actualiza el combate
         if GameView.state == "Combat":
             self.combat_manager.update(delta_time)
 

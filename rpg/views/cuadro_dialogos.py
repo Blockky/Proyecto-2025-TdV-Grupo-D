@@ -55,5 +55,4 @@ class CuadroDialogos:
         self.dialog_index += 1
         if self.dialog_index >= len(self.dialog_text):
             self.dialog_box_visible = False
-            print("combate empieza")
             combate()

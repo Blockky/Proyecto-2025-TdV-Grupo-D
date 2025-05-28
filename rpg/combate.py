@@ -19,7 +19,7 @@ class CombatManager:
         self.state = "fight"
         self.attack_timer = 0  #tiempo entre ataques de un patron
         self.attack_timer2 = 0
-        self.pattern_timer = 6  #tiempo entre patrones
+        self.pattern_timer = 0  #tiempo entre patrones
         self.combat_timer = 0 #tiempo del combate en general
         self.current_pattern = ""
         self.player_damage = 20
@@ -28,6 +28,8 @@ class CombatManager:
 
         #reseteo la vida del boss al empezar
         self.boss.boss_hp = self.boss.boss_max_hp
+        #selecciona el primer patron del combat
+        self.choose_next_pattern()
 
     # funciones para la decisión en combate
     def attack(self):
@@ -113,9 +115,10 @@ class CombatManager:
                 self.boss.attack_crush(self.peligros_list,self.player)
                 self.attack_timer = 0
         elif self.current_pattern == "rain and crush":
-            if self.attack_timer > 0.8:
-                self.boss.attack_rain2(self.peligros_list, self.player)
-                self.attack_timer = 0
+            if self.combat_timer < 19:
+                if self.attack_timer > 0.8:
+                    self.boss.attack_rain2(self.peligros_list, self.player)
+                    self.attack_timer = 0
             if self.attack_timer2 > 3:
                 self.boss.attack_crush(self.peligros_list,self.player)
                 self.attack_timer2 = 0
