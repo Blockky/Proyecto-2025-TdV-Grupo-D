@@ -257,45 +257,9 @@
          "name":"doors",
          "objects":[
                 {
-                 "gid":192,
-                 "height":16,
-                 "id":1,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":256.45477892691,
-                 "y":320.348164086902
-                }, 
-                {
                  "gid":191,
                  "height":16,
-                 "id":2,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":239.796210175609,
-                 "y":318.959950024294
-                }, 
-                {
-                 "gid":191,
-                 "height":16,
-                 "id":3,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":225.914069549524,
-                 "y":318.959950024294
-                }, 
-                {
-                 "gid":190,
-                 "height":16,
-                 "id":4,
+                 "id":9,
                  "name":"",
                  "properties":[
                         {
@@ -306,19 +270,47 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":12
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":-3
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":208.561393766919,
-                 "y":320.348164086902
+                 "x":224,
+                 "y":320
+                }, 
+                {
+                 "gid":191,
+                 "height":16,
+                 "id":11,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"map_name",
+                         "type":"string",
+                         "value":"salaExp_A2"
+                        }, 
+                        {
+                         "name":"start_x",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"start_y",
+                         "type":"int",
+                         "value":-3
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":240,
+                 "y":320
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -327,7 +319,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":6,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

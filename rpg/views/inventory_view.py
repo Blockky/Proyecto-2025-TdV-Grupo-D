@@ -7,12 +7,7 @@ import json
 
 from arcade.gui import UIManager, UIAnchorWidget, UIBoxLayout, UIFlatButton, UITextureButton
 
-from resources.sounds.Sounds import potion_sound
 from rpg.constants import SCREEN_HEIGHT, SCREEN_WIDTH, INVENTORY_HEIGHT, INVENTORY_WIDTH
-from rpg.decisiones import decision
-from rpg.views.settings_view import SettingsView
-
-
 
 def cargar_datos(ruta_archivo):
     try:
@@ -33,7 +28,6 @@ stats = cargar_datos(ruta_player_json)
 
 
 class Item:
-
     def __init__(self, name, description, item_type):
         self.name = name
         self.description = description
@@ -98,9 +92,8 @@ class ItemButton(UIFlatButton):
            self.use_item()
 
 
-    def use_item(self):
-        from rpg.views.game_view import GameView
 
+    def use_item(self):
         """Ejemplo: usar una poción"""
         try:
             print(f"Usando {self.item.name}...")
@@ -123,23 +116,16 @@ class ItemButton(UIFlatButton):
                 return None
         except Exception as e:
             print(f"Error al usar el ítem: {e}")  # Debug
-        if GameView.state == "Combat" or GameView.state == "Dialog":
-            GameView.state = "Combat"
-            self.inventory_view.window.show_view(self.inventory_view.window.views["game"])
-
 
     def use_potion(self):
         """Usar una poción para curar HP, con límite máximo"""
         # Obtener el valor de curación del diccionario de items
         potion_data = items.get("Potion", {})
-        heal_amount = potion_data.get("heal_amount", 1)  # Valor por defecto 1 si no está definido
+        heal_amount = potion_data.get("heal_amount", 1)  # Valor por defecto 50 si no está definido
 
         # Calcular nueva vida sin exceder el máximo
         new_hp = stats["HP"] + heal_amount
         stats["HP"] = min(new_hp, stats["HP_MAX"])
-
-        #sonido
-        arcade.play_sound(potion_sound, volume=0.2 * SettingsView.v_ef)
 
         print(f"Usando poción... +{heal_amount} HP (HP actual: {stats['HP']}/{stats['HP_MAX']})")
         print(self.inventory_view.player_items[1].quantity)
@@ -169,31 +155,26 @@ class ItemButton(UIFlatButton):
             # Recrear la UI del inventario para reflejar los cambios
             self.inventory_view.recreate_inventory_ui()
 
+
 class InventoryView(arcade.View) :
     def __init__(self):
         super().__init__()
         self.started = False
-        arcade.set_background_color(arcade.color.LILAC)
+        arcade.set_background_color(arcade.color.ALMOND)
+
+
+
 
         # Variables del juego
         self.player_items = []
         self.ui_manager = UIManager()
 
-        # Crear algunos objetos de ejemplo
-        self.setup_items()
+
 
         self.create_inventory_ui()
 
-    def setup_items(self):
-        # Crear objetos para el inventario (solo texto)
-        item1 = Item("Sword", "Daño: 20","weapon")
-        item2 = Item("Potion", "Cura 2 HP","potion")
 
-        # Añadir múltiples instancias de algunos objetos
-        item2.quantity = 3
 
-        self.player_items.append(item1)
-        self.player_items.append(item2)
 
     def add_item(self, item):
         """Añade un ítem al inventario (maneja duplicados y stacks)"""
@@ -211,7 +192,7 @@ class InventoryView(arcade.View) :
     def reset_items(self):
         """Vacía el inventario y lo rellena con los objetos por defecto"""
         self.player_items = []  # Vacía la lista de items
-        self.setup_items()      # Vuelve a añadir los items por defecto
+             # Vuelve a añadir los items por defecto
         self.recreate_inventory_ui()  # Actualiza la UI
 
     def setup(self):
@@ -224,7 +205,7 @@ class InventoryView(arcade.View) :
             "Inventory",
             self.window.width / 2,
             self.window.height - 50,
-            arcade.color.BLACK,
+            arcade.color.ALLOY_ORANGE,
             44,
             anchor_x="center",
             anchor_y="center",
@@ -281,32 +262,33 @@ class InventoryView(arcade.View) :
             child=panel
         ))
 
-    def on_key_press(self, symbol: int, modifiers: int):
-        from rpg.views.game_view import GameView
-        if GameView.state != "Combat" and GameView.state != "Dialog":
-            closetomenu_inputs = [
-                arcade.key.ESCAPE
-            ]
-            if symbol in closetomenu_inputs:
-                self.window.show_view(self.window.views["main_menu"])
 
-            closetogame_inputs = [
-                arcade.key.I
-            ]
-            if symbol in closetogame_inputs:
-                self.window.show_view(self.window.views["game"])
+
+
+
+    def on_key_press(self, symbol: int, modifiers: int):
+        closetomenu_inputs = [
+            arcade.key.ESCAPE
+        ]
+        if symbol in closetomenu_inputs:
+            self.window.show_view(self.window.views["main_menu"])
+
+        closetogame_inputs = [
+            arcade.key.I
+        ]
+        if symbol in closetogame_inputs:
+            self.window.show_view(self.window.views["game"])
 
     def update(self, delta_time):
         pass
 
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.LILAC)
+        arcade.set_background_color(arcade.color.ALMOND)
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
 
         self.ui_manager.enable()
 
+
+
     def on_hide_view(self):
         self.ui_manager.disable()
-
-    def close_inventory(self): #lo necesito porque no me dejaba ponerlo en otro lado
-        self.window.show_view(self.window.views["game"])

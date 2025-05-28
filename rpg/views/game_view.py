@@ -819,15 +819,7 @@ class GameView(arcade.View):
         elif key in constants.SEARCH:
             self.search()
         elif key == arcade.key.KEY_1:
-            stats['HP']= 0
-            # Guardar los cambios en el archivo JSON
-            try:
-                with open(ruta_player_json, 'w', encoding='utf-8') as f:
-                    json.dump(stats, f, indent=4, ensure_ascii=False)
-                print("Datos del jugador actualizados correctamente.")
-            except Exception as e:
-                print(f"Error al guardar los datos: {e}")
-            self.hp = 0
+            self.selected_item = 1
         elif key == arcade.key.KEY_2:
             self.selected_item = 2
         elif key == arcade.key.KEY_3:
