@@ -285,7 +285,7 @@
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":17
+                         "value":18
                         }],
                  "rotation":0,
                  "type":"",
@@ -393,23 +393,23 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"../tilesets/wall_exp.json"
+         "source":"..\/tilesets\/wall_exp.json"
         }, 
         {
          "firstgid":225,
-         "source":"../tilesets/[Base]BaseChip_pipo.json"
+         "source":"..\/tilesets\/[Base]BaseChip_pipo.json"
         }, 
         {
          "firstgid":1289,
-         "source":"../tilesets/[A]Dirt_pipo.json"
+         "source":"..\/tilesets\/[A]Dirt_pipo.json"
         }, 
         {
          "firstgid":1625,
-         "source":"../tilesets/Deco_Mix.json"
+         "source":"..\/tilesets\/Deco_Mix.json"
         }, 
         {
          "firstgid":1705,
-         "source":"../tilesets/[A]Wall-Up_pipo.json"
+         "source":"..\/tilesets\/[A]Wall-Up_pipo.json"
         }],
  "tilewidth":32,
  "type":"map",

@@ -1,5 +1,5 @@
 { "backgroundcolor":"#383838",
-  "compressionlevel":-1,
+ "compressionlevel":-1,
  "height":32,
  "infinite":false,
  "layers":[
@@ -356,7 +356,7 @@
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":17
+                         "value":18
                         }],
                  "rotation":0,
                  "type":"",
@@ -436,31 +436,31 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"../tilesets/[A]Wall-Up_pipo.json"
+         "source":"..\/tilesets\/[A]Wall-Up_pipo.json"
         }, 
         {
          "firstgid":97,
-         "source":"../tilesets/[Base]BaseChip_pipo.json"
+         "source":"..\/tilesets\/[Base]BaseChip_pipo.json"
         }, 
         {
          "firstgid":1161,
-         "source":"../tilesets/[A]WaterFall_pipo.json"
+         "source":"..\/tilesets\/[A]WaterFall_pipo.json"
         }, 
         {
          "firstgid":1737,
-         "source":"../tilesets/[A]Water_pipo.json"
+         "source":"..\/tilesets\/[A]Water_pipo.json"
         }, 
         {
          "firstgid":4809,
-         "source":"../tilesets/Puzzle_PH.json"
+         "source":"..\/tilesets\/Puzzle_PH.json"
         }, 
         {
          "firstgid":4841,
-         "source":"../tilesets/wall_exp.json"
+         "source":"..\/tilesets\/wall_exp.json"
         }, 
         {
          "firstgid":5065,
-         "source":"../tilesets/[A]Dirt_pipo.json"
+         "source":"..\/tilesets\/[A]Dirt_pipo.json"
         }],
  "tilewidth":32,
  "type":"map",
