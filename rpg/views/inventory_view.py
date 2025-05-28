@@ -169,24 +169,12 @@ class InventoryView(arcade.View) :
         self.player_items = []
         self.ui_manager = UIManager()
 
-        # Crear algunos objetos de ejemplo
-        self.setup_items()
+
 
         self.create_inventory_ui()
 
 
 
-    def setup_items(self):
-        # Crear objetos para el inventario (solo texto)
-        item1 = Item("Sword", "Daño: 15","weapon")
-        item2 = Item("Potion", "Cura 50 HP","potion")
-
-
-        # Añadir múltiples instancias de algunos objetos
-        item2.quantity = 3
-
-        self.player_items.append(item1)
-        self.player_items.append(item2)
 
     def add_item(self, item):
         """Añade un ítem al inventario (maneja duplicados y stacks)"""
@@ -204,7 +192,7 @@ class InventoryView(arcade.View) :
     def reset_items(self):
         """Vacía el inventario y lo rellena con los objetos por defecto"""
         self.player_items = []  # Vacía la lista de items
-        self.setup_items()      # Vuelve a añadir los items por defecto
+             # Vuelve a añadir los items por defecto
         self.recreate_inventory_ui()  # Actualiza la UI
 
     def setup(self):
