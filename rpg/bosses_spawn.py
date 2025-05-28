@@ -8,7 +8,8 @@ def colocar_boss(mapa,lista_peligros,boss, mapa_boss):
     if not boss.death:
         if mapa == mapa_boss:
             if boss not in lista_peligros:
-                GameView.state = "Locked"
+                if mapa != "salaExp_S1":
+                    GameView.state = "Locked"
                 lista_peligros.append(boss)
         else:
             if boss in lista_peligros:
