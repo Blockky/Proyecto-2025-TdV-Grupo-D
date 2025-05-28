@@ -16,6 +16,7 @@ def colocar_boss(mapa,lista_peligros,boss, mapa_boss):
     else:
         if boss in lista_peligros:
             lista_peligros.remove(boss)
+        GameView.state = "Exploration"
 
 
 def coloca_boses(mapa,lista_peligros, angel, slime, angel2, angel3):   #funcion que hace spawnear al boss, se usa en el gameview

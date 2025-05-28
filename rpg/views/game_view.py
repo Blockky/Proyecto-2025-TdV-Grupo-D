@@ -725,8 +725,11 @@ class GameView(arcade.View):
                     )
 
                 # Swap to the new map
-                if GameView.state == "Exploration":
-                    self.switch_map(map_name, start_x, start_y)
+                if GameView.state == "Exploration" or GameView.state == "Locked":
+                    if GameView.state == "Locked" and (GameView.get_curr_map_name() == "mapa_boss_slime" or GameView.get_curr_map_name() == "mapa_boss_angel" or GameView.get_curr_map_name() == "mapa_boss_arana" or GameView.get_curr_map_name() == "mapa_boss_campana" or GameView.get_curr_map_name() == "mapa_boss_fantasma" or GameView.get_curr_map_name() == "mapa_boss_robot"or GameView.get_curr_map_name() == "StartingRoomMap" ):
+                        pass
+                    else:
+                        self.switch_map(map_name, start_x, start_y)
 
                     # Determina que musica reproducir
                     reproduce_musica(GameView.get_curr_map_name())

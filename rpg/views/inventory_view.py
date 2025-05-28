@@ -7,8 +7,11 @@ import json
 
 from arcade.gui import UIManager, UIAnchorWidget, UIBoxLayout, UIFlatButton, UITextureButton
 
+from resources.sounds.Sounds import potion_sound
 from rpg.constants import SCREEN_HEIGHT, SCREEN_WIDTH, INVENTORY_HEIGHT, INVENTORY_WIDTH
 from rpg.decisiones import decision
+from rpg.views.settings_view import SettingsView
+
 
 
 def cargar_datos(ruta_archivo):
@@ -134,6 +137,9 @@ class ItemButton(UIFlatButton):
         # Calcular nueva vida sin exceder el máximo
         new_hp = stats["HP"] + heal_amount
         stats["HP"] = min(new_hp, stats["HP_MAX"])
+
+        #sonido
+        arcade.play_sound(potion_sound, volume=0.2 * SettingsView.v_ef)
 
         print(f"Usando poción... +{heal_amount} HP (HP actual: {stats['HP']}/{stats['HP_MAX']})")
         print(self.inventory_view.player_items[1].quantity)

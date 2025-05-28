@@ -6,6 +6,7 @@ import arcade
 footsteps_sound = arcade.load_sound(r"../resources/sounds/pasos.wav")
 damage_sound = arcade.load_sound(r"../resources/sounds/daño.wav")
 attack_sound = arcade.load_sound(r"../resources/sounds/attack.wav")
+potion_sound = arcade.load_sound(r"../resources/sounds/pocion.wav")
 
 #Musica
 inicio_music = arcade.load_sound(r"../resources/sounds/inicio.wav")
