@@ -1,7 +1,7 @@
 {
   "Apple": {"short_name": "Apple",
             "type": "food",
-            "heal_amount": 5},
+            "heal_amount": 2},
   "Dagger": {"short_name": "Dagger",
              "type": "weapon",
              "damage_amount": 5,

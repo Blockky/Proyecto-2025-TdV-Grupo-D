@@ -9,12 +9,18 @@ from typing import Callable
 import arcade
 import arcade.gui
 import rpg.constants as constants
+import rpg.bosses_spawn as bosses
 from arcade.experimental.lights import Light
 from pyglet.math import Vec2
 
-from rpg.views import inventory_view, shop_view, loading_view
+from rpg import decisiones
+from rpg.bosses_spawn import coloca_boses
+from rpg.combate import CombatManager
+from rpg.musica import reproduce_musica, musc_ambiente
+from rpg.sprites.bosses_sprite import Boss, Slime
+from rpg.views import inventory_view, shop_view, loading_view, dialogos
 
-from resources.sounds.Sounds import damage_sound
+from resources.sounds.Sounds import damage_sound, combat_music
 from rpg.constants import INMO_DELAY, DEFAULT_PLAYER_STATS
 from rpg.decisiones import decision
 
@@ -22,6 +28,8 @@ from rpg.message_box import MessageBox
 from rpg.sprites.peligros import Proyectil, Peligro
 
 from rpg.sprites.player_sprite import PlayerSprite
+from rpg.views.cuadro_dialogos import CuadroDialogos
+from rpg.views.dialogos import fantasma
 from rpg.views.inventory_view import InventoryView
 from rpg.views.main_menu_view import MainMenuView
 from rpg.views.settings_view import SettingsView
@@ -158,6 +166,23 @@ class GameView(arcade.View):
     """
     Main application class.
     """
+    #el estado: está Exploration, Combat, Dialog y Locked
+    state = "Exploration"
+
+    #esto es para los dialogos en combate
+    persuadiendo = False
+
+    # Nombre del mapa en el que estamos
+    curr_map_name = None #el mapa actual
+
+
+    @classmethod
+    def set_curr_map_name(cls, name): #para poder modificar el mapa actual comodamente
+        cls.curr_map_name = name
+    @classmethod
+    def get_curr_map_name(cls):
+        return cls.curr_map_name #para poder acceder al mapa actual comodamente
+
 
     def __init__(self, map_list, inventory_view, shop_view):
         super().__init__()
@@ -168,6 +193,8 @@ class GameView(arcade.View):
         self.reset_items()
 
         arcade.set_background_color(arcade.color.AMAZON)
+
+        self.enemigo = None #para los bosses
 
 
 
@@ -186,14 +213,14 @@ class GameView(arcade.View):
         self.hp = stats['HP']
 
         #Para hacer inmortal al personaje unos segundos
-        self.inmortal = False
+        self.inmortal = True
         self.timer = 0
         self.inmo_delay = INMO_DELAY
 
         #Lista de peligros
         self.peligro_sprite_list = arcade.SpriteList()
 
-        #Gestiona los botones de la toma de decisiones
+        # Gestiona los botones de la toma de decisiones
         self.opciones = arcade.gui.UIManager()
         self.opciones.enable()
 
@@ -210,8 +237,6 @@ class GameView(arcade.View):
         # Maps
         self.map_list = map_list
 
-        # Name of map we are on
-        self.cur_map_name = None
 
         self.message_box = None
 
@@ -237,6 +262,15 @@ class GameView(arcade.View):
         color = arcade.csscolor.WHITE
         self.player_light = Light(x, y, radius, color, mode)
 
+        #Crea el controlador de los dialogos
+        self.dialog_manager = CuadroDialogos()
+
+        # Crea los bosses
+        self.angel = Boss("../resources/characters/Angel/Angel_Sprites.png",4,2,64,64, (400,1000), 3,1000,1000)
+        self.angel2 = Boss("../resources/characters/Angel/Angel_Sprites.png", 4, 2, 64, 64, (200, 200), 2.5, 1000, 1000)
+        self.angel3 = Boss("../resources/characters/Angel/Angel_Sprites.png", 4, 2, 64, 64, (190, 1000), 3, 1000, 1000)
+        self.slime = Slime("../resources/characters/Slime/Slime_movbase.png","../resources/characters/Slime/Slime_Sprites.png",3,4,32,32, (170, 340), 3,50,3)
+
     def reset_items(self):
         """Restablece los items del inventario a valores por defecto"""
 
@@ -258,10 +292,10 @@ class GameView(arcade.View):
         :param start_x: Grid x location to spawn at
         :param start_y: Grid y location to spawn at
         """
-        self.cur_map_name = map_name
+        GameView.set_curr_map_name(map_name)
 
         try:
-            self.my_map = self.map_list[self.cur_map_name]
+            self.my_map = self.map_list[GameView.get_curr_map_name()]
         except KeyError:
             raise KeyError(f"Unable to find map named '{map_name}'.")
 
@@ -308,13 +342,24 @@ class GameView(arcade.View):
         start_x = constants.STARTING_X
         start_y = constants.STARTING_Y
         self.switch_map(constants.STARTING_MAP, start_x, start_y)
-        self.cur_map_name = constants.STARTING_MAP
+        GameView.set_curr_map_name(constants.STARTING_MAP)
+        # musica ambiente
+        reproduce_musica(GameView.get_curr_map_name())
+
+        #Establece el estado inicial
+        GameView.state = "Exploration"
+        #Se asegura de que los bosses spawneen bien
+        self.colocar_los_bosses()
+        #Revive al segundo angel para que aparezca donde el slime si mueres
+        self.angel2.death = False
 
         # Set up the hotbar
         self.load_hotbar_sprites()
 
         # Establece la vida desde el JSON
         self.update_hp_from_json()
+
+
 
 
     def load_hotbar_sprites(self):
@@ -393,7 +438,7 @@ class GameView(arcade.View):
         # This command should happen before we start drawing. It will clear
         # the screen to the background color, and erase what we drew last frame.
         arcade.start_render()
-        cur_map = self.map_list[self.cur_map_name]
+        cur_map = self.map_list[GameView.get_curr_map_name()]
 
         # --- Light related ---
         # Everything that should be affected by lights gets rendered inside this
@@ -422,7 +467,7 @@ class GameView(arcade.View):
             # Draw the player
             self.player_sprite_list.draw()
 
-
+            # Dibuja los objetos dañinos
             self.peligro_sprite_list.draw()
 
         if cur_map.light_layer:
@@ -450,6 +495,9 @@ class GameView(arcade.View):
         if self.message_box:
             self.message_box.on_draw()
 
+        #Dibuja los dialogos:
+        self.dialog_manager.on_draw()
+
         # draw GUI
         self.ui_manager.draw()
 
@@ -464,9 +512,10 @@ class GameView(arcade.View):
 
     def on_show_view(self):
         # Set background color
-        my_map = self.map_list[self.cur_map_name]
+        my_map = self.map_list[GameView.get_curr_map_name()]
         if my_map.background_color:
             arcade.set_background_color(my_map.background_color)
+
 
         # Actualizar HP desde el JSON al mostrar la vista
         self.update_hp_from_json()
@@ -503,8 +552,43 @@ class GameView(arcade.View):
                 except Exception as e:
                     print(f"Error al guardar daño en JSON: {e}")
 
-                arcade.play_sound(damage_sound, volume=0.5 * SettingsView.v_ef)
+                arcade.play_sound(damage_sound, volume=0.4 * SettingsView.v_ef)
+                self.player_sprite.take_damage()
                 self.inmortal = True
+
+    #para colocar los bosses en sus salas
+    def colocar_los_bosses(self):
+        coloca_boses(GameView.get_curr_map_name(), self.peligro_sprite_list, self.angel, self.slime, self.angel2, self.angel3)
+
+    def start_combat(self,boss):
+        self.combat_manager = CombatManager(self.player_sprite, boss, self.peligro_sprite_list,GameView.get_curr_map_name(), self.opciones,lambda: self.colocar_los_bosses(), self.dialog_manager, lambda: self.window.show_view(self.window.views["inventory"]))
+
+        # si es el primer combate contra el slime, el angel debe desaparecer tras hablarte
+        if boss == self.slime:
+            self.angel2.death = True
+            self.colocar_los_bosses()
+
+        GameView.state = "Combat"
+        musc_ambiente(combat_music, 0.7)
+
+    def dialog_start(self, boss_dialog): #comienza dialogo, usar esto casi siempre
+        self.dialog_manager.start_dialog(boss_dialog)
+        GameView.state = "Dialog"
+
+    def angel_dialog(self): # parece inutil pero es necesario para dialogos con el angel
+        GameView.state = "Exploration"
+        self.angel.death = True
+
+    def angel3_dialog(self): # esto es muy sucio pero es lo mejor que se me ha ocurrido
+        GameView.state = "Exploration"
+        self.angel3.death = True
+
+    def angel_slime_combat_dialog(self): #también es necesario
+        decisiones.tutorial = False
+
+    def combat_dialog(self):
+        GameView.persuadiendo = False
+        self.combat_manager.persuadir()
 
 
 
@@ -614,13 +698,13 @@ class GameView(arcade.View):
 
         # Update the characters
         try:
-            self.map_list[self.cur_map_name].scene["characters"].on_update(delta_time)
+            self.map_list[GameView.get_curr_map_name()].scene["characters"].on_update(delta_time)
         except KeyError:
             # no characters on map
             pass
 
         # --- Manage doors ---
-        map_layers = self.map_list[self.cur_map_name].map_layers
+        map_layers = self.map_list[GameView.get_curr_map_name()].map_layers
 
         # Is there as layer named 'doors'?
         if "doors" in map_layers:
@@ -641,7 +725,17 @@ class GameView(arcade.View):
                     )
 
                 # Swap to the new map
-                self.switch_map(map_name, start_x, start_y)
+                if GameView.state == "Exploration" or GameView.state == "Locked":
+                    if GameView.state == "Locked" and (GameView.get_curr_map_name() == "mapa_boss_slime" or GameView.get_curr_map_name() == "mapa_boss_angel" or GameView.get_curr_map_name() == "mapa_boss_arana" or GameView.get_curr_map_name() == "mapa_boss_campana" or GameView.get_curr_map_name() == "mapa_boss_fantasma" or GameView.get_curr_map_name() == "mapa_boss_robot"or GameView.get_curr_map_name() == "StartingRoomMap" ):
+                        pass
+                    else:
+                        self.switch_map(map_name, start_x, start_y)
+
+                    # Determina que musica reproducir
+                    reproduce_musica(GameView.get_curr_map_name())
+                    # Aparece es boss, si es necesario
+                    self.colocar_los_bosses()
+
             else:
                 # We didn't hit a door, scroll normally
                 self.scroll_to_player()
@@ -649,14 +743,19 @@ class GameView(arcade.View):
             # No doors, scroll normally
             self.scroll_to_player()
 
+        #Reproduce la animación de los bosses
+        self.peligro_sprite_list.update_animation(delta_time)
+
         #Ejecuta que los peligros funcionen
         self.peligros()
         #Te hace inmortal unos segundos tras recibir daño
-        if self.inmortal:
+        if self.inmortal and GameView.state == "Combat":
             self.timer += delta_time
             if self.timer >= self.inmo_delay:
                 self.inmortal = False
                 self.timer = 0
+        elif not self.inmortal and GameView.state != "Combat":
+            self.inmortal = True
 
         #Si la vida llega a 0 mueres
         if self.hp <= 0:
@@ -678,6 +777,19 @@ class GameView(arcade.View):
             self.window.show_view(self.window.views["game"])
 
 
+        #si estamos en combate, se actualiza el combate
+        if GameView.state == "Combat":
+            self.combat_manager.update(delta_time)
+
+        #En dialogo no se puede andar
+        if GameView.state == "Dialog":
+            if self.up_pressed or self.down_pressed or self.left_pressed or self.right_pressed:
+                self.up_pressed = False
+                self.down_pressed = False
+                self.left_pressed = False
+                self.right_pressed = False
+
+
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
@@ -685,17 +797,18 @@ class GameView(arcade.View):
         if self.message_box:
             self.message_box.on_key_press(key, modifiers)
             return
-
-        if key in constants.KEY_UP:
-            self.up_pressed = True
-        elif key in constants.KEY_DOWN:
-            self.down_pressed = True
-        elif key in constants.KEY_LEFT:
-            self.left_pressed = True
-        elif key in constants.KEY_RIGHT:
-            self.right_pressed = True
-        elif key in constants.INVENTORY:
-            self.window.show_view(self.window.views["inventory"])
+        if GameView.state != "Dialog":  #no se puede mover en dialogo
+            if key in constants.KEY_UP:
+                self.up_pressed = True
+            elif key in constants.KEY_DOWN:
+                self.down_pressed = True
+            elif key in constants.KEY_LEFT:
+                self.left_pressed = True
+            elif key in constants.KEY_RIGHT:
+                self.right_pressed = True
+        if key in constants.INVENTORY:
+            if GameView.state == "Exploration" or GameView.state == "Locked":
+                self.window.show_view(self.window.views["inventory"])
         elif key == arcade.key.ESCAPE:
             self.window.show_view(self.window.views["main_menu"])
         elif key in constants.SEARCH:
@@ -720,12 +833,13 @@ class GameView(arcade.View):
             self.selected_item = 9
         elif key == arcade.key.KEY_0:
             self.selected_item = 10
-        elif key == arcade.key.L:
-            cur_map = self.map_list[self.cur_map_name]
-            if self.player_light in cur_map.light_layer:
-                cur_map.light_layer.remove(self.player_light)
-            else:
-                cur_map.light_layer.add(self.player_light)
+        elif key == arcade.key.L: #linterna (la he desactivado)
+            #cur_map = self.map_list[GameView.get_curr_map_name()]
+            #if self.player_light in cur_map.light_layer:
+                #cur_map.light_layer.remove(self.player_light)
+            #else:
+                #cur_map.light_layer.add(self.player_light)
+            pass
         elif key == arcade.key.G:  # G
             # toggle debug
             self.debug = True if not self.debug else False
@@ -734,15 +848,52 @@ class GameView(arcade.View):
             else:
                 self.disable_debug_menu()
 
+        #interactuar con npc
+        if key == arcade.key.E:
+            if GameView.state == "Exploration": #dialogos en bucle
+                hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.peligro_sprite_list)
+                if self.angel in hit_list:
+                    self.dialog_start(dialogos.angel_loop)
+                elif self.angel3 in hit_list:
+                    self.dialog_start(dialogos.angel3_loop)
+            elif GameView.state == "Locked":
+                hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.peligro_sprite_list)
+                if self.angel2 in hit_list:
+                    self.dialog_start(dialogos.angel2)
+                elif self.angel in hit_list:
+                    self.dialog_start(dialogos.angel)
+                elif self.angel3 in hit_list:
+                        self.dialog_start(dialogos.angel3)
+
+        #pasar entre dialogos
+        if key == arcade.key.SPACE:
+            if GameView.state == "Dialog":
+                if GameView.get_curr_map_name() == "StartingRoomMap":
+                    self.dialog_manager.advance_dialog(lambda: self.angel_dialog())
+                elif GameView.get_curr_map_name() == "mapa_boss_slime":
+                    if self.angel2.death:
+                        if GameView.persuadiendo:
+                            self.dialog_manager.advance_dialog(lambda: self.combat_dialog())
+                        else:
+                            self.dialog_manager.advance_dialog(lambda: self.angel_slime_combat_dialog())
+
+                    else:
+                        self.dialog_manager.advance_dialog(lambda: self.start_combat(self.slime))
+                elif GameView.get_curr_map_name() == "salaExp_S1":
+                    self.dialog_manager.advance_dialog(lambda: self.angel3_dialog())
+
+
+
+
 
     def close_message_box(self):
         self.message_box = None
 
     def search(self):
         """Search for things"""
-        map_layers = self.map_list[self.cur_map_name].map_layers
+        map_layers = self.map_list[GameView.get_curr_map_name()].map_layers
         if "searchable" not in map_layers:
-            print(f"No searchable sprites on {self.cur_map_name} map layer.")
+            print(f"No searchable sprites on {GameView.get_curr_map_name()} map layer.")
             return
 
         searchable_sprites = map_layers["searchable"]
@@ -795,6 +946,6 @@ class GameView(arcade.View):
         """
         self.camera_sprites.resize(width, height)
         self.camera_gui.resize(width, height)
-        cur_map = self.map_list[self.cur_map_name]
+        cur_map = self.map_list[GameView.get_curr_map_name()]
         if cur_map.light_layer:
             cur_map.light_layer.resize(width, height)

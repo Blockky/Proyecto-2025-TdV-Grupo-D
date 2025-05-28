@@ -1,5 +1,5 @@
 { "backgroundcolor":"#383838",
-  "compressionlevel":-1,
+ "compressionlevel":-1,
  "height":32,
  "infinite":false,
  "layers":[
@@ -232,17 +232,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"TIENDA"
+                         "value":"tienda5"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":9
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":18
                         }],
                  "rotation":0,
                  "type":"",
@@ -260,12 +260,12 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"mapa_boss2.1"
+                         "value":"mapa_boss_robot"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":8
+                         "value":11
                         }, 
                         {
                          "name":"start_y",
@@ -298,7 +298,7 @@
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":25
+                         "value":24
                         }],
                  "rotation":0,
                  "type":"",
@@ -326,7 +326,7 @@
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":30
+                         "value":29
                         }],
                  "rotation":0,
                  "type":"",
@@ -350,23 +350,23 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"../tilesets/wall_exp.json"
+         "source":"..\/tilesets\/wall_exp.json"
         }, 
         {
          "firstgid":225,
-         "source":"../tilesets/[Base]BaseChip_pipo.json"
+         "source":"..\/tilesets\/[Base]BaseChip_pipo.json"
         }, 
         {
          "firstgid":1289,
-         "source":"../tilesets/[A]Dirt_pipo.json"
+         "source":"..\/tilesets\/[A]Dirt_pipo.json"
         }, 
         {
          "firstgid":1625,
-         "source":"../tilesets/LightShadow_pipo.json"
+         "source":"..\/tilesets\/LightShadow_pipo.json"
         }, 
         {
          "firstgid":1673,
-         "source":"../tilesets/[A]Wall-Up_pipo.json"
+         "source":"..\/tilesets\/[A]Wall-Up_pipo.json"
         }],
  "tilewidth":32,
  "type":"map",

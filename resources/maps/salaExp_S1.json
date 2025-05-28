@@ -1,5 +1,5 @@
 { "backgroundcolor":"#383838",
-  "compressionlevel":-1,
+ "compressionlevel":-1,
  "height":32,
  "infinite":false,
  "layers":[
@@ -318,17 +318,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"mapa_boss1.1"
+                         "value":"mapa_boss_fantasma"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":15
+                         "value":14
                         }],
                  "rotation":0,
                  "type":"",
@@ -351,12 +351,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":7
+                         "value":9
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":19
+                         "value":18
                         }],
                  "rotation":0,
                  "type":"",
@@ -379,12 +379,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":5
+                         "value":6
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":1
+                         "value":-5
                         }],
                  "rotation":0,
                  "type":"",
@@ -402,12 +402,12 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"mapa_boss1"
+                         "value":"mapa_boss_slime"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":8
+                         "value":11
                         }, 
                         {
                          "name":"start_y",
@@ -436,31 +436,31 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"../tilesets/[A]Wall-Up_pipo.json"
+         "source":"..\/tilesets\/[A]Wall-Up_pipo.json"
         }, 
         {
          "firstgid":97,
-         "source":"../tilesets/[Base]BaseChip_pipo.json"
+         "source":"..\/tilesets\/[Base]BaseChip_pipo.json"
         }, 
         {
          "firstgid":1161,
-         "source":"../tilesets/[A]WaterFall_pipo.json"
+         "source":"..\/tilesets\/[A]WaterFall_pipo.json"
         }, 
         {
          "firstgid":1737,
-         "source":"../tilesets/[A]Water_pipo.json"
+         "source":"..\/tilesets\/[A]Water_pipo.json"
         }, 
         {
          "firstgid":4809,
-         "source":"../tilesets/Puzzle_PH.json"
+         "source":"..\/tilesets\/Puzzle_PH.json"
         }, 
         {
          "firstgid":4841,
-         "source":"../tilesets/wall_exp.json"
+         "source":"..\/tilesets\/wall_exp.json"
         }, 
         {
          "firstgid":5065,
-         "source":"../tilesets/[A]Dirt_pipo.json"
+         "source":"..\/tilesets\/[A]Dirt_pipo.json"
         }],
  "tilewidth":32,
  "type":"map",

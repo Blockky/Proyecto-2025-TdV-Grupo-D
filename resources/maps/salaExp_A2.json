@@ -1,5 +1,5 @@
 { "backgroundcolor":"#383838",
-  "compressionlevel":-1,
+ "compressionlevel":-1,
  "height":32,
  "infinite":false,
  "layers":[
@@ -280,12 +280,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":30
+                         "value":36
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":22
+                         "value":20
                         }],
                  "rotation":0,
                  "type":"",
@@ -303,17 +303,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":""
+                         "value":"tienda4"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":0
+                         "value":9
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":0
+                         "value":18
                         }],
                  "rotation":0,
                  "type":"",
@@ -331,17 +331,17 @@
                         {
                          "name":"map_name",
                          "type":"string",
-                         "value":"mapa_boss2.1"
+                         "value":"mapa_boss_robot"
                         }, 
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":4
+                         "value":6
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":19
+                         "value":18
                         }],
                  "rotation":0,
                  "type":"",
@@ -365,19 +365,19 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"../tilesets/wall_exp.json"
+         "source":"..\/tilesets\/wall_exp.json"
         }, 
         {
          "firstgid":225,
-         "source":"../tilesets/[Base]BaseChip_pipo.json"
+         "source":"..\/tilesets\/[Base]BaseChip_pipo.json"
         }, 
         {
          "firstgid":1289,
-         "source":"../tilesets/[A]Dirt_pipo.json"
+         "source":"..\/tilesets\/[A]Dirt_pipo.json"
         }, 
         {
          "firstgid":1625,
-         "source":"../tilesets/[A]Wall-Up_pipo.json"
+         "source":"..\/tilesets\/[A]Wall-Up_pipo.json"
         }],
  "tilewidth":32,
  "type":"map",

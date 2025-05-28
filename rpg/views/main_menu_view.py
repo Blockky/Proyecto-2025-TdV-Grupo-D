@@ -5,6 +5,8 @@ import arcade
 import arcade.gui
 
 
+
+
 class MainMenuView(arcade.View):
     """
     This class acts as the game view for the main menu screen and its buttons. Accessed by hitting ESC. That logic can be referenced in game_view.py
@@ -33,10 +35,6 @@ class MainMenuView(arcade.View):
         self.v_box.add(settings_button.with_space_around(bottom=20))
         settings_button.on_click = self.on_click_settings
 
-        battle_button = arcade.gui.UIFlatButton(text="Battle Screen", width=200)
-        self.v_box.add(battle_button.with_space_around(bottom=20))
-        battle_button.on_click = self.on_click_battle
-
         inventory_button = arcade.gui.UIFlatButton(text="Inventory Screen", width=200)
         self.v_box.add(inventory_button.with_space_around(bottom=20))
         inventory_button.on_click = self.on_click_inventory
@@ -57,7 +55,7 @@ class MainMenuView(arcade.View):
 
     def on_show_view(self):
         self.manager.enable()
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
 
     def on_hide_view(self):
         self.manager.disable()
@@ -91,9 +89,11 @@ class MainMenuView(arcade.View):
         self.window.show_view(self.window.views["battle"])
 
     def on_click_inventory(self, event):
-        print("inventory screen")
-        self.window.views["inventory"].setup()
-        self.window.show_view(self.window.views["inventory"])
+        from rpg.views.game_view import GameView
+        if GameView.state == "Exploration" or GameView.state == "Locked":
+            print("inventory screen")
+            self.window.views["inventory"].setup()
+            self.window.show_view(self.window.views["inventory"])
         
 
     def on_click_shop(self, event):

@@ -30,7 +30,6 @@ ruta_items_json = "..\\resources\\data\\item_dictionary.json"
 items = cargar_datos(ruta_items_json)
 stats = cargar_datos(ruta_player_json)
 
-
 class Item:
     def __init__(self, name, description, item_type, buy_value):
         self.name = name
@@ -115,7 +114,7 @@ class ShopView(arcade.View):
     def __init__(self, inventory_view):
         super().__init__()
         self.started = False
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
 
         # Variables de la tienda
         self.shop_items = []
@@ -135,10 +134,7 @@ class ShopView(arcade.View):
         try:
             stats = cargar_datos(ruta_player_json)
 
-
             self.gold_text = f"Gold: {stats['GOLD']}"
-
-
 
         except Exception as e:
             print(f"Error al cargar stats: {e}")
@@ -209,18 +205,14 @@ class ShopView(arcade.View):
         self.inventory_view.add_item(new_item)
 
 
-
-
     def on_draw(self):
         arcade.start_render()
-
-
 
         arcade.draw_text(
             "The Shop",
             self.window.width / 2,
             self.window.height - 50,
-            arcade.color.ALLOY_ORANGE,
+            arcade.color.BLACK,
             44,
             anchor_x="center",
             anchor_y="center",
@@ -231,7 +223,7 @@ class ShopView(arcade.View):
             self.gold_text,
             self.window.width / 2,
             self.window.height - 600,
-            arcade.color.GOLD,
+            arcade.color.BLACK,
             44,
             anchor_x="center",
             anchor_y="center",
@@ -243,7 +235,7 @@ class ShopView(arcade.View):
         selected_items = [item for item in self.shop_items if item.selected]
         for i, item in enumerate(selected_items):
             # Dibujar un recuadro con el nombre del objeto seleccionado
-            arcade.draw_rectangle_filled(50 + i * 120, 50, 100, 40, arcade.color.GOLD)
+            arcade.draw_rectangle_filled(50 + i * 120, 50, 100, 40, arcade.color.BLACK)
             arcade.draw_text(item.name, 50 + i * 120, 50,
                              arcade.color.BLACK, 14,
                              align="center", anchor_x="center", anchor_y="center")
@@ -303,14 +295,10 @@ class ShopView(arcade.View):
 
     def on_show_view(self):
         self.load_gold()
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
 
         self.ui_manager.enable()
 
-
-
     def on_hide_view(self):
         self.ui_manager.disable()
-
-

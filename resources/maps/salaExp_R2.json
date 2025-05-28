@@ -194,12 +194,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":5
+                         "value":6
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":30
+                         "value":29
                         }],
                  "rotation":0,
                  "type":"",
@@ -222,12 +222,12 @@
                         {
                          "name":"start_x",
                          "type":"int",
-                         "value":30
+                         "value":36
                         }, 
                         {
                          "name":"start_y",
                          "type":"int",
-                         "value":25
+                         "value":24
                         }],
                  "rotation":0,
                  "type":"",
