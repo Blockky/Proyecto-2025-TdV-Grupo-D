@@ -187,7 +187,7 @@ class InventoryView(arcade.View) :
     def setup_items(self):
         # Crear objetos para el inventario (solo texto)
         item1 = Item("Sword", "Daño: 20","weapon")
-        item2 = Item("Potion", "Cura 1 HP","potion")
+        item2 = Item("Potion", "Cura 2 HP","potion")
 
         # Añadir múltiples instancias de algunos objetos
         item2.quantity = 3

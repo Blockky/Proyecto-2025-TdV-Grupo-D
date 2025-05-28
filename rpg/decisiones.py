@@ -6,7 +6,7 @@ from rpg.views import dialogos
 
 dialogos_tutorial = 0
 tutorial = False
-def decision(opciones, ataque, no_ataque, el_inventario, dialog_manager):     # crea los tres botones para decidir que hacer durante un combate
+def decision(opciones, ataque, no_ataque, el_inventario, dialog_manager,boss):     # crea los tres botones para decidir que hacer durante un combate
     from rpg.views.game_view import GameView
 
 
@@ -42,7 +42,17 @@ def decision(opciones, ataque, no_ataque, el_inventario, dialog_manager):     # 
 
     def on_click_no_atacar(evento):     # al pulsar no atacar ejecuta no_ataque
         if not tutorial:
-            dialog_manager.start_dialog(dialogos.angel_slime_dialogar)
+            if GameView.get_curr_map_name() == "mapa_boss_slime":
+                dialog_manager.start_dialog(dialogos.angel_slime_dialogar)
+            elif GameView.get_curr_map_name() == "mapa_boss_fantasma":
+                if boss.convencido == 0:
+                    dialog_manager.start_dialog(dialogos.fantasma_dialogar1)
+                elif boss.convencido == 1:
+                    dialog_manager.start_dialog(dialogos.fantasma_dialogar2)
+                elif boss.convencido == 2:
+                    dialog_manager.start_dialog(dialogos.fantasma_dialogar3)
+                elif boss.convencido == 3:
+                    dialog_manager.start_dialog(dialogos.fantasma_dialogar4)
             GameView.persuadiendo = True
             opciones.remove(widget_anclado)
 

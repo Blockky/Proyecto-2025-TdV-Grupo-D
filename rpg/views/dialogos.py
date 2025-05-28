@@ -45,6 +45,17 @@ gato_no_comprar = ["Pues adiós"]
 #antes de iniciar el combate
 fantasma = ["¡Boo! Jejejejeje. ¿A qué te has asustado?",
             "¿No? Bueno, da igual, porque de aquí no podrás pasar"]
+
+fantasma_dialogar2 = ["Se lo que intentas",
+                      "¿Intentas que te deje pasar verdad?",
+                      "¿Pues sabes que?",
+                      "Eso no va a ocurrir!"]
+fantasma_dialogar1 = ["¡No intentes seducirme!"]
+fantasma_dialogar4 = ["Puede que estés empezando a caerme mejor",
+                      "Uy, ¿He dicho eso en voz alta?"]
+fantasma_dialogar3 = ["¡Paraaaa!",
+                      "Estás quitandole la gracia a acabar con tigo."]
+
 #si se deja vivo -> consejos futuros
 fantasma2 = ["Supongo que gracias por no haberme matado",
              "Como agradecimiento, te voy a dar alguna pista.",

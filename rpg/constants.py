@@ -58,13 +58,13 @@ stats = cargar_datos(ruta_player_json)
 
 DEFAULT_PLAYER_STATS = {
     "HP": 5,
-    "HP_MAX": 10,
-    "ATK": 5,
+    "HP_MAX": 5,
+    "ATK": 20,
     "GOLD": 50,
     "EQUIPPED": {
         "short_name": "None",
         "type": "weapon",
-        "damage_amount": 0
+        "damage_amount": 20
     }
 }
 

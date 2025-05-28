@@ -5,6 +5,7 @@ import arcade
 from resources.sounds.Sounds import footsteps_sound
 from rpg import constants
 from rpg.sprites.character_sprite import CharacterSprite
+
 from rpg.views.settings_view import SettingsView
 
 
@@ -37,7 +38,13 @@ class PlayerSprite(CharacterSprite):
 
 
     def on_update(self, delta_time):
+        from rpg.views.game_view import GameView
         super().on_update(delta_time)
+
+        if GameView.state == "Dialog":
+            if self.step_player is not None:
+                arcade.stop_sound(self.step_player)
+                self.step_player = None
 
         if self.moving:
             if self.step_player is None:

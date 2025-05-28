@@ -1,8 +1,10 @@
+
 import arcade
 import rpg.constants as constants
-from rpg.sprites.peligros import Proyectil
-
-
+from resources.sounds.Sounds import ghost_sound
+from rpg.sprites.peligros import Proyectil, Esbirro
+from rpg.views.settings_view import SettingsView
+import math
 
 ANIMATION_SPEED = 0.1  # en segundos por frame
 
@@ -17,6 +19,7 @@ class Boss(arcade.Sprite):
         self.boss_max_hp = hp
         self.boss_hp = self.boss_max_hp
         self.boss_anger = anger
+        self.convencido = 0
         self.textures = []
         self.flash_count = 0
         self.flashing = False
@@ -136,13 +139,146 @@ class Slime(Boss):
         import random
         random_num = random.randint(0,1)
         if random_num == 0:
-            gota_izq = Proyectil(self.textura_gota, 2, -50, player.center_y + 12, 0, 7, player)
+            gota_izq = Proyectil(self.textura_gota, 2, -50, player.center_y + 12, 0, 6, player)
             gota_dere = Proyectil(self.textura_gota, 2, 450, player.center_y - 12, 180, 7, player)
             peligros_list.append(gota_izq)
             peligros_list.append(gota_dere)
         if random_num == 1:
             gota_arrib = Proyectil(self.textura_gota, 2, player.center_x + 11, 430, 270, 7, player)
-            gota_abaj = Proyectil(self.textura_gota, 2, player.center_x - 12, -30, 90, 7, player)
+            gota_abaj = Proyectil(self.textura_gota, 2, player.center_x - 12, -30, 90, 6, player)
             peligros_list.append(gota_abaj)
             peligros_list.append(gota_arrib)
 
+
+
+class Fantasma(Boss):
+    def __init__(self, spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger):
+        self.spritesheet_path = spritesheet_path
+        super().__init__(spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger)
+        self.start_x = self.center_x
+        self.start_y = self.center_y
+        self.pattern_duration = 5  # lo que dura cada patron de ataque del boss
+        self.fase_duration = 30  # lo que dura cada fase del combate del boss
+        self.animaciones = self._cargar_animaciones()
+        self.animacion_actual = 0
+        self.current_frame = 0
+        self.time_since_last_change = 0
+        self.texture = self.animaciones[self.animacion_actual][self.current_frame]
+        self.attack_timer = 0
+        self.shout = True
+
+        #Movimiento
+        self.direction = 0
+        self.speed = 0
+        self.radianes = math.radians(self.direction)
+        self.change_x = math.cos(self.radianes) * self.speed
+        self.change_y = math.sin(self.radianes) * self.speed
+        self.follow = False
+
+    def update(self):
+        # Movimiento
+        self.center_x += self.change_x
+        self.center_y += self.change_y
+
+
+    def _cargar_animaciones(self):
+        """Carga las animaciones por fila."""
+        animaciones = []
+        for row in range(self.filas):
+            fila_anim = []
+            for col in range(self.columnas):
+                x = col * self.frame_width
+                y = row * self.frame_height
+                texture = arcade.load_texture(self.spritesheet_path, x=x, y=y, width=self.frame_width, height=self.frame_height)
+                fila_anim.append(texture)
+            animaciones.append(fila_anim)
+        return animaciones
+
+    def cambiar_animacion(self, nueva_fila):
+        """Cambia a una nueva animación (fila de sprites)."""
+        if 0 <= nueva_fila < self.filas:
+            self.animacion_actual = nueva_fila
+            self.current_frame = 0
+            self.time_since_last_change = 0
+            self.texture = self.animaciones[self.animacion_actual][self.current_frame]
+
+    def update_animation(self, delta_time: float = 1/60):
+        self.time_since_last_change += delta_time
+        if self.time_since_last_change > ANIMATION_SPEED:
+            self.time_since_last_change = 0
+            self.current_frame = (self.current_frame + 1) % len(self.animaciones[self.animacion_actual])
+            self.texture = self.animaciones[self.animacion_actual][self.current_frame]
+
+    def teleport(self, x, y):
+        self.center_x = x
+        self.center_y = y
+
+    def move(self,speed,angle):
+        self.speed = speed
+        self.direction = angle
+        self.radianes = math.radians(self.direction)
+        self.change_x = math.cos(self.radianes) * self.speed
+        self.change_y = math.sin(self.radianes) * self.speed
+
+    def stop(self):
+        self.change_x = 0
+        self.change_y = 0
+
+    def random_shout(self):
+        import random
+        random_num = random.randint(0, 1)
+
+        if self.shout and random_num == 1:
+            arcade.play_sound(ghost_sound, volume=0.4 * SettingsView.v_ef)
+            self.shout = False
+        else:
+            self.shout = True
+
+    #self.teleport(random_num2, -60)  # abajo
+    #fantasma.animacion_actual = 3
+
+    def random_tp(self,fantasma):
+        import random
+        random_num = random.randint(0, 2)
+        random_num2 = random.randint(30, 370)
+        self.random_shout()
+
+        if random_num == 0:
+            self.teleport(-70, random_num2) #izquierda
+            fantasma.animacion_actual = 2
+        elif random_num == 1:
+            self.teleport(450, random_num2)  # derecha
+            fantasma.animacion_actual = 1
+        elif random_num == 2:
+            self.teleport(random_num2, 460)  # arriba
+            fantasma.animacion_actual = 0
+
+    def attack_dash(self, player, fantasma, speed):
+        # Calcula diferencia en coordenadas
+        dx = player.center_x - fantasma.center_x
+        dy = player.center_y - fantasma.center_y
+
+        # Calcula ángulo en radianes y convierte a grados
+        angulo_radianes = math.atan2(dy, dx)
+        angulo_grados = math.degrees(angulo_radianes)
+
+        velocidad = speed
+
+        self.random_shout()
+
+        if fantasma.animacion_actual == 2 and dx > 0:  # mirando a la derecha
+            self.move(velocidad, angulo_grados)
+        elif fantasma.animacion_actual == 1 and dx < 0:  # mirando a la izquierda
+            self.move(velocidad, angulo_grados)
+        elif fantasma.animacion_actual == 0 and dy < 0:  # mirando hacia arriba
+            self.move(velocidad, angulo_grados)
+
+    def attack_summon(self, player, peligro_list):
+        import random
+        random_num = random.randint(30, 370)
+        random_num2 = random.randint(0, 1)
+        if random_num2 == 0:
+            esbirro1 = Esbirro("../resources/characters/Enemy/Enemy 16-1.png",1,-30,random_num,180,2,player,True)
+        else:
+            esbirro1 = Esbirro("../resources/characters/Enemy/Enemy 16-1.png", 1, 420, random_num, 180, 2, player, True)
+        peligro_list.append(esbirro1)
