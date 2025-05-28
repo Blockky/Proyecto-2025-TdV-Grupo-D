@@ -561,7 +561,7 @@ class GameView(arcade.View):
         coloca_boses(GameView.get_curr_map_name(), self.peligro_sprite_list, self.angel, self.slime, self.angel2, self.angel3)
 
     def start_combat(self,boss):
-        self.combat_manager = CombatManager(self.player_sprite, boss, self.peligro_sprite_list,GameView.get_curr_map_name(), self.opciones,lambda: self.colocar_los_bosses(), self.dialog_manager)
+        self.combat_manager = CombatManager(self.player_sprite, boss, self.peligro_sprite_list,GameView.get_curr_map_name(), self.opciones,lambda: self.colocar_los_bosses(), self.dialog_manager, lambda: self.window.show_view(self.window.views["inventory"]))
 
         # si es el primer combate contra el slime, el angel debe desaparecer tras hablarte
         if boss == self.slime:
@@ -804,7 +804,8 @@ class GameView(arcade.View):
             elif key in constants.KEY_RIGHT:
                 self.right_pressed = True
         if key in constants.INVENTORY:
-            self.window.show_view(self.window.views["inventory"])
+            if GameView.state == "Exploration" or GameView.state == "Locked":
+                self.window.show_view(self.window.views["inventory"])
         elif key == arcade.key.ESCAPE:
             self.window.show_view(self.window.views["main_menu"])
         elif key in constants.SEARCH:

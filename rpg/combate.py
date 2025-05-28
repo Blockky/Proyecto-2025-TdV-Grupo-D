@@ -8,7 +8,7 @@ from rpg.views.settings_view import SettingsView
 
 class CombatManager:
 
-    def __init__(self, player, boss, peligros_list, map, botones, colocar_los_bosses, dialog_manager):
+    def __init__(self, player, boss, peligros_list, map, botones, colocar_los_bosses, dialog_manager, inventory_view):
         self.player = player
         self.boss = boss
         self.peligros_list = peligros_list
@@ -16,6 +16,7 @@ class CombatManager:
         self.botones = botones
         self.colocar_los_bosses = colocar_los_bosses
         self.dialog_manager = dialog_manager
+        self.inventory_view = inventory_view
         self.state = "fight"
         self.attack_timer = 0  #tiempo entre ataques de un patron
         self.attack_timer2 = 0
@@ -51,13 +52,16 @@ class CombatManager:
         GameView.state = "Combat"
 
     def mochila(self):
-        print("inventory screen: WIP")
+        from rpg.views.game_view import GameView
+        print("inventory screen:")
+        self.state = "fight"
+        self.inventory_view()
+        self.combat_timer = 0
 
 
     def update(self, delta_time):
         from rpg.views.game_view import GameView
         self.combat_timer += delta_time
-
         if self.combat_timer > self.boss.fase_duration: #el tiempo de cada fase
             self.state = "espera"
             if self.combat_timer > self.boss.fase_duration + 3 and self.state != "dialog":

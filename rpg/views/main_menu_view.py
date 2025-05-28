@@ -5,6 +5,8 @@ import arcade
 import arcade.gui
 
 
+
+
 class MainMenuView(arcade.View):
     """
     This class acts as the game view for the main menu screen and its buttons. Accessed by hitting ESC. That logic can be referenced in game_view.py
@@ -90,9 +92,11 @@ class MainMenuView(arcade.View):
         self.window.show_view(self.window.views["battle"])
 
     def on_click_inventory(self, event):
-        print("inventory screen")
-        self.window.views["inventory"].setup()
-        self.window.show_view(self.window.views["inventory"])
+        from rpg.views.game_view import GameView
+        if GameView.state == "Exploration" or GameView.state == "Locked":
+            print("inventory screen")
+            self.window.views["inventory"].setup()
+            self.window.show_view(self.window.views["inventory"])
         
 
     def on_click_shop(self, event):

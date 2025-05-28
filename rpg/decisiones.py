@@ -3,6 +3,7 @@ import arcade.gui
 
 from rpg.views import dialogos
 
+
 dialogos_tutorial = 0
 tutorial = False
 def decision(opciones, ataque, no_ataque, el_inventario, dialog_manager):     # crea los tres botones para decidir que hacer durante un combate
@@ -15,6 +16,7 @@ def decision(opciones, ataque, no_ataque, el_inventario, dialog_manager):     # 
     inventario = arcade.gui.UIFlatButton(text="Inventario", width=200)
     global dialogos_tutorial
     global tutorial
+
 
     #dialogos del combate tutorial
     if GameView.get_curr_map_name() == "mapa_boss_slime":
@@ -31,6 +33,7 @@ def decision(opciones, ataque, no_ataque, el_inventario, dialog_manager):     # 
 
     widget_anclado = arcade.gui.UIAnchorWidget(anchor_x="center_x",anchor_y="center_y",align_y=-250,child=boton_box)
 
+
     def on_click_atacar(evento):        # al pulsar atacar ejecuta ataque
         if not tutorial:
             ataque()
@@ -46,6 +49,9 @@ def decision(opciones, ataque, no_ataque, el_inventario, dialog_manager):     # 
     def on_click_inventario(evento):    #al pulsar inventario ejecuta el_inventario
         if not tutorial:
             el_inventario()
+            opciones.remove(widget_anclado)
+
+
 
 
 
