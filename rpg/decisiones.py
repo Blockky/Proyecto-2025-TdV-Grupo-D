@@ -61,6 +61,13 @@ def decision(opciones, ataque, no_ataque, el_inventario, dialog_manager,boss):  
                         dialog_manager.start_dialog(dialogos.aranna_diag2)
                     elif boss.convencido == 2:
                         dialog_manager.start_dialog(dialogos.aranna_diag3)
+                elif GameView.get_curr_map_name() == "mapa_boss_robot":
+                    if boss.convencido == 0:
+                        dialog_manager.start_dialog(dialogos.robot_diag1)
+                    elif boss.convencido == 1:
+                        dialog_manager.start_dialog(dialogos.robot_diag2)
+                    elif boss.convencido == 2:
+                        dialog_manager.start_dialog(dialogos.robot_diag3)
                 GameView.persuadiendo = True
             else:
                 no_ataque()
