@@ -69,13 +69,13 @@
 > a veces el que no arriesga gana.
 
 > **Jefes:**
->> Debes de esquivar sus ataques para poder vencerlos
+>> Debes de esquivar sus ataques para poder vencerlos.
 >> Sus ataques dobles solo siguen una linea recta, prioriza 
 > moverte en diagonales para esquivarlos con mayor facilidad
-> Cuando termine la secuencia de ataques debes de elegir si luchar o hablar con ellos.
+> Cuando termine la secuencia de ataques debes de elegir si atacar o dialogar con ellos.
 >> Algunos bosses, sin contar el slime del inicio y el boss final, puedes evitar tener que matarlos,
-> para ello tendrás que pacificarlos hablándoles constantemente (tras usar la función de hablar entre
-> 2-4 veces te dejarán marchar). O en caso de querer matarlos, tienes que usar la función de luchar
+> para ello tendrás que pacificarlos hablándoles constantemente (tras usar la función de dialogar entre
+> 2-4 veces te dejarán marchar). O en caso de querer matarlos, tienes que usar la función de atacar
 > hasta que la vida de estos llegue a cero.
 >> También puedes usar pociones durante el combate usando la opción de inventario.
 

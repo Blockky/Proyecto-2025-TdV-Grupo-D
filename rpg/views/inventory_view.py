@@ -24,8 +24,8 @@ def cargar_datos(ruta_archivo):
         print(f"Error: El archivo {ruta_archivo} tiene formato JSON inválido")
         return None
 
-ruta_player_json = "..\\resources\\data\\player_info.json"
-ruta_items_json = "..\\resources\\data\\item_dictionary.json"
+ruta_player_json = "../resources/data/player_info.json"
+ruta_items_json = "../resources/data/item_dictionary.json"
 items = cargar_datos(ruta_items_json)
 stats = cargar_datos(ruta_player_json)
 
