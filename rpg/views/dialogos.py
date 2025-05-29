@@ -95,6 +95,7 @@ campana2 = ["Sombra: No te voy a ayudar en nada. Estás perdiendo tu tiempo.",
 campana_ayuda = ["Campana: Bien. Una de las cosas que sé es que hay una araña rondando por aquí que no te va a ayudar en nada. Por lo que no pierdas tu tiempo.",
                  "Campana: ¡Y otra cosa! Creo que hay alguien quien podría ayudarte a entender mejor qués es este sitio.",
                  "Campana: La cosa es que no me acuerdo de quién es. Lo siento."]
+camp = ["Ojalá ser amigos"]
 
 #Diálogos del robot
 #antes de iniciar el combate

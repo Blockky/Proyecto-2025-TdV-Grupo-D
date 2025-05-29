@@ -42,37 +42,37 @@ def decision(opciones, ataque, no_ataque, el_inventario, dialog_manager,boss):  
 
     def on_click_no_atacar(evento):     # al pulsar no atacar ejecuta no_ataque
         if not tutorial:
-            if GameView.get_curr_map_name() != "mapa_boss_campana":
-                if GameView.get_curr_map_name() == "mapa_boss_slime":
-                    dialog_manager.start_dialog(dialogos.angel_slime_dialogar)
-                elif GameView.get_curr_map_name() == "mapa_boss_fantasma":
-                    if boss.convencido == 0:
-                        dialog_manager.start_dialog(dialogos.fantasma_dialogar1)
-                    elif boss.convencido == 1:
-                        dialog_manager.start_dialog(dialogos.fantasma_dialogar2)
-                    elif boss.convencido == 2:
-                        dialog_manager.start_dialog(dialogos.fantasma_dialogar3)
-                    elif boss.convencido == 3:
-                        dialog_manager.start_dialog(dialogos.fantasma_dialogar4)
-                elif GameView.get_curr_map_name() == "mapa_boss_arana":
-                    if boss.convencido == 0:
-                        dialog_manager.start_dialog(dialogos.aranna_diag1)
-                    elif boss.convencido == 1:
-                        dialog_manager.start_dialog(dialogos.aranna_diag2)
-                    elif boss.convencido == 2:
-                        dialog_manager.start_dialog(dialogos.aranna_diag3)
-                elif GameView.get_curr_map_name() == "mapa_boss_robot":
-                    if boss.convencido == 0:
-                        dialog_manager.start_dialog(dialogos.robot_diag1)
-                    elif boss.convencido == 1:
-                        dialog_manager.start_dialog(dialogos.robot_diag2)
-                    elif boss.convencido == 2:
-                        dialog_manager.start_dialog(dialogos.robot_diag3)
-                elif GameView.get_curr_map_name() == "mapa_boss_angel":
-                    dialog_manager.start_dialog(dialogos.demonio)
-                GameView.persuadiendo = True
-            else:
-                no_ataque()
+            if GameView.get_curr_map_name() == "mapa_boss_slime":
+                dialog_manager.start_dialog(dialogos.angel_slime_dialogar)
+            elif GameView.get_curr_map_name() == "mapa_boss_fantasma":
+                if boss.convencido == 0:
+                    dialog_manager.start_dialog(dialogos.fantasma_dialogar1)
+                elif boss.convencido == 1:
+                    dialog_manager.start_dialog(dialogos.fantasma_dialogar2)
+                elif boss.convencido == 2:
+                    dialog_manager.start_dialog(dialogos.fantasma_dialogar3)
+                elif boss.convencido == 3:
+                    dialog_manager.start_dialog(dialogos.fantasma_dialogar4)
+            elif GameView.get_curr_map_name() == "mapa_boss_arana":
+                if boss.convencido == 0:
+                    dialog_manager.start_dialog(dialogos.aranna_diag1)
+                elif boss.convencido == 1:
+                    dialog_manager.start_dialog(dialogos.aranna_diag2)
+                elif boss.convencido == 2:
+                    dialog_manager.start_dialog(dialogos.aranna_diag3)
+            elif GameView.get_curr_map_name() == "mapa_boss_robot":
+                if boss.convencido == 0:
+                    dialog_manager.start_dialog(dialogos.robot_diag1)
+                elif boss.convencido == 1:
+                    dialog_manager.start_dialog(dialogos.robot_diag2)
+                elif boss.convencido == 2:
+                    dialog_manager.start_dialog(dialogos.robot_diag3)
+            elif GameView.get_curr_map_name() == "mapa_boss_angel":
+                dialog_manager.start_dialog(dialogos.demonio)
+            elif GameView.get_curr_map_name() == "mapa_boss_campana":
+                dialog_manager.start_dialog(dialogos.camp)
+
+            GameView.persuadiendo = True
             opciones.remove(widget_anclado)
 
     def on_click_inventario(evento):    #al pulsar inventario ejecuta el_inventario
