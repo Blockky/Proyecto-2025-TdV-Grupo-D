@@ -501,6 +501,7 @@ class GameView(arcade.View):
         # draw GUI
         self.ui_manager.draw()
 
+
     def scroll_to_player(self, speed=constants.CAMERA_SPEED):
         """Manage Scrolling"""
 

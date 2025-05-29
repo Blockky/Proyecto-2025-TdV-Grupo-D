@@ -37,6 +37,24 @@ class Boss(arcade.Sprite):
         self.current_texture_index = 0
         self.texture = self.textures[self.current_texture_index]
         self.time_since_last_change = 0
+    #Barra de vida de los bosses
+    def draw_health_bar(self):
+        # Tamaño y posición de la barra
+        bar_width = 60
+        bar_height = 8
+        hp_percentage = self.boss_hp / self.boss_max_hp
+        health_width = bar_width * hp_percentage
+
+        # Posición encima del boss
+        x = self.center_x
+        y = self.top + 10
+
+        # Fondo
+        arcade.draw_rectangle_filled(x, y, bar_width, bar_height, arcade.color.GRAY)
+        # barra actual
+        arcade.draw_rectangle_filled(x - (bar_width - health_width) / 2, y, health_width, bar_height, arcade.color.RICH_CARMINE)
+        # Borde
+        arcade.draw_rectangle_outline(x, y, bar_width, bar_height, arcade.color.CAPUT_MORTUUM)
 
     def update_animation(self, delta_time: float = 1/60):
         self.time_since_last_change += delta_time
