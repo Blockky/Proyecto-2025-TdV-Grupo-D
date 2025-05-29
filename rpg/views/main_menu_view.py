@@ -29,6 +29,9 @@ class MainMenuView(arcade.View):
         self.v_box.add(player_button.with_space_around(bottom=20))
         player_button.on_click = self.on_click_player
 
+        shop_button = arcade.gui.UIFlatButton(text="Shop", width=200)
+        self.v_box.add(shop_button.with_space_around(bottom=20))
+        shop_button.on_click = self.on_click_shop
 
 
         settings_button = arcade.gui.UIFlatButton(text="Settings", width=200)
