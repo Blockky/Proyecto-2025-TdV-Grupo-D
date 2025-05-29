@@ -343,6 +343,8 @@ class GameView(arcade.View):
         else:
             self.switch_map(constants.STARTING_MAP, constants.STARTING_X, constants.STARTING_Y)
             GameView.set_curr_map_name(constants.STARTING_MAP)
+
+
         # musica ambiente
         reproduce_musica(GameView.get_curr_map_name())
 
@@ -501,6 +503,9 @@ class GameView(arcade.View):
         # draw GUI
         self.ui_manager.draw()
 
+        #Barras de vida
+        self.health_bar_draw()
+
 
     def scroll_to_player(self, speed=constants.CAMERA_SPEED):
         """Manage Scrolling"""
@@ -520,6 +525,10 @@ class GameView(arcade.View):
 
         # Actualizar HP desde el JSON al mostrar la vista
         self.update_hp_from_json()
+
+    def health_bar_draw(self):
+        self.fantasma.draw_health_bar()
+        self.slime.draw_health_bar()
 
     def update_hp_from_json(self):
         """Actualiza self.hp con el valor actual del JSON"""
@@ -562,14 +571,14 @@ class GameView(arcade.View):
         coloca_boses(GameView.get_curr_map_name(), self.peligro_sprite_list, self.angel, self.slime, self.angel2, self.angel3, self.fantasma)
 
     def start_combat(self,boss):
-        self.combat_manager = CombatManager(self.player_sprite, boss, self.peligro_sprite_list,GameView.get_curr_map_name(), self.opciones,lambda: self.colocar_los_bosses(), self.dialog_manager, lambda: self.window.show_view(self.window.views["inventory"]))
-
         # si es el primer combate contra el slime, el angel debe desaparecer tras hablarte
         if boss == self.slime:
             self.angel2.death = True
             self.colocar_los_bosses()
 
-        GameView.state = "Combat"
+        self.combat_manager = CombatManager(self.player_sprite, boss, self.peligro_sprite_list,GameView.get_curr_map_name(), self.opciones,lambda: self.colocar_los_bosses(), self.dialog_manager, lambda: self.window.show_view(self.window.views["inventory"]))
+
+        GameView.state = "Combat" #músicas
         if GameView.get_curr_map_name() == "mapa_boss_fantasma":
             musc_ambiente(fantasma_combat_music, 0.2)
         else:
@@ -781,6 +790,7 @@ class GameView(arcade.View):
             self.reset_shop()
 
             # Reiniciar el juego
+            self.player_sprite.step_player.delete()
             self.window.views["game"].setup()
             self.window.show_view(self.window.views["game"])
 
@@ -875,12 +885,14 @@ class GameView(arcade.View):
                     self.dialog_start(dialogos.angel)
                 elif self.angel3 in hit_list:
                         self.dialog_start(dialogos.angel3)
+                        stats["HP"] = stats["HP_MAX"]
                         self.hp = stats["HP_MAX"]
                 #Hablar con el fantasma
                 if self.fantasma in hit_list:
                     if self.fantasma.convencido >= self.fantasma.boss_anger:
                         self.dialog_start(dialogos.fantasma2)
                         self.hp = stats["HP_MAX"]
+                        stats["HP"] = stats["HP_MAX"]
                     else:
                         self.dialog_start(dialogos.fantasma)
                     arcade.play_sound(ghost_sound, volume=0.4 * SettingsView.v_ef)

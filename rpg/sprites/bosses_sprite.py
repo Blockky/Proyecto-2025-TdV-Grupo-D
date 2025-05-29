@@ -24,6 +24,7 @@ class Boss(arcade.Sprite):
         self.flash_count = 0
         self.flashing = False
         self.death = False
+        self.show_health_bar = False  # si se dibuja o no la barra de vida
 
         for row in range(self.filas):
             for col in range(self.columnas):
@@ -39,22 +40,22 @@ class Boss(arcade.Sprite):
         self.time_since_last_change = 0
     #Barra de vida de los bosses
     def draw_health_bar(self):
+        if not self.show_health_bar:
+            return  # No se dibuja durante el parpadeo
+
         # Tamaño y posición de la barra
-        bar_width = 60
-        bar_height = 8
+        bar_width = 500
+        bar_height = 15
         hp_percentage = self.boss_hp / self.boss_max_hp
         health_width = bar_width * hp_percentage
 
-        # Posición encima del boss
-        x = self.center_x
-        y = self.top + 10
+        x = constants.SCREEN_WIDTH // 2
+        y = 30
 
-        # Fondo
-        arcade.draw_rectangle_filled(x, y, bar_width, bar_height, arcade.color.GRAY)
-        # barra actual
-        arcade.draw_rectangle_filled(x - (bar_width - health_width) / 2, y, health_width, bar_height, arcade.color.RICH_CARMINE)
-        # Borde
-        arcade.draw_rectangle_outline(x, y, bar_width, bar_height, arcade.color.CAPUT_MORTUUM)
+        arcade.draw_rectangle_filled(x, y, bar_width, bar_height, arcade.color.GRAY) # el fondo
+        if self.boss_hp > 0:
+            arcade.draw_rectangle_filled(x - (bar_width - health_width) / 2, y, health_width, bar_height,arcade.color.RICH_CARMINE) #el relleno (la vida)
+        arcade.draw_rectangle_outline(x, y, bar_width + 1, bar_height + 1, arcade.color.WHITE) # el borde
 
     def update_animation(self, delta_time: float = 1/60):
         self.time_since_last_change += delta_time
@@ -73,10 +74,13 @@ class Boss(arcade.Sprite):
     def flash_effect(self, delta_time):
         # alpha entre opaco y transparente
         self.alpha = 90 if self.alpha == 255 else 255
+        self.show_health_bar = not self.show_health_bar #La barra también parpadea
         self.flash_count += 1
 
         if self.flash_count >= 6:  # 3 flashes
             self.alpha = 255
+            if self.boss_hp > 0 and self.boss_anger > self.convencido:
+                self.show_health_bar = True
             arcade.unschedule(self.flash_effect)
             self.flashing = False
 

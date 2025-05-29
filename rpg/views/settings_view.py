@@ -88,7 +88,7 @@ class SettingsView(arcade.View):
 
    #al pulsar reset
     def pulso_reset(self,event):
-        SettingsView.v_ef = 1.8
+        SettingsView.v_ef = 1
    #al pulsar + de efectos de sonido
     def pulso_mas_sf(self,event):
         if SettingsView.v_ef < 2:
@@ -109,7 +109,7 @@ class SettingsView(arcade.View):
     def pulso_reset_music(self, event):
         from rpg.views.game_view import GameView
 
-        SettingsView.v_music = 1
+        SettingsView.v_music = 1.8
         reproduce_musica(GameView.get_curr_map_name())
 
         # al pulsar + de musica

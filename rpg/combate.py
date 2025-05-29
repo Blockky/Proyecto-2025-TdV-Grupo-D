@@ -1,7 +1,6 @@
 import arcade
 
 from resources.sounds.Sounds import attack_sound
-from rpg.constants import stats
 from rpg.decisiones import decision
 from rpg.musica import stop_music
 from rpg.views.settings_view import SettingsView
@@ -31,6 +30,8 @@ class CombatManager:
         #reseteo la vida y la convicción del boss al empezar
         self.boss.boss_hp = self.boss.boss_max_hp
         self.boss.convencido = 0
+        # Aparece la barra de vida
+        self.boss.show_health_bar = True
         #selecciona el primer patron del combat
         if self.map == "mapa_boss_slime":
             self.choose_next_pattern()
@@ -45,6 +46,7 @@ class CombatManager:
         self.boss.take_damage()
         print(self.boss.boss_hp)
         self.combat_timer = 0
+        self.attack_timer3 = 0
         self.state = "fight"
         GameView.state = "Combat"
 
@@ -57,7 +59,6 @@ class CombatManager:
         GameView.state = "Combat"
 
     def mochila(self):
-        from rpg.views.game_view import GameView
         print("inventory screen:")
         self.state = "fight"
         self.inventory_view()
@@ -83,7 +84,6 @@ class CombatManager:
                     self.boss.teleport(self.boss.start_x, self.boss.start_y)
                     self.boss.animacion_actual = 0
 
-                self.choose_next_pattern()
 
 
         if self.state == "fight": #esto ocurre cuando estamos luchando
@@ -103,7 +103,7 @@ class CombatManager:
 
         self.check_boss_health() #revisa la vida del boss, para ver si está muerto y eso
         if self.state == "win":
-            stats["HP"] = stats["HP_MAX"]
+            self.colocar_los_bosses()
             GameView.state = "Locked"
             stop_music()
 
@@ -159,7 +159,7 @@ class CombatManager:
                 self.boss.attack_crush(self.peligros_list,self.player)
                 self.attack_timer2 = 0
         elif self.current_pattern == "Tp":
-            if self.attack_timer > 0.9:
+            if self.attack_timer > 0.8:
                 self.boss.stop()
                 self.boss.random_tp(self.boss)
                 self.attack_timer = 0
@@ -196,7 +196,7 @@ class CombatManager:
                 self.boss.attack_summon(self.player,self.peligros_list)
                 self.attack_timer2 = 0
             if self.attack_timer3 > 7:
-                self.boss.attack_dash(self.player, self.boss, 7)
+                self.boss.attack_dash(self.player, self.boss, 6)
                 self.attack_timer3 = 0
 
 
@@ -205,10 +205,8 @@ class CombatManager:
     def check_boss_health(self):
         if self.boss.boss_hp <= 0:
             self.boss.death = True
-            self.colocar_los_bosses()
             self.state = "win"
 
         elif self.boss.boss_anger <= self.boss.convencido:
-            self.colocar_los_bosses()
             self.state = "win"
 

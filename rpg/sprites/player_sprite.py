@@ -42,16 +42,17 @@ class PlayerSprite(CharacterSprite):
         super().on_update(delta_time)
 
         if GameView.state == "Dialog":
-            if self.step_player is not None:
-                arcade.stop_sound(self.step_player)
-                self.step_player = None
+            self.change_x = 0
+            self.change_y = 0
+
 
         if self.moving:
             if self.step_player is None:
                 self.step_player = arcade.play_sound(footsteps_sound, looping=True, volume = 0.35 * SettingsView.v_ef)
         else:
             if self.step_player is not None:
-                arcade.stop_sound(self.step_player)
+                self.step_player.pause()
+                self.step_player.delete()
                 self.step_player = None
 
         if self.change_x != 0 or self.change_y != 0:

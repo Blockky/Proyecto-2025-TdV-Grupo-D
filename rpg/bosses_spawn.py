@@ -4,6 +4,7 @@ import arcade
 
 def colocar_boss(mapa,lista_peligros,boss, mapa_boss):
     from rpg.views.game_view import GameView
+    boss.show_health_bar = False #desaparece la barra de vida
     if not boss.death:
         if mapa == mapa_boss:
             if boss.convencido >= boss.boss_anger:

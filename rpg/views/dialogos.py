@@ -47,15 +47,15 @@ gato_no_comprar = ["Pues adiós"]
 fantasma = ["¡Boo! Jejejejeje. ¿A qué te has asustado?",
             "¿No? Bueno, da igual, porque de aquí no podrás pasar"]
 
-fantasma_dialogar2 = ["Se lo que intentas",
+fantasma_dialogar1 = ["Se lo que intentas",
                       "¿Intentas que te deje pasar verdad?",
                       "¿Pues sabes que?",
                       "Eso no va a ocurrir!"]
-fantasma_dialogar1 = ["¡No intentes coutivarme!"]
-fantasma_dialogar4 = ["Puede que estés empezando a caerme mejor",
+fantasma_dialogar3 = ["Puede que estés empezando a caerme mejor",
                       "Uy, ¿He dicho eso en voz alta?"]
-fantasma_dialogar3 = ["¡Paraaaa!",
+fantasma_dialogar2 = ["¡Paraaaa!",
                       "Estás quitandole la gracia a acabar con tigo."]
+fantasma_dialogar4 = ["Vale, tu ganas."]
 
 #si se deja vivo -> consejos futuros
 fantasma2 = ["Supongo que gracias por no haberme matado",
