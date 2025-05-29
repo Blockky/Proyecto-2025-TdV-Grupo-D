@@ -17,7 +17,7 @@ from rpg import decisiones
 from rpg.bosses_spawn import coloca_boses
 from rpg.combate import CombatManager
 from rpg.musica import reproduce_musica, musc_ambiente
-from rpg.sprites.bosses_sprite import Boss, Slime, Fantasma
+from rpg.sprites.bosses_sprite import Boss, Slime, Fantasma, Aranna
 from rpg.views import inventory_view, shop_view, loading_view, dialogos
 
 from resources.sounds.Sounds import damage_sound, combat_music, door_sound, ghost_sound, fantasma_combat_music
@@ -269,6 +269,7 @@ class GameView(arcade.View):
         self.angel3 = Boss("../resources/characters/Angel/Angel_Sprites.png", 4, 2, 64, 64, (190, 1000), 3, 1000, 1000)
         self.slime = Slime("../resources/characters/Slime/Slime_movbase.png","../resources/characters/Slime/Slime_Sprites.png",3,4,32,32, (170, 340), 3,50,1000)
         self.fantasma = Fantasma("../resources/characters/Enemy/fantasma.png",3,4,32,32,(170,340),2.6,70,4)
+        self.aranna = Aranna("../resources/characters/Enemy/araña.png", 3, 2, 32, 32, (170, 340), 3, 35, 3)
     def reset_items(self):
         """Restablece los items del inventario a valores por defecto"""
 
@@ -529,6 +530,7 @@ class GameView(arcade.View):
     def health_bar_draw(self):
         self.fantasma.draw_health_bar()
         self.slime.draw_health_bar()
+        self.aranna.draw_health_bar()
 
     def update_hp_from_json(self):
         """Actualiza self.hp con el valor actual del JSON"""
@@ -568,7 +570,7 @@ class GameView(arcade.View):
 
     #para colocar los bosses en sus salas
     def colocar_los_bosses(self):
-        coloca_boses(GameView.get_curr_map_name(), self.peligro_sprite_list, self.angel, self.slime, self.angel2, self.angel3, self.fantasma)
+        coloca_boses(GameView.get_curr_map_name(), self.peligro_sprite_list, self.angel, self.slime, self.angel2, self.angel3, self.fantasma, self.aranna)
 
     def start_combat(self,boss):
         # si es el primer combate contra el slime, el angel debe desaparecer tras hablarte
@@ -790,7 +792,8 @@ class GameView(arcade.View):
             self.reset_shop()
 
             # Reiniciar el juego
-            self.player_sprite.step_player.delete()
+            if self.player_sprite.step_player is not None:
+                self.player_sprite.step_player.delete()
             self.window.views["game"].setup()
             self.window.show_view(self.window.views["game"])
 
@@ -876,6 +879,8 @@ class GameView(arcade.View):
                 elif self.fantasma in hit_list:
                     self.dialog_start(dialogos.fantasma3)
                     arcade.play_sound(ghost_sound, volume=0.4 * SettingsView.v_ef)
+                elif self.aranna in hit_list:
+                    self.dialog_start(dialogos.aranna2)
             elif GameView.state == "Locked":
                 hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.peligro_sprite_list)
                 #Hablar con el angel
@@ -896,6 +901,15 @@ class GameView(arcade.View):
                     else:
                         self.dialog_start(dialogos.fantasma)
                     arcade.play_sound(ghost_sound, volume=0.4 * SettingsView.v_ef)
+                if self.aranna in hit_list:
+                    if self.aranna.convencido >= self.aranna.boss_anger:
+                        self.dialog_start(dialogos.aranna2)
+                        self.hp = stats["HP_MAX"]
+                        stats["HP"] = stats["HP_MAX"]
+                    else:
+                        self.dialog_start(dialogos.aranna)
+
+
 
 
         #pasar entre dialogos
@@ -920,8 +934,10 @@ class GameView(arcade.View):
                     if GameView.persuadiendo:
                         self.dialog_manager.advance_dialog(lambda: self.combat_dialog())
                     else:
-                        self.dialog_manager.advance_dialog(lambda: self.start_combat(self.fantasma))
-
+                        if GameView.get_curr_map_name() == "mapa_boss_fantasma":
+                            self.dialog_manager.advance_dialog(lambda: self.start_combat(self.fantasma))
+                        elif GameView.get_curr_map_name() == "mapa_boss_arana":
+                            self.dialog_manager.advance_dialog(lambda: self.start_combat(self.aranna))
 
 
 

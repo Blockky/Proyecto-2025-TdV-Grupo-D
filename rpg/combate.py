@@ -134,9 +134,12 @@ class CombatManager:
                         self.current_pattern = "Tp"
             else:
                 self.current_pattern = random.choice(["Dash", "Summon", "Tp"])
-
-
-
+        elif self.map == "mapa_boss_arana":
+            if self.boss.boss_hp <= self.boss.boss_max_hp / 3:
+                self.current_pattern = "crush"
+                self.final_pattern = True
+            else:
+                self.current_pattern = random.choice(["crush", "rain"])
 
 
     def run_current_pattern(self):

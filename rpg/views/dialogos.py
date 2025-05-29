@@ -72,6 +72,12 @@ fantasma3 = ["¿Ya te he dicho q no confíes en nadie en este sitio, no?"]
 aranna = ["¿Pero qué tenemos por aquí?",
           "Ha pasado mucho tiempo desde que él trajo a un nuevo viajero.",
           "No te preocupes, nos lo vamos a pasar muy bien."]
+aranna_diag1 = ["Así que quieres que te deje escapar eh?",
+               "¡Pues sigue soñando!, hoy serás la cena de mis crias"]
+aranna_diag2 = ["¡No insistas más!",
+                "Necesito alimentarles..."]
+aranna_diag3 = ["Vale, definitivamente no puedo contigo",
+                "Te dejaré pasar"]
 #si se deja vivo -> seguirá siendo hostil aunque ya no ataca
 aranna2 = ["Aunque me hayas dejado vivir, no te daré las gracias.",
            "Así que no te voy a dar mi ayuda.",

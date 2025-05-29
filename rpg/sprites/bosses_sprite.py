@@ -2,7 +2,7 @@
 import arcade
 import rpg.constants as constants
 from resources.sounds.Sounds import ghost_sound
-from rpg.sprites.peligros import Proyectil, Esbirro
+from rpg.sprites.peligros import Proyectil, Esbirro, Rayo, Telar
 from rpg.views.settings_view import SettingsView
 import math
 
@@ -304,3 +304,45 @@ class Fantasma(Boss):
         else:
             esbirro1 = Esbirro("../resources/characters/Enemy/Enemy 16-1.png", 1, 420, random_num, 180, 2, player, True)
         peligro_list.append(esbirro1)
+
+class Aranna(Boss):
+    def __init__(self, spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger):
+        super().__init__(spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger)
+        # Puedes agregar animaciones igual que en Slime
+        self.pattern_duration = 7  # lo que dura cada patron de ataque del boss
+        self.fase_duration = 21  # lo que dura cada fase del combate del boss
+        self.tela = arcade.load_texture("../resources/misc/tela.png")
+        self.bloques = arcade.load_texture("../resources/misc/bola.png")
+
+    def attack_rain(self, peligros_list, player):
+        import random
+        random_x = random.randint(0, constants.SCREEN_WIDTH-900)
+
+        telar = Telar(self.bloques,2,random_x,430,270,2,player)
+        peligros_list.append(telar)
+
+    def attack_rain2(self, peligros_list, player):
+        import random
+        random_x = random.randint(200, constants.SCREEN_WIDTH-550)
+        random_x2 = random.randint(450, constants.SCREEN_WIDTH - 550)
+
+        telar = Telar(self.bloques,1.6,random_x,420,210,2,player)
+        telar2 = Telar(self.bloques, 1.6, random_x2, 300, 210, 2, player)
+        peligros_list.append(telar)
+        peligros_list.append(telar2)
+
+    def attack_crush(self, peligros_list, player):
+        import random
+        random_num = random.randint(0,1)
+        if random_num == 0:
+            rayo_der = Rayo(self.tela, 2, 650, player.center_y - 12, 180, 6.5, player)
+            rayo_der2 = Rayo(self.tela, 2, 600, player.center_y - 36, 180, 6.5, player)
+            peligros_list.append(rayo_der)
+            peligros_list.append(rayo_der2)
+
+        if random_num == 1:
+            rayo_izq = Rayo(self.tela, 2, -250, player.center_y + 12, 0, 6.5, player)
+            rayo_izq2 = Rayo(self.tela, 2, -220, player.center_y - 12, 0, 6.5, player)
+            peligros_list.append(rayo_izq)
+            peligros_list.append(rayo_izq2)
+

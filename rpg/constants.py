@@ -25,13 +25,17 @@ BOTTOM_VIEWPORT_MARGIN = 300
 TOP_VIEWPORT_MARGIN = 300
 
 # What map, and what position we start at
-STARTING_MAP = "StartingRoomMap"
-STARTING_X = 10
-STARTING_Y = 15
+STARTING_MAP = "salaExp_S2"
+STARTING_X = 31
+STARTING_Y = 0
 #Primer checkpoint
 CHECKPOINT_MAP_SLIME = "salaExp_S1"
 CHECKPOINT_X_SLIME = 3
 CHECKPOINT_Y_SLIME = 6
+#Tercer checkpoint
+CHECKPOINT_MAP_ARANNA = "salaExp_S2"
+CHECKPOINT_X_ARANNA = 31
+CHECKPOINT_Y_ARANNA = 0
 
 # Key mappings
 KEY_UP = [arcade.key.UP, arcade.key.W]
