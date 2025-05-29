@@ -130,8 +130,5 @@ angel4 = ["¡Hola otra vez, querido amigo!",
           "En verdad, esperaba más. Pero bueno, que se le va a hacer.",
           "No te preocupes, aventurero. Tu gran aventura acaba aquí."
           ]
-#tras el combate antes de morir
-demonio = ["Esto... Esto, es inesperado...",
-            "Al final... has logrado alcanzar tu victoria... aventurero.",
-            "Más adelante... Te espera lo que has estado buscando.",
-            "Adiós..."]
+
+demonio = ["A mí no me vas a convencer"]

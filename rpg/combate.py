@@ -161,10 +161,10 @@ class CombatManager:
                 self.current_pattern = random.choice(["crush", "rain"])
         elif self.map == "mapa_boss_angel":
             if self.boss.boss_hp <= self.boss.boss_max_hp / 3:
-                self.current_pattern = "crush"
+                self.current_pattern = "Impale"
                 self.final_pattern = True
             else:
-                self.current_pattern = random.choice(["crush", "rain"])
+                self.current_pattern = random.choice(["crush", "Impale"])
 
 
     def run_current_pattern(self):
@@ -261,6 +261,10 @@ class CombatManager:
                 if self.attack_timer > 0.2:
                     self.boss.attack_serpentina(4,3,15, self.player, self.peligros_list)
                     self.attack_timer = 0
+        elif self.current_pattern == "Impale":
+            if self.attack_timer > 1.4:
+                self.boss.attack_impale(self.peligros_list, self.player)
+                self.attack_timer = 0
 
 
 

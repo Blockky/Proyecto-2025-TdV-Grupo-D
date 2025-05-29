@@ -460,22 +460,66 @@ class AngelFinal(Boss):
         import random
         random_num = random.randint(0,1)
         if random_num == 0:
-            rayo_izq = Proyectil(self.flechaizq, 2, -250, player.center_y + 12, 0, 6.5, player)
-            rayo_izq2 = Proyectil(self.flechaizq, 2, -220, player.center_y - 12, 0, 7, player)
-            rayo_der = Proyectil(self.flechader, 2, 650, player.center_y - 12, 180, 6.5, player)
-            rayo_der2 = Proyectil(self.flechader, 2, 600, player.center_y - 36, 180, 7, player)
+            rayo_izq = Proyectil(self.flechaizq, 2, -250, player.center_y + 12, 0, 9, player)
+            rayo_izq2 = Proyectil(self.flechaizq, 2, -220, player.center_y - 12, 0, 9, player)
+            rayo_der = Proyectil(self.flechader, 2, 650, player.center_y - 12, 180, 9, player)
+            rayo_der2 = Proyectil(self.flechader, 2, 600, player.center_y - 36, 180, 9, player)
             peligros_list.append(rayo_izq)
             peligros_list.append(rayo_izq2)
             peligros_list.append(rayo_der)
             peligros_list.append(rayo_der2)
 
         if random_num == 1:
-            rayo_izq = Proyectil(self.flechaizq, 2, -250, player.center_y + 12, 0, 7, player)
-            rayo_izq2 = Proyectil(self.flechaizq, 2, -220, player.center_y - 12, 0, 6.5, player)
-            rayo_der = Proyectil(self.flechader, 2, 650, player.center_y - 12, 180, 6.5, player)
-            rayo_der2 = Proyectil(self.flechader, 2, 600, player.center_y - 36, 180, 7, player)
+            rayo_izq = Proyectil(self.flechaizq, 2, -250, player.center_y + 12, 0, 9, player)
+            rayo_izq2 = Proyectil(self.flechaizq, 2, -220, player.center_y - 12, 0, 9, player)
+            rayo_der = Proyectil(self.flechader, 2, 650, player.center_y - 12, 180, 9, player)
+            rayo_der2 = Proyectil(self.flechader, 2, 600, player.center_y - 36, 180, 9, player)
             peligros_list.append(rayo_izq)
             peligros_list.append(rayo_izq2)
             peligros_list.append(rayo_der)
             peligros_list.append(rayo_der2)
+
+    def attack_impale(self, peligros_list, player):
+        import random
+        random_num = random.randint(0,1)
+        random_num2 = random.randint(0, 1)
+        if random_num == 0:
+            if random_num2 == 0:
+                rayo_izq = Proyectil(self.flechaizq, 2, -300, 100, 0, 14, player)
+                rayo_izq2 = Proyectil(self.flechaizq, 2, -300, 200, 0, 14, player)
+                rayo_izq3 = Proyectil(self.flechaizq, 2, -300, 300, 0, 14, player)
+                rayo_izq4 = Proyectil(self.flechaizq, 2, -300, 400, 0, 14, player)
+                peligros_list.append(rayo_izq)
+                peligros_list.append(rayo_izq2)
+                peligros_list.append(rayo_izq4)
+                peligros_list.append(rayo_izq3)
+            else:
+                rayo_izq = Proyectil(self.flechaizq, 2, -300, 40, 0, 14, player)
+                rayo_izq2 = Proyectil(self.flechaizq, 2, -300, 140, 0, 14, player)
+                rayo_izq3 = Proyectil(self.flechaizq, 2, -300, 240, 0, 14, player)
+                rayo_izq4 = Proyectil(self.flechaizq, 2, -300, 340, 0, 14, player)
+                peligros_list.append(rayo_izq)
+                peligros_list.append(rayo_izq2)
+                peligros_list.append(rayo_izq4)
+                peligros_list.append(rayo_izq3)
+
+        elif random_num == 1:
+            if random_num2 == 0:
+                rayo_dere = Proyectil(self.flechader, 2, 700, 100, 180, 14, player)
+                rayo_dere2 = Proyectil(self.flechader, 2, 700, 200, 180, 14, player)
+                rayo_dere3 = Proyectil(self.flechader, 2, 700, 300, 180, 14, player)
+                rayo_dere4 = Proyectil(self.flechader, 2, 700, 400, 180, 14, player)
+                peligros_list.append(rayo_dere)
+                peligros_list.append(rayo_dere2)
+                peligros_list.append(rayo_dere3)
+                peligros_list.append(rayo_dere4)
+            else:
+                rayo_dere = Proyectil(self.flechader, 2, 700, 40, 180, 14, player)
+                rayo_dere2 = Proyectil(self.flechader, 2, 700, 140, 180, 14, player)
+                rayo_dere3 = Proyectil(self.flechader, 2, 700, 240, 180, 14, player)
+                rayo_dere4 = Proyectil(self.flechader, 2, 700, 340, 180, 14, player)
+                peligros_list.append(rayo_dere)
+                peligros_list.append(rayo_dere2)
+                peligros_list.append(rayo_dere3)
+                peligros_list.append(rayo_dere4)
 

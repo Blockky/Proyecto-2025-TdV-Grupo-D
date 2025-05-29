@@ -52,7 +52,7 @@ class Proyectil(Peligro):      #Los proyectiles son peligros que desaparecen tra
             self.impactado = True
 
         #Si un proyectil sale de la pantalla desaparece
-        screen_margen = 200
+        screen_margen = 300
         if self.center_x < -400 or self.center_x > constants.SCREEN_WIDTH + screen_margen or self.center_y < -screen_margen-55 or self.center_y > constants.SCREEN_HEIGHT + screen_margen:
             self.remove_from_sprite_lists()
 

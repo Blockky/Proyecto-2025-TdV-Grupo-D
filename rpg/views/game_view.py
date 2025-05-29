@@ -273,7 +273,7 @@ class GameView(arcade.View):
         self.aranna = Aranna("../resources/characters/Enemy/araña.png", 3, 2, 32, 32, (170, 340), 3, 35, 3)
         self.campana = Campana("../resources/characters/Campana/Campana_movbase.png", 3, 4, 32, 32, (200, 200), 2.5, 50,3)
         self.robot = Robot("../resources/characters/Enemy/robot.png", 3, 3, 32, 32, (170, 340), 3, 35, 3)
-        self.angelfinal = AngelFinal("../resources/characters/Angel/Angel_Sprites.png",4,2,64,64, (170,340), 3,50,1000)
+        self.angelfinal = AngelFinal("../resources/characters/Angel/Angel_Sprites.png",4,2,64,64, (170,360), 3,50,1000)
     def reset_items(self):
         """Restablece los items del inventario a valores por defecto"""
 
@@ -345,12 +345,15 @@ class GameView(arcade.View):
         if self.slime.death and not self.fantasma.death and not self.aranna.death and self.aranna.convencido < self.aranna.boss_anger and self.fantasma.convencido < self.fantasma.boss_anger:
             self.switch_map(constants.CHECKPOINT_MAP_SLIME, constants.CHECKPOINT_X_SLIME, constants.CHECKPOINT_Y_SLIME)
             GameView.set_curr_map_name(constants.CHECKPOINT_MAP_SLIME)
-        elif self.aranna.death and self.fantasma.death and self.aranna.convencido >= self.aranna.boss_anger and self.fantasma.convencido >= self.fantasma.boss_anger:
+        elif (self.fantasma.convencido >= self.fantasma.boss_anger or self.fantasma.death) and (self.aranna.convencido >= self.aranna.boss_anger or self.aranna.death):
             self.switch_map(constants.CHECKPOINT_MAP_FANTASMA, constants.CHECKPOINT_X_FANTASMA, constants.CHECKPOINT_Y_FANTASMA)
             GameView.set_curr_map_name(constants.CHECKPOINT_MAP_FANTASMA)
-        elif not self.aranna.death and self.fantasma.death and not self.aranna.convencido >= self.aranna.boss_anger and self.fantasma.convencido >= self.fantasma.boss_anger:
+        elif not self.aranna.death and not self.aranna.convencido >= self.aranna.boss_anger and (self.fantasma.convencido >= self.fantasma.boss_anger or self.fantasma.death):
             self.switch_map(constants.CHECKPOINT_MAP_ARANNA, constants.CHECKPOINT_X_ARANNA,constants.CHECKPOINT_Y_ARANNA)
             GameView.set_curr_map_name(constants.CHECKPOINT_MAP_ARANNA)
+        elif (self.fantasma.convencido >= self.fantasma.boss_anger or self.fantasma.death) and (self.aranna.convencido >= self.aranna.boss_anger or self.aranna.death) and (self.campana.convencido >= self.aranna.boss_anger or self.campana.death):
+            self.switch_map(constants.CHECKPOINT_MAP_ANGEL, constants.CHECKPOINT_X_ANGEL,constants.CHECKPOINT_Y_ANGEL)
+            GameView.set_curr_map_name(constants.CHECKPOINT_MAP_ANGEL)
         else:
             self.switch_map(constants.STARTING_MAP, constants.STARTING_X, constants.STARTING_Y)
             GameView.set_curr_map_name(constants.STARTING_MAP)
