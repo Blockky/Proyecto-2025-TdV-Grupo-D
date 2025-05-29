@@ -26,7 +26,7 @@ TOP_VIEWPORT_MARGIN = 300
 
 # What map, and what position we start at
 STARTING_MAP = "StartingRoomMap"
-STARTING_X = 18
+STARTING_X = 10
 STARTING_Y = 15
 #Primer checkpoint
 CHECKPOINT_MAP_SLIME = "salaExp_S1"
