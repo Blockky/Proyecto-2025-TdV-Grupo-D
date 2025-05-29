@@ -91,7 +91,6 @@
 ### Controles
 - **Movimiento:** Teclas de dirección / WASD
 - **Encender/Apagar antorcha:** L
-- **Recoger objetos:** E
-- **Abrir inventario:** I
-- **Seleccionar objeto en hotbar:** Teclas 1-0
+- **Interactuar con los npcs:** E
+- **Avanzar el diálogo:** ESPACIO
 - **Menú principal:** ESC
