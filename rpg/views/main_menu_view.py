@@ -92,6 +92,7 @@ class MainMenuView(arcade.View):
         from rpg.views.game_view import GameView
         if GameView.state == "Exploration" or GameView.state == "Locked":
             print("inventory screen")
+
             self.window.views["inventory"].setup()
             self.window.show_view(self.window.views["inventory"])
         

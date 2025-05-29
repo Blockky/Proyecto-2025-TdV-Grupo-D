@@ -5,6 +5,8 @@ import arcade
 
 import json
 
+
+
 from arcade.gui import UIManager, UIAnchorWidget, UIBoxLayout, UIFlatButton, UITextureButton
 
 from rpg.constants import SCREEN_HEIGHT, SCREEN_WIDTH, INVENTORY_HEIGHT, INVENTORY_WIDTH
@@ -77,6 +79,7 @@ class ItemButton(UIFlatButton):
         self.item = item
 
     def on_click(self, event: arcade.gui.UIOnClickEvent):
+        print(f"Hp actual: {stats['HP']}")
         # Diálogo de confirmación
         confirm_box = arcade.gui.UIMessageBox(
             width=300,
@@ -90,6 +93,7 @@ class ItemButton(UIFlatButton):
 
     def on_confirmation_response(self, response):
         if response == "Sí":
+
            self.use_item()
 
 
@@ -122,12 +126,13 @@ class ItemButton(UIFlatButton):
         """Usar una poción para curar HP, con límite máximo"""
         # Obtener el valor de curación del diccionario de items
         potion_data = items.get("Potion", {})
-        heal_amount = potion_data.get("heal_amount", 1)  # Valor por defecto 50 si no está definido
+        heal_amount = potion_data.get("heal_amount", 50)  # Valor por defecto 50 si no está definido
 
         # Calcular nueva vida sin exceder el máximo
         new_hp = stats["HP"] + heal_amount
         stats["HP"] = min(new_hp, stats["HP_MAX"])
 
+        print(f"Hp actual: {stats['HP']}")
         print(f"Usando poción... +{heal_amount} HP (HP actual: {stats['HP']}/{stats['HP_MAX']})")
         print(self.inventory_view.player_items[1].quantity)
 
@@ -164,18 +169,27 @@ class InventoryView(arcade.View) :
         arcade.set_background_color(arcade.color.ALMOND)
 
 
-
-
         # Variables del juego
         self.player_items = []
         self.ui_manager = UIManager()
 
+        # Crear algunos objetos de ejemplo
+        self.setup_items()
 
+    def setup_items(self):
+        print(f"Hp actual: {stats['HP']}")
+        # Crear objetos para el inventario (solo texto)
+        item1 = Item("Sword", "Daño: 20", "weapon")
+        item2 = Item("Potion", "Cura por completo", "potion")
 
         self.create_inventory_ui()
 
+        # Añadir múltiples instancias de algunos objetos
+        item2.quantity = 3
 
 
+        self.player_items.append(item1)
+        self.player_items.append(item2)
 
     def add_item(self, item):
         """Añade un ítem al inventario (maneja duplicados y stacks)"""
@@ -193,7 +207,7 @@ class InventoryView(arcade.View) :
     def reset_items(self):
         """Vacía el inventario y lo rellena con los objetos por defecto"""
         self.player_items = []  # Vacía la lista de items
-             # Vuelve a añadir los items por defecto
+        self.setup_items()     # Vuelve a añadir los items por defecto
         self.recreate_inventory_ui()  # Actualiza la UI
 
     def setup(self):
