@@ -2,7 +2,7 @@
 import arcade
 import rpg.constants as constants
 from resources.sounds.Sounds import ghost_sound
-from rpg.sprites.peligros import Proyectil, Esbirro
+from rpg.sprites.peligros import Proyectil, Esbirro, Rayo, Telar
 from rpg.views.settings_view import SettingsView
 import math
 
@@ -304,3 +304,178 @@ class Fantasma(Boss):
         else:
             esbirro1 = Esbirro("../resources/characters/Enemy/Enemy 16-1.png", 1, 420, random_num, 180, 2, player, True)
         peligro_list.append(esbirro1)
+
+class Aranna(Boss):
+    def __init__(self, spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger):
+        super().__init__(spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger)
+        # Puedes agregar animaciones igual que en Slime
+        self.pattern_duration = 7  # lo que dura cada patron de ataque del boss
+        self.fase_duration = 21  # lo que dura cada fase del combate del boss
+        self.tela = arcade.load_texture("../resources/misc/tela.png")
+        self.bloques = arcade.load_texture("../resources/misc/bola.png")
+
+    def attack_rain(self, peligros_list, player):
+        import random
+        random_x = random.randint(0, constants.SCREEN_WIDTH-900)
+
+        telar = Telar(self.bloques,2,random_x,430,270,2,player)
+        peligros_list.append(telar)
+
+    def attack_rain2(self, peligros_list, player):
+        import random
+        random_x = random.randint(200, constants.SCREEN_WIDTH-550)
+        random_x2 = random.randint(450, constants.SCREEN_WIDTH - 550)
+
+        telar = Telar(self.bloques,1.6,random_x,420,210,2,player)
+        telar2 = Telar(self.bloques, 1.6, random_x2, 300, 210, 2, player)
+        peligros_list.append(telar)
+        peligros_list.append(telar2)
+
+    def attack_crush(self, peligros_list, player):
+        import random
+        random_num = random.randint(0,1)
+        if random_num == 0:
+            rayo_der = Rayo(self.tela, 2, 650, player.center_y - 12, 180, 6.5, player)
+            rayo_der2 = Rayo(self.tela, 2, 600, player.center_y - 36, 180, 6.5, player)
+            peligros_list.append(rayo_der)
+            peligros_list.append(rayo_der2)
+
+        if random_num == 1:
+            rayo_izq = Rayo(self.tela, 2, -250, player.center_y + 12, 0, 6.5, player)
+            rayo_izq2 = Rayo(self.tela, 2, -220, player.center_y - 12, 0, 6.5, player)
+            peligros_list.append(rayo_izq)
+            peligros_list.append(rayo_izq2)
+
+
+class Campana(Fantasma):
+    def __init__(self, spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger):
+        self.spritesheet_path = spritesheet_path
+        super().__init__(spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger)
+        self.pattern_duration = 20  # lo que dura cada patron de ataque del boss
+        self.fase_duration = 20  # lo que dura cada fase del combate del boss
+        self.animaciones = self._cargar_animaciones()
+        self.animacion_actual = 0
+        self.current_frame = 0
+        self.time_since_last_change = 0
+        self.texture = self.animaciones[self.animacion_actual][self.current_frame]
+        self.angulo_base = 0
+
+        self.textura_bala = arcade.load_texture("../resources/characters/Campana/proyectil_campana.png", x=0, y=0,width=18, height=18)
+
+    def attack_aspersor(self, cantidad_proyectiles, velocidad, player, lista_proyectiles):
+        import random
+        centro_x = self.center_x
+        centro_y = self.center_y
+
+        random_num = random.randint(0, 40)
+
+        paso_angulo = 360 / cantidad_proyectiles
+
+        for i in range(cantidad_proyectiles):
+            angulo = random_num + i * paso_angulo
+            bala = Proyectil(self.textura_bala,1.5,centro_x,centro_y,angulo,velocidad,player)
+            lista_proyectiles.append(bala)
+
+    def attack_serpentina(self, cantidad_proyectiles, velocidad,giro, player, lista_proyectiles):
+        centro_x = self.center_x
+        centro_y = self.center_y
+        paso_angulo = 360 / cantidad_proyectiles
+
+        for i in range(cantidad_proyectiles):
+            angulo = self.angulo_base + i * paso_angulo
+            bala = Proyectil(self.textura_bala, 1.5, centro_x, centro_y, angulo, velocidad, player)
+            lista_proyectiles.append(bala)
+
+        self.angulo_base += giro # va girando
+
+class Robot(Boss):
+    def __init__(self, spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger):
+        super().__init__(spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger)
+        # Puedes agregar animaciones igual que en Slime
+        self.pattern_duration = 7  # lo que dura cada patron de ataque del boss
+        self.fase_duration = 21  # lo que dura cada fase del combate del boss
+        self.tela = arcade.load_texture("../resources/misc/ram.png")
+        self.bloques = arcade.load_texture("../resources/misc/ram.png")
+
+    def attack_rain(self, peligros_list, player):
+        import random
+        random_x = random.randint(0, constants.SCREEN_WIDTH-900)
+
+        telar = Telar(self.bloques,2,random_x,430,270,2,player)
+        peligros_list.append(telar)
+
+    def attack_rain2(self, peligros_list, player):
+        import random
+        random_x = random.randint(200, constants.SCREEN_WIDTH-550)
+        random_x2 = random.randint(450, constants.SCREEN_WIDTH - 550)
+
+        telar = Telar(self.bloques,1.6,random_x,420,210,2,player)
+        telar2 = Telar(self.bloques, 1.6, random_x2, 300, 210, 2, player)
+        peligros_list.append(telar)
+        peligros_list.append(telar2)
+
+    def attack_crush(self, peligros_list, player):
+        import random
+        random_num = random.randint(0,1)
+        if random_num == 0:
+            rayo_der = Proyectil(self.tela, 2, 650, player.center_y - 12, 180, 6.5, player)
+            rayo_der2 = Proyectil(self.tela, 2, 600, player.center_y - 36, 180, 6.5, player)
+            peligros_list.append(rayo_der)
+            peligros_list.append(rayo_der2)
+
+        if random_num == 1:
+            rayo_izq = Proyectil(self.tela, 2, -250, player.center_y + 12, 0, 6.5, player)
+            rayo_izq2 = Proyectil(self.tela, 2, -220, player.center_y - 12, 0, 6.5, player)
+            peligros_list.append(rayo_izq)
+            peligros_list.append(rayo_izq2)
+
+class AngelFinal(Boss):
+    def __init__(self, spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger):
+        super().__init__(spritesheet_path, columnas, filas, frame_width, frame_height, position, scale, hp, anger)
+        # Puedes agregar animaciones igual que en Slime
+        self.pattern_duration = 7  # lo que dura cada patron de ataque del boss
+        self.fase_duration = 21  # lo que dura cada fase del combate del boss
+        self.flechaizq = arcade.load_texture("../resources/misc/flechaizq.png")
+        self.flechader = arcade.load_texture("../resources/misc/flechader.png")
+        self.bloques = arcade.load_texture("../resources/misc/ram.png")
+
+    def attack_rain(self, peligros_list, player):
+        import random
+        random_x = random.randint(0, constants.SCREEN_WIDTH-900)
+
+        telar = Telar(self.bloques,2,random_x,430,270,2,player)
+        peligros_list.append(telar)
+
+    def attack_rain2(self, peligros_list, player):
+        import random
+        random_x = random.randint(200, constants.SCREEN_WIDTH-550)
+        random_x2 = random.randint(450, constants.SCREEN_WIDTH - 550)
+
+        telar = Telar(self.bloques,1.6,random_x,420,210,2,player)
+        telar2 = Telar(self.bloques, 1.6, random_x2, 300, 210, 2, player)
+        peligros_list.append(telar)
+        peligros_list.append(telar2)
+
+    def attack_crush(self, peligros_list, player):
+        import random
+        random_num = random.randint(0,1)
+        if random_num == 0:
+            rayo_izq = Proyectil(self.flechaizq, 2, -250, player.center_y + 12, 0, 6.5, player)
+            rayo_izq2 = Proyectil(self.flechaizq, 2, -220, player.center_y - 12, 0, 7, player)
+            rayo_der = Proyectil(self.flechader, 2, 650, player.center_y - 12, 180, 6.5, player)
+            rayo_der2 = Proyectil(self.flechader, 2, 600, player.center_y - 36, 180, 7, player)
+            peligros_list.append(rayo_izq)
+            peligros_list.append(rayo_izq2)
+            peligros_list.append(rayo_der)
+            peligros_list.append(rayo_der2)
+
+        if random_num == 1:
+            rayo_izq = Proyectil(self.flechaizq, 2, -250, player.center_y + 12, 0, 7, player)
+            rayo_izq2 = Proyectil(self.flechaizq, 2, -220, player.center_y - 12, 0, 6.5, player)
+            rayo_der = Proyectil(self.flechader, 2, 650, player.center_y - 12, 180, 6.5, player)
+            rayo_der2 = Proyectil(self.flechader, 2, 600, player.center_y - 36, 180, 7, player)
+            peligros_list.append(rayo_izq)
+            peligros_list.append(rayo_izq2)
+            peligros_list.append(rayo_der)
+            peligros_list.append(rayo_der2)
+

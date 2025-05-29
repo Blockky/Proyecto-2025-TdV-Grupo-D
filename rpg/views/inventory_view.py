@@ -12,6 +12,7 @@ from arcade.gui import UIManager, UIAnchorWidget, UIBoxLayout, UIFlatButton, UIT
 from rpg.constants import SCREEN_HEIGHT, SCREEN_WIDTH, INVENTORY_HEIGHT, INVENTORY_WIDTH
 
 
+
 def cargar_datos(ruta_archivo):
     try:
         with open(ruta_archivo, 'r', encoding='utf-8') as f:
@@ -99,6 +100,7 @@ class ItemButton(UIFlatButton):
 
 
     def use_item(self):
+        from rpg.views.game_view import GameView
         """Ejemplo: usar una poción"""
         try:
             print(f"Usando {self.item.name}...")
@@ -121,6 +123,10 @@ class ItemButton(UIFlatButton):
                 return None
         except Exception as e:
             print(f"Error al usar el ítem: {e}")  # Debug
+        if GameView.state == "Combat" or GameView.state == "Dialog":
+            GameView.state = "Combat"
+            self.inventory_view.window.show_view(self.inventory_view.window.views["game"])
+
 
     def use_potion(self):
         """Usar una poción para curar HP, con límite máximo"""

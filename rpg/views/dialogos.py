@@ -72,6 +72,12 @@ fantasma3 = ["¿Ya te he dicho q no confíes en nadie en este sitio, no?"]
 aranna = ["¿Pero qué tenemos por aquí?",
           "Ha pasado mucho tiempo desde que él trajo a un nuevo viajero.",
           "No te preocupes, nos lo vamos a pasar muy bien."]
+aranna_diag1 = ["Así que quieres que te deje escapar eh?",
+               "¡Pues sigue soñando!, hoy serás la cena de mis crias"]
+aranna_diag2 = ["¡No insistas más!",
+                "Necesito alimentarles..."]
+aranna_diag3 = ["Vale, definitivamente no puedo contigo",
+                "Te dejaré pasar"]
 #si se deja vivo -> seguirá siendo hostil aunque ya no ataca
 aranna2 = ["Aunque me hayas dejado vivir, no te daré las gracias.",
            "Así que no te voy a dar mi ayuda.",
@@ -96,6 +102,15 @@ robot = ["Se ha detectado un sujeto desconocido en el entorno.",
          "Analizando objetivo.",
          "Análisis completado. Resultado: enemigo.",
          "Comenzar protocolo de ataque."]
+#durante combate
+robot_diag1 = ["0101110111001",
+              "Decodificando mensaje...",
+              "...",
+              "Atacar enemigo"]
+robot_diag2 = ["Leyendo bases de datos...",
+              "El enemigo no ataca"]
+robot_diag3 = ["El enemigo ser bueno",
+               "Detención del protocolo de ataque"]
 #si se deja vivo -> ayudas para la exploración y la mazmorra, jefe final
 robot2 = ["Se percibe una presencia extraña al final de esta mazmorra",
           "Investigación en curso. Espere un momento.",
@@ -109,14 +124,14 @@ angel4 = ["¡Hola otra vez, querido amigo!",
           "Hemos llegado los dos al final de la mazmorra, ¿no es eso bueno?",
           "Bueno… ¿Te acuerdas que te dije que descubrí que había una recompensa que nos permitiría salir de aquí?",
           "Pues eso era mentira. La verdad nunca pensé que fuera tan fácil mentir a un humano. Pero ha estado bastante gracioso",
-          "Ahora sí, dejémonos de tonterías"]
-#se pasa a demonio
-demonio = ["¿No te parecía extraño que desde un principio yo supiera sobre una supuesta recompensa si acababa de llegar aquí al igual que tú?",
-           "¿Ni que hubiera una mazmorra así con monstruos en mitad de la nada?",
-           "En verdad, esperaba más. Pero bueno, que se le va a hacer.",
-           "No te preocupes, aventurero. Tu gran aventura acaba aquí."]
+          "Ahora sí, dejémonos de tonterías",
+          "¿No te parecía extraño que desde un principio yo supiera sobre una supuesta recompensa si acababa de llegar aquí al igual que tú?",
+          "¿Ni que hubiera una mazmorra así con monstruos en mitad de la nada?",
+          "En verdad, esperaba más. Pero bueno, que se le va a hacer.",
+          "No te preocupes, aventurero. Tu gran aventura acaba aquí."
+          ]
 #tras el combate antes de morir
-demonio2 = ["Esto... Esto, es inesperado...",
+demonio = ["Esto... Esto, es inesperado...",
             "Al final... has logrado alcanzar tu victoria... aventurero.",
             "Más adelante... Te espera lo que has estado buscando.",
             "Adiós..."]

@@ -1,7 +1,7 @@
 import arcade
 
-from resources.sounds.Sounds import attack_sound
-from rpg.decisiones import decision
+from resources.sounds.Sounds import attack_sound, campana_sound
+
 from rpg.musica import stop_music
 from rpg.views.settings_view import SettingsView
 
@@ -33,10 +33,13 @@ class CombatManager:
         # Aparece la barra de vida
         self.boss.show_health_bar = True
         #selecciona el primer patron del combat
-        if self.map == "mapa_boss_slime":
+        if self.map != "mapa_boss_fantasma" and self.map != "mapa_boss_campana":
             self.choose_next_pattern()
         elif self.map == "mapa_boss_fantasma":
             self.current_pattern = "Tp"
+        elif self.map == "mapa_boss_campana":
+            arcade.play_sound(campana_sound, volume=0.3 * SettingsView.v_ef)
+            self.current_pattern = "Aspersor"
 
     # funciones para la decisión en combate
     def attack(self):
@@ -55,6 +58,7 @@ class CombatManager:
         print("convencido:" + str(self.boss.convencido))
         self.boss.convencido += 1
         self.combat_timer = 0
+        self.attack_timer3 = 0
         self.state = "fight"
         GameView.state = "Combat"
 
@@ -63,6 +67,7 @@ class CombatManager:
         self.state = "fight"
         self.inventory_view()
         self.combat_timer = 0
+        self.attack_timer3 = 0
 
 
     def update(self, delta_time):
@@ -72,6 +77,7 @@ class CombatManager:
             self.state = "espera"
 
             if self.combat_timer > self.boss.fase_duration + 3 and self.state != "dialog":
+                from rpg.decisiones import decision
                 from rpg.views.game_view import GameView
 
                 self.state = "dialog"
@@ -83,6 +89,7 @@ class CombatManager:
                     self.boss.stop()
                     self.boss.teleport(self.boss.start_x, self.boss.start_y)
                     self.boss.animacion_actual = 0
+
 
 
 
@@ -134,9 +141,30 @@ class CombatManager:
                         self.current_pattern = "Tp"
             else:
                 self.current_pattern = random.choice(["Dash", "Summon", "Tp"])
-
-
-
+        elif self.map == "mapa_boss_arana":
+            if self.boss.boss_hp <= self.boss.boss_max_hp / 3:
+                self.current_pattern = "crush"
+                self.final_pattern = True
+            else:
+                self.current_pattern = random.choice(["crush", "rainA"])
+        elif self.map == "mapa_boss_campana":  # si es la campana
+            arcade.play_sound(campana_sound, volume=0.3 * SettingsView.v_ef)
+            if self.current_pattern != "Aspersor":
+                self.current_pattern = "Aspersor"
+            else:
+                self.current_pattern = random.choice(["Espiral", "Espiral2"])
+        elif self.map == "mapa_boss_robot":
+            if self.boss.boss_hp <= self.boss.boss_max_hp / 3:
+                self.current_pattern = "crush"
+                self.final_pattern = True
+            else:
+                self.current_pattern = random.choice(["crush", "rain"])
+        elif self.map == "mapa_boss_angel":
+            if self.boss.boss_hp <= self.boss.boss_max_hp / 3:
+                self.current_pattern = "crush"
+                self.final_pattern = True
+            else:
+                self.current_pattern = random.choice(["crush", "rain"])
 
 
     def run_current_pattern(self):
@@ -198,6 +226,41 @@ class CombatManager:
             if self.attack_timer3 > 7:
                 self.boss.attack_dash(self.player, self.boss, 6)
                 self.attack_timer3 = 0
+        elif self.current_pattern == "rainA":
+            if self.attack_timer > 0.5:
+                if self.pattern_timer<5:
+                    self.boss.attack_rain(self.peligros_list, self.player)
+                    self.attack_timer = 0
+        elif self.current_pattern == "Espiral":
+            if 1 < self.attack_timer3 < 9:
+                if self.attack_timer > 0.2:
+                    self.boss.attack_serpentina(4,3,15, self.player, self.peligros_list)
+                    self.attack_timer = 0
+            elif 9 <= self.attack_timer3 <= 11:
+                if self.attack_timer > 0.2:
+                    self.boss.attack_serpentina(4,3,0, self.player, self.peligros_list)
+                    self.attack_timer = 0
+            elif 11 < self.attack_timer3:
+                if self.attack_timer > 0.2:
+                    self.boss.attack_serpentina(4,3,-15, self.player, self.peligros_list)
+                    self.attack_timer = 0
+        elif self.current_pattern == "Aspersor":
+            if self.attack_timer > 0.6:
+                self.boss.attack_aspersor(9, 3, self.player, self.peligros_list)
+                self.attack_timer = 0
+        elif self.current_pattern == "Espiral2":
+            if 1 < self.attack_timer3 < 9:
+                if self.attack_timer > 0.2:
+                    self.boss.attack_serpentina(4,3,15, self.player, self.peligros_list)
+                    self.attack_timer = 0
+            elif 9 <= self.attack_timer3 <= 11:
+                if self.attack_timer > 0.2:
+                    self.boss.attack_serpentina(4,3,0, self.player, self.peligros_list)
+                    self.attack_timer = 0
+            elif 11 < self.attack_timer3:
+                if self.attack_timer > 0.2:
+                    self.boss.attack_serpentina(4,3,15, self.player, self.peligros_list)
+                    self.attack_timer = 0
 
 
 

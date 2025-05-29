@@ -123,3 +123,36 @@ class Esbirro(Proyectil):
 
             self.texture = self.direccional_textures[direccion][self.frame_actual]
 
+class Rayo(Proyectil):
+    def __init__(self, textura, scale, center_x, center_y, angle, speed, objetivo):
+        super().__init__(textura, scale, center_x=center_x, center_y=center_y, angle=angle, speed=speed, objetivo=objetivo)
+
+        if textura:
+            self.texture = textura
+            w, h = self.texture.width * self.scale, self.texture.height * self.scale
+            self.set_hit_box([
+                (-w / 5, -h / 3),
+                (w / 5, -h / 3),
+                (w / 5, h / 3),
+                (-w / 5, h / 3)
+            ])
+
+    def update(self):
+            super().update()
+
+class Telar(Proyectil):
+    def __init__(self, textura, scale, center_x, center_y, angle, speed, objetivo):
+        super().__init__(textura, scale, center_x=center_x, center_y=center_y, angle=angle, speed=speed, objetivo=objetivo)
+
+        if textura:
+            self.texture = textura
+            w, h = self.texture.width * self.scale, self.texture.height * self.scale
+            self.set_hit_box([
+                (-w / 4, -h / 4),
+                (w / 4, -h / 4),
+                (w / 4, h / 4),
+                (-w / 4, h / 4)
+            ])
+
+    def update(self):
+            super().update()
