@@ -69,21 +69,25 @@
 > a veces el que no arriesga gana.
 
 > **Jefes:**
->> **Slime:** sus ataques dobles solo siguen una linea recta, prioriza 
+>> Debes de esquivar sus ataques para poder vencerlos
+>> Sus ataques dobles solo siguen una linea recta, prioriza 
 > moverte en diagonales para esquivarlos con mayor facilidad
-> 
->>  **Fantasma:**
-> 
->>  **Araña:**
-> 
->>  **Campana:**
-> 
->>  **Robot:**
-> 
->>  **Ángel:**
-> 
-> ![Mapa.png](mapa.png)
+> Cuando termine la secuencia de ataques debes de elegir si luchar o hablar con ellos.
+>> Algunos bosses, sin contar el slime del inicio y el boss final, puedes evitar tener que matarlos,
+> para ello tendrás que pacificarlos hablándoles constantemente (tras usar la función de hablar entre
+> 2-4 veces te dejarán marchar). O en caso de querer matarlos, tienes que usar la función de luchar
+> hasta que la vida de estos llegue a cero.
+>> También puedes usar pociones durante el combate usando la opción de inventario.
 
+> **Menú principal:**
+> Cuando accedes al menú del juego (pulsando la tecla ESC) podrás usar tu inventario en las
+> salas de exploración, ajustar el volumen del juego, o hacer uso de la tienda, en donde podrás
+> comprar más pociones.
+
+> ![Mapa.png](Mapa.png)
+> Tu objetivo será llegar al final del mapa, al exterior de la superficie, tal y como se muestra en este esquema, de izquierda (que es por donde empiezas) a derecha.
+>
+> 
 ### Controles
 - **Movimiento:** Teclas de dirección / WASD
 - **Encender/Apagar antorcha:** L
