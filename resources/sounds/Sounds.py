@@ -9,6 +9,7 @@ attack_sound = arcade.load_sound(r"../resources/sounds/attack.wav")
 potion_sound = arcade.load_sound(r"../resources/sounds/pocion.wav")
 door_sound = arcade.load_sound(r"../resources/sounds/puerta.wav")
 ghost_sound = arcade.load_sound(r"../resources/sounds/voz_fantasma.wav")
+campana_sound = arcade.load_sound(r"../resources/sounds/campana.wav")
 
 #Musica
 inicio_music = arcade.load_sound(r"../resources/sounds/inicio.wav")
