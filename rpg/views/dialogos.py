@@ -20,7 +20,8 @@ angel_slime2 = ["Ya falta poco.",
                 "Pero ten cuidado al seguir atacándole.",
                 "Siempre se resisten más cuando están cerca de morir."]
 angel_slime3 = ["Sigue atacandole."]
-angel_slime_dialogar = ["No sirve de nada hablarle a un slime, no son lo suficientemente inteligentes."]
+angel_slime_dialogar = ["No sirve de nada hablarle a un slime, no son lo suficientemente inteligentes.",
+                        "Auque es cierto que suele ser una buena técnica para salvarte sin enfadar a tu oponente."]
 
 
 #conversacion con el angel al finalizar el combate
@@ -50,7 +51,7 @@ fantasma_dialogar2 = ["Se lo que intentas",
                       "¿Intentas que te deje pasar verdad?",
                       "¿Pues sabes que?",
                       "Eso no va a ocurrir!"]
-fantasma_dialogar1 = ["¡No intentes seducirme!"]
+fantasma_dialogar1 = ["¡No intentes coutivarme!"]
 fantasma_dialogar4 = ["Puede que estés empezando a caerme mejor",
                       "Uy, ¿He dicho eso en voz alta?"]
 fantasma_dialogar3 = ["¡Paraaaa!",

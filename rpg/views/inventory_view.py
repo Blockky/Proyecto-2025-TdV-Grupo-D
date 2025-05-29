@@ -9,6 +9,7 @@ from arcade.gui import UIManager, UIAnchorWidget, UIBoxLayout, UIFlatButton, UIT
 
 from rpg.constants import SCREEN_HEIGHT, SCREEN_WIDTH, INVENTORY_HEIGHT, INVENTORY_WIDTH
 
+
 def cargar_datos(ruta_archivo):
     try:
         with open(ruta_archivo, 'r', encoding='utf-8') as f:
@@ -267,17 +268,19 @@ class InventoryView(arcade.View) :
 
 
     def on_key_press(self, symbol: int, modifiers: int):
-        closetomenu_inputs = [
-            arcade.key.ESCAPE
-        ]
-        if symbol in closetomenu_inputs:
-            self.window.show_view(self.window.views["main_menu"])
+        from rpg.views.game_view import GameView
+        if GameView.state == "Exploration" or GameView.state == "Locked":
+            closetomenu_inputs = [
+                arcade.key.ESCAPE
+            ]
+            if symbol in closetomenu_inputs:
+                self.window.show_view(self.window.views["main_menu"])
 
-        closetogame_inputs = [
-            arcade.key.I
-        ]
-        if symbol in closetogame_inputs:
-            self.window.show_view(self.window.views["game"])
+            closetogame_inputs = [
+                arcade.key.I
+            ]
+            if symbol in closetogame_inputs:
+                self.window.show_view(self.window.views["game"])
 
     def update(self, delta_time):
         pass

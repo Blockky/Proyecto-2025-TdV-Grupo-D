@@ -69,6 +69,7 @@ class CombatManager:
         self.combat_timer += delta_time
         if self.combat_timer > self.boss.fase_duration: #el tiempo de cada fase
             self.state = "espera"
+
             if self.combat_timer > self.boss.fase_duration + 3 and self.state != "dialog":
                 from rpg.views.game_view import GameView
 
@@ -76,6 +77,12 @@ class CombatManager:
                 decision(self.botones, lambda: self.attack(), lambda: self.persuadir(),lambda: self.mochila(), self.dialog_manager, self.boss)
                 self.pattern_timer = self.boss.pattern_duration +1
                 GameView.state = "Dialog"
+
+                if self.map == "mapa_boss_fantasma": #Esque el fantasma se mueve mucho
+                    self.boss.stop()
+                    self.boss.teleport(self.boss.start_x, self.boss.start_y)
+                    self.boss.animacion_actual = 0
+
                 self.choose_next_pattern()
 
 
@@ -180,7 +187,7 @@ class CombatManager:
                 self.boss.attack_summon(self.player,self.peligros_list)
                 self.attack_timer = 0.2
         elif self.current_pattern == "Summon and Dash":
-            if 2 < self.attack_timer3 < 7:
+            if 2.5 < self.attack_timer3 < 7:
                 if self.attack_timer > 0.8:
                     self.boss.stop()
                     self.boss.random_tp(self.boss)

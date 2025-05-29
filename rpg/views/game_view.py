@@ -208,7 +208,6 @@ class GameView(arcade.View):
         self.player_sprite_list = None
 
         #Vida
-
         self.hp = stats['HP']
 
         #Para hacer inmortal al personaje unos segundos
@@ -268,7 +267,7 @@ class GameView(arcade.View):
         self.angel = Boss("../resources/characters/Angel/Angel_Sprites.png",4,2,64,64, (400,1000), 3,1000,1000)
         self.angel2 = Boss("../resources/characters/Angel/Angel_Sprites.png", 4, 2, 64, 64, (200, 200), 2.5, 1000, 1000)
         self.angel3 = Boss("../resources/characters/Angel/Angel_Sprites.png", 4, 2, 64, 64, (190, 1000), 3, 1000, 1000)
-        self.slime = Slime("../resources/characters/Slime/Slime_movbase.png","../resources/characters/Slime/Slime_Sprites.png",3,4,32,32, (170, 340), 3,50,3)
+        self.slime = Slime("../resources/characters/Slime/Slime_movbase.png","../resources/characters/Slime/Slime_Sprites.png",3,4,32,32, (170, 340), 3,50,1000)
         self.fantasma = Fantasma("../resources/characters/Enemy/fantasma.png",3,4,32,32,(170,340),2.6,70,4)
     def reset_items(self):
         """Restablece los items del inventario a valores por defecto"""
@@ -338,10 +337,12 @@ class GameView(arcade.View):
         self.player_sprite = PlayerSprite(":characters:Male/main-character.png")
 
         # Spawn the player
-        start_x = constants.STARTING_X
-        start_y = constants.STARTING_Y
-        self.switch_map(constants.STARTING_MAP, start_x, start_y)
-        GameView.set_curr_map_name(constants.STARTING_MAP)
+        if self.slime.death:
+            self.switch_map(constants.CHECKPOINT_MAP_SLIME, constants.CHECKPOINT_X_SLIME, constants.CHECKPOINT_Y_SLIME)
+            GameView.set_curr_map_name(constants.CHECKPOINT_MAP_SLIME)
+        else:
+            self.switch_map(constants.STARTING_MAP, constants.STARTING_X, constants.STARTING_Y)
+            GameView.set_curr_map_name(constants.STARTING_MAP)
         # musica ambiente
         reproduce_musica(GameView.get_curr_map_name())
 
@@ -569,7 +570,7 @@ class GameView(arcade.View):
 
         GameView.state = "Combat"
         if GameView.get_curr_map_name() == "mapa_boss_fantasma":
-            musc_ambiente(fantasma_combat_music, 0.15)
+            musc_ambiente(fantasma_combat_music, 0.2)
         else:
             musc_ambiente(combat_music, 0.7)
 
@@ -863,6 +864,7 @@ class GameView(arcade.View):
                     self.dialog_start(dialogos.angel3_loop)
                 elif self.fantasma in hit_list:
                     self.dialog_start(dialogos.fantasma3)
+                    arcade.play_sound(ghost_sound, volume=0.4 * SettingsView.v_ef)
             elif GameView.state == "Locked":
                 hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.peligro_sprite_list)
                 #Hablar con el angel
@@ -872,10 +874,12 @@ class GameView(arcade.View):
                     self.dialog_start(dialogos.angel)
                 elif self.angel3 in hit_list:
                         self.dialog_start(dialogos.angel3)
+                        self.hp = stats["HP_MAX"]
                 #Hablar con el fantasma
                 if self.fantasma in hit_list:
                     if self.fantasma.convencido >= self.fantasma.boss_anger:
                         self.dialog_start(dialogos.fantasma2)
+                        self.hp = stats["HP_MAX"]
                     else:
                         self.dialog_start(dialogos.fantasma)
                     arcade.play_sound(ghost_sound, volume=0.4 * SettingsView.v_ef)
