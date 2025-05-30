@@ -6,6 +6,7 @@ import json
 from functools import partial
 from typing import Callable
 
+import time
 import arcade
 import arcade.gui
 import rpg.constants as constants
@@ -74,7 +75,7 @@ class DebugMenu(arcade.gui.UIBorder, arcade.gui.UIWindowLikeMixin):
 
         self.setup_noclip(noclip_callback)
         self.setup_hyper(hyper_callback)
-
+        self.final_room_timer = None
         space = 10
 
         self._title = arcade.gui.UITextArea(
@@ -780,6 +781,16 @@ class GameView(arcade.View):
 
         #Reproduce la animación de los bosses
         self.peligro_sprite_list.update_animation(delta_time)
+
+        if GameView.get_curr_map_name() == "FinalRoomMap":
+            if self.final_room_timer is None:
+                self.final_room_timer = time.time()
+            elif time.time() - self.final_room_timer >= 5:  # 5 segundos (ajusta a lo que quieras)
+                if not self.message_box:
+                    self.message_box = MessageBox(self, "¡Felicidades! Has llegado al final del juego.")
+        else:
+            self.final_room_timer = None  # Reinicia el temporizador si sales de la sala final
+
 
         #Ejecuta que los peligros funcionen
         self.peligros()

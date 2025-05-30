@@ -172,7 +172,7 @@ class InventoryView(arcade.View) :
     def __init__(self):
         super().__init__()
         self.started = False
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
 
 
         # Variables del juego
@@ -191,7 +191,7 @@ class InventoryView(arcade.View) :
         self.create_inventory_ui()
 
         # Añadir múltiples instancias de algunos objetos
-        item2.quantity = 3
+        item2.quantity = 10
 
 
         self.player_items.append(item1)
@@ -226,7 +226,7 @@ class InventoryView(arcade.View) :
             "Inventory",
             self.window.width / 2,
             self.window.height - 50,
-            arcade.color.ALLOY_ORANGE,
+            arcade.color.BLACK,
             44,
             anchor_x="center",
             anchor_y="center",
@@ -284,9 +284,6 @@ class InventoryView(arcade.View) :
         ))
 
 
-
-
-
     def on_key_press(self, symbol: int, modifiers: int):
         from rpg.views.game_view import GameView
         if GameView.state == "Exploration" or GameView.state == "Locked":
@@ -306,7 +303,7 @@ class InventoryView(arcade.View) :
         pass
 
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.ALMOND)
+        arcade.set_background_color(arcade.color.LILAC)
         arcade.set_viewport(0, self.window.width, 0, self.window.height)
 
         self.ui_manager.enable()

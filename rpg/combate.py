@@ -183,9 +183,6 @@ class CombatManager:
                 if self.attack_timer > 0.8:
                     self.boss.attack_rain2(self.peligros_list, self.player)
                     self.attack_timer = 0
-            if self.attack_timer2 > 3:
-                self.boss.attack_crush(self.peligros_list,self.player)
-                self.attack_timer2 = 0
         elif self.current_pattern == "Tp":
             if self.attack_timer > 0.8:
                 self.boss.stop()
@@ -234,32 +231,32 @@ class CombatManager:
         elif self.current_pattern == "Espiral":
             if 1 < self.attack_timer3 < 9:
                 if self.attack_timer > 0.2:
-                    self.boss.attack_serpentina(4,3,15, self.player, self.peligros_list)
+                    self.boss.attack_serpentina(4,2,15, self.player, self.peligros_list)
                     self.attack_timer = 0
             elif 9 <= self.attack_timer3 <= 11:
                 if self.attack_timer > 0.2:
-                    self.boss.attack_serpentina(4,3,0, self.player, self.peligros_list)
+                    self.boss.attack_serpentina(4,2,0, self.player, self.peligros_list)
                     self.attack_timer = 0
             elif 11 < self.attack_timer3:
                 if self.attack_timer > 0.2:
-                    self.boss.attack_serpentina(4,3,-15, self.player, self.peligros_list)
+                    self.boss.attack_serpentina(4,2,-15, self.player, self.peligros_list)
                     self.attack_timer = 0
         elif self.current_pattern == "Aspersor":
             if self.attack_timer > 0.6:
-                self.boss.attack_aspersor(9, 3, self.player, self.peligros_list)
+                self.boss.attack_aspersor(9, 2, self.player, self.peligros_list)
                 self.attack_timer = 0
         elif self.current_pattern == "Espiral2":
             if 1 < self.attack_timer3 < 9:
                 if self.attack_timer > 0.2:
-                    self.boss.attack_serpentina(4,3,15, self.player, self.peligros_list)
+                    self.boss.attack_serpentina(4,2,15, self.player, self.peligros_list)
                     self.attack_timer = 0
             elif 9 <= self.attack_timer3 <= 11:
                 if self.attack_timer > 0.2:
-                    self.boss.attack_serpentina(4,3,0, self.player, self.peligros_list)
+                    self.boss.attack_serpentina(4,2,0, self.player, self.peligros_list)
                     self.attack_timer = 0
             elif 11 < self.attack_timer3:
                 if self.attack_timer > 0.2:
-                    self.boss.attack_serpentina(4,3,15, self.player, self.peligros_list)
+                    self.boss.attack_serpentina(4,2,15, self.player, self.peligros_list)
                     self.attack_timer = 0
         elif self.current_pattern == "Impale":
             if self.attack_timer > 1.4:

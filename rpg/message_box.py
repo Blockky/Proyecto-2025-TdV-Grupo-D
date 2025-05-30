@@ -8,7 +8,7 @@ class MessageBox:
         self.message = message
         self.view = view
         self.width = 500
-        self.height = 50
+        self.height = 150
 
     def on_draw(self):
         cx = self.view.window.width / 2
@@ -19,14 +19,14 @@ class MessageBox:
             cy,
             self.width + MESSAGE_BOX_MARGIN * 2,
             self.height + MESSAGE_BOX_MARGIN * 2,
-            arcade.color.ALMOND,
+            arcade.color.LILAC,
         )
         arcade.draw_rectangle_outline(
             cx,
             cy,
             self.width + MESSAGE_BOX_MARGIN * 2,
             self.height + MESSAGE_BOX_MARGIN * 2,
-            arcade.color.ALLOY_ORANGE,
+            arcade.color.DEEP_LILAC,
             4,
         )
 
@@ -34,7 +34,7 @@ class MessageBox:
             self.message,
             cx,
             cy,
-            arcade.color.ALLOY_ORANGE,
+            arcade.color.BLACK,
             MESSAGE_BOX_FONT_SIZE,
             anchor_x="center",
             anchor_y="center",
